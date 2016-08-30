@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fadetoproductions.rvkn.clothesconsensus.LoginActivity"
+    android:background="@drawable/background2x"
+    android:padding="40dp"
+    >
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo2x"
+        android:layout_marginTop="125dp"
+        android:layout_alignParentTop="true"
+        />
+    <Button
+        android:id="@+id/btnSignInWithFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSignInWithTwitter"
+        android:layout_alignRight="@+id/ivLogo"
+        android:layout_alignLeft="@+id/ivLogo"
+        android:text="Sign in with Facebook"
+        />
+
+    <Button
+        android:id="@+id/btnSignInWithTwitter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnSignInWithEmail"
+        android:layout_alignRight="@+id/ivLogo"
+        android:layout_alignLeft="@+id/ivLogo"
+        android:text="Sign in with Twitter"
+        />
+    <Button
+        android:id="@+id/btnSignInWithEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/ivLogo"
+        android:layout_alignLeft="@+id/ivLogo"
+        android:text="Sign in with Email"
+        />
+</RelativeLayout>
