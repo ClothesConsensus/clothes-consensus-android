@@ -7,7 +7,6 @@ Planning doc:
 https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/edit
 
 
-
 ### Login (hardness: 1)
 * Some sort of email auth
 * Facebook auth
