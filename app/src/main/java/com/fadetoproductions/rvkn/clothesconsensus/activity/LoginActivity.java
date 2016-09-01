@@ -1,7 +1,9 @@
-package com.fadetoproductions.rvkn.clothesconsensus;
+package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import com.fadetoproductions.rvkn.clothesconsensus.R;
 
 public class LoginActivity extends AppCompatActivity {
 

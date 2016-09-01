@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fadetoproductions.rvkn.clothesconsensus.LoginActivity"
+    tools:context=".activity.LoginActivity"
     android:background="@drawable/background2x"
     android:padding="40dp"
     >
@@ -33,6 +34,7 @@
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Twitter"
+        android:onClick="loginToRest"
         />
     <Button
         android:id="@+id/btnSignInWithEmail"
@@ -44,3 +46,4 @@
         android:text="Sign in with Email"
         />
 </RelativeLayout>
+</layout>
