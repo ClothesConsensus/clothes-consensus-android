@@ -3,6 +3,7 @@ package com.fadetoproductions.rvkn.clothesconsensus.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -11,6 +12,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.adapter.LookAdapter;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.EndlessRecyclerViewScrollListener;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemClickSupport;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -33,6 +35,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         activityHomeBinding = DataBindingUtil.setContentView(this,R.layout.activity_home);
         rvLooks = activityHomeBinding.rvLooks;
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvLooks.setLayoutManager(linearLayoutManager);
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         rvLooks.addItemDecoration(itemDecoration);
@@ -44,6 +48,14 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }
         );
+        rvLooks.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+//                customLoadMoreDataFromApi(page);
+            }
+        });
         bindDataToAdapter();
         populateLooks();
         //Network call here to fetch the looks.
