@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+<android.support.v7.widget.CardView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+card_view:cardBackgroundColor="@android:color/white"
+card_view:cardCornerRadius="8dp"
+card_view:cardElevation="8dp"
+android:clickable="true"
+android:foreground="?android:attr/selectableItemBackground"
+android:fitsSystemWindows="true"
+>
+    <RelativeLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/iv_thumbnail"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/tv_message"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/iv_thumbnail"
+            android:background="@drawable/ic_chat_bubble_outline_black_24dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:id="@+id/iv_look"
+            android:layout_below="@+id/tv_message"
+            android:layout_toEndOf="@+id/iv_thumbnail" />
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rb_votes"
+            android:layout_below="@+id/iv_look"
+            android:layout_toEndOf="@+id/iv_thumbnail" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
+</layout>
