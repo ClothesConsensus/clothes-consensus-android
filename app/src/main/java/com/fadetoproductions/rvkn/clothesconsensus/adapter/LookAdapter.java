@@ -6,8 +6,10 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.LookCardBinding;
+import com.fadetoproductions.rvkn.clothesconsensus.dialogs.TimePickerFragment;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.squareup.picasso.Picasso;
 
@@ -27,12 +30,14 @@ public class LookAdapter extends
         RecyclerView.Adapter<LookAdapter.LookViewHolder> {
     private Context mContext;
     private List<Look> mLooks;
+    FragmentManager fragmentManager;
     private Context getContext() {
         return mContext;
     }
-    public LookAdapter(Context mContext, List<Look> looks) {
+    public LookAdapter(Context mContext, List<Look> looks, FragmentManager fm) {
         this.mContext = mContext;
         this.mLooks = looks;
+        this.fragmentManager = fm;
     }
     @Override
     public LookAdapter.LookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,7 +45,7 @@ public class LookAdapter extends
         LookViewHolder viewHolder = null;
         LookCardBinding lookCardBinding = DataBindingUtil
                         .inflate(inflater, R.layout.look_card, parent, false);
-        viewHolder = new LookViewHolder(getContext(), lookCardBinding);
+        viewHolder = new LookViewHolder(getContext(), lookCardBinding, fragmentManager);
 
         return viewHolder;
     }
@@ -68,16 +73,18 @@ public class LookAdapter extends
         final LookCardBinding lookCardBinding;
         private Context mContext;
         Look look;
+        FragmentManager mFm;
 
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public LookViewHolder(Context context, LookCardBinding binding) {
+        public LookViewHolder(Context context, LookCardBinding binding, FragmentManager fragmentManager) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(binding.getRoot());
             this.lookCardBinding = binding;
             this.mContext = context;
+            this.mFm = fragmentManager;
 
         }
         public void bindLook(final Look look){
@@ -87,13 +94,26 @@ public class LookAdapter extends
             TextView message = lookCardBinding.tvMessage;
             ImageView ivLook = lookCardBinding.ivLook;
             RatingBar rb = lookCardBinding.rbVotes;
+            ImageView ivTimer = lookCardBinding.ivTimer;
+            TextView tvTime = lookCardBinding.tvTime;
             thumbnail.setImageResource(0);
+            ivLook.setImageResource(0);
+            ivTimer.setImageResource(0);
             Picasso.with(mContext).load(look.getThumbnailImage()).
                     transform(new RoundedCornersTransformation(2,2)).into(thumbnail);
             Picasso.with(mContext).load(look.getPhotoUrl())
                     .transform(new RoundedCornersTransformation(2,2)).into(ivLook);
+            ivTimer.setImageResource(R.drawable.ic_access_time_black_24dp);
+            ivTimer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    TimePickerFragment newFragment = new TimePickerFragment();
+                    newFragment.show(mFm, "timePicker");
+                }
+            });
             message.setText(look.getMessage());
             rb.setRating(look.findAverageRating());
+            tvTime.setText(look.getHour()+":"+look.getMinute());
 
         }
     }
