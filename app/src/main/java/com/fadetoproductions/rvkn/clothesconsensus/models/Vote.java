@@ -1,8 +1,12 @@
 package com.fadetoproductions.rvkn.clothesconsensus.models;
 
+import org.parceler.Parcel;
+
 /**
  * Created by sdass on 8/31/16.
  */
+@Parcel(analyze={Vote.class})
+
 public class Vote {
 
 

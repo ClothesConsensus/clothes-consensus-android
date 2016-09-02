@@ -1,30 +1,27 @@
 package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
-import android.widget.TimePicker;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
-import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBinding;
+import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityProfileBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
-import com.fadetoproductions.rvkn.clothesconsensus.fragments.AllLooksFragment;
+import com.fadetoproductions.rvkn.clothesconsensus.fragments.YourLooksFragment;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
-public class HomeActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener{
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
-    ActivityHomeBinding activityHomeBinding;
-
+public class ProfileActivity extends AppCompatActivity {
+    ActivityProfileBinding activityProfileBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityHomeBinding = DataBindingUtil.setContentView(this,R.layout.activity_home);
+        activityProfileBinding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
         ToolbarBinding toolbarBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.toolbar,null,false);
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
@@ -32,31 +29,24 @@ public class HomeActivity extends AppCompatActivity implements TimePickerDialog.
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-
+        User user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        populateProfileHeader(user);
         //Network call here to fetch the looks.
         //Make the model
         //
         if(savedInstanceState == null)
-            showAllLooksFragment();
-
+            showYourLooksFragment(""+user.getUserId());
     }
-
-    private void showAllLooksFragment() {
-        AllLooksFragment looksFragment = AllLooksFragment.newInstance();
+    private void populateProfileHeader(User user) {
+        final String screenName = user.getName();
+        Picasso.with(this).load(user.getProfileImageUrl()).
+                transform(new RoundedCornersTransformation(2,2)).into(activityProfileBinding.ivProfileImage);
+        activityProfileBinding.tvName.setText(user.getName());
+    }
+    private void showYourLooksFragment(String userId) {
+        YourLooksFragment yourLooksFragment = YourLooksFragment.newInstance(userId);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(activityHomeBinding.flContainer.getId(), looksFragment);
+        ft.replace(activityProfileBinding.flContainer.getId(), yourLooksFragment);
         ft.commit();
-    }
-    @Override
-    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-        // Do something with the tvTime here.
-
-    }
-    public void onProfileView(MenuItem item) {
-        Intent profileIntent = new Intent(this, ProfileActivity.class);
-        // TODO get current user by api calls.
-        User user = null;
-        profileIntent.putExtra("user_id", Parcels.wrap(user));
-        startActivity(profileIntent);
     }
 }

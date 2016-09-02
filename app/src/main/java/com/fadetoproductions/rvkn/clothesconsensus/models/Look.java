@@ -3,12 +3,14 @@ package com.fadetoproductions.rvkn.clothesconsensus.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
 /**
  * Created by sdass on 8/31/16.
  */
+@Parcel(analyze={Look.class})
 public class Look {
 
     private long userId;
@@ -17,6 +19,26 @@ public class Look {
     private ArrayList<Vote> votes;
     private String thumbnailImage;
     private String message;
+    private String hour;
+    private String minute;
+
+    public String getHour() {
+        return hour;
+    }
+
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
+    public String getMinute() {
+        return minute;
+    }
+
+    public void setMinute(String minute) {
+        this.minute = minute;
+    }
+
+
     public long findAverageRating(){
         long average;
         int sum = 0;
