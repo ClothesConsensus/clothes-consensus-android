@@ -13,11 +13,11 @@ import java.util.ArrayList;
 @Parcel(analyze={Look.class})
 public class Look {
 
-    private long userId;
+
+    private User user;
     private String lookId;
     private String photoUrl;
     private ArrayList<Vote> votes;
-    private String thumbnailImage;
     private String message;
     private String hour;
     private String minute;
@@ -38,22 +38,20 @@ public class Look {
         this.minute = minute;
     }
 
+    public User getUser() {
+        return user;
+    }
+
 
     public long findAverageRating(){
-        long average;
-        int sum = 0;
-        for(int i=0; i<votes.size(); i++){
-            sum += votes.get(i).getRating();
-        }
-        average = sum/votes.size();
-        return  average;
-    }
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
+        return 0;
+//        long average;
+//        int sum = 0;
+//        for(int i=0; i<votes.size(); i++){
+//            sum += votes.get(i).getRating();
+//        }
+//        average = sum/votes.size();
+//        return average;
     }
 
     public String getLookId() {
@@ -80,11 +78,6 @@ public class Look {
         this.votes = votes;
     }
 
-
-    public String getThumbnailImage() {
-        return thumbnailImage;
-    }
-
     public String getMessage() {
         return message;
     }
@@ -92,13 +85,11 @@ public class Look {
     public static Look fromJson(JSONObject object) {
         Look look = new Look();
         try {
-            look.lookId = object.getString("look_id");
+            look.lookId = object.getString("id");
             look.photoUrl = object.getString("photo_url");
-            look.thumbnailImage = object.getString("thumbnail_image");
             look.message = object.getString("message");
-
-
-
+            JSONObject userObject = object.getJSONObject("user");
+            look.user = User.fromJson(userObject);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -107,12 +98,35 @@ public class Look {
     }
 
     public static ArrayList<Look> fromJsonArray(JSONArray jsonArray) {
+        /** CURRENT JSON STRUCTURE
+         [{
+             "id": 1,
+             "photo_url": "http://localhost:4567/100.jpg",
+             "message": "Is this good for business casual?",
+             "user": {
+                 "id": 3,
+                 "photo_thumbnail": "http://localhost:4567/user-thumbnails/3.jpg",
+                 "name": "Shashank"
+             }
+         },
+         {
+             "id": 2,
+             "photo_url": "http://localhost:4567/101.jpg",
+             "message": "Does this fit?",
+             "user": {
+                 "id": 2,
+                 "photo_thumbnail": "http://localhost:4567/user-thumbnails/2.jpg",
+                 "name": "Ryan"
+             }
+         }]
+         */
+
         ArrayList<Look> looks = new ArrayList<>();
-        for (int i=0; i<jsonArray.length();i++) {
+        for (int i=0; i < jsonArray.length(); i++) {
             try {
-                Look tweet = Look.fromJson(jsonArray.getJSONObject(i));
-                if(tweet != null) {
-                    looks.add(tweet);
+                Look look = Look.fromJson(jsonArray.getJSONObject(i));
+                if(look != null) {
+                    looks.add(look);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

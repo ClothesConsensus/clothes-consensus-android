@@ -26,32 +26,42 @@ import java.util.List;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
-public class LookAdapter extends
-        RecyclerView.Adapter<LookAdapter.LookViewHolder> {
+public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> {
     private Context mContext;
+
     private List<Look> mLooks;
+
     FragmentManager fragmentManager;
+
     private Context getContext() {
         return mContext;
     }
-    public LookAdapter(Context mContext, List<Look> looks, FragmentManager fm) {
+
+//    public LooksAdapter(Context mContext, List<Look> looks, FragmentManager fm) {
+//        this.mContext = mContext;
+//        this.mLooks = looks;
+//        this.fragmentManager = fm;
+//    }
+
+    public LooksAdapter(Context mContext, List<Look> looks) {
         this.mContext = mContext;
         this.mLooks = looks;
-        this.fragmentManager = fm;
     }
+
+
     @Override
-    public LookAdapter.LookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LooksAdapter.LookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        LookViewHolder viewHolder = null;
-        LookCardBinding lookCardBinding = DataBindingUtil
-                        .inflate(inflater, R.layout.look_card, parent, false);
-        viewHolder = new LookViewHolder(getContext(), lookCardBinding, fragmentManager);
+        LookCardBinding lookCardBinding = DataBindingUtil.inflate(inflater, R.layout.look_card, parent, false);
+        LookViewHolder viewHolder = new LookViewHolder(getContext(), lookCardBinding);
+
+//        viewHolder = new LookViewHolder(getContext(), lookCardBinding, fragmentManager);
 
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(LookAdapter.LookViewHolder viewHolder, int position) {
+    public void onBindViewHolder(LooksAdapter.LookViewHolder viewHolder, int position) {
         Look look = mLooks.get(position);
 
         LookViewHolder lvh = viewHolder;
@@ -75,20 +85,29 @@ public class LookAdapter extends
         Look look;
         FragmentManager mFm;
 
-
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
-        public LookViewHolder(Context context, LookCardBinding binding, FragmentManager fragmentManager) {
+        public LookViewHolder(Context context, LookCardBinding binding) {
             // Stores the itemView in a public final member variable that can be used
             // to access the context from any ViewHolder instance.
             super(binding.getRoot());
             this.lookCardBinding = binding;
             this.mContext = context;
-            this.mFm = fragmentManager;
-
         }
-        public void bindLook(final Look look){
 
+
+//        // We also create a constructor that accepts the entire item row
+//        // and does the view lookups to find each subview
+//        public LookViewHolder(Context context, LookCardBinding binding, FragmentManager fragmentManager) {
+//            // Stores the itemView in a public final member variable that can be used
+//            // to access the context from any ViewHolder instance.
+//            super(binding.getRoot());
+//            this.lookCardBinding = binding;
+//            this.mContext = context;
+//            this.mFm = fragmentManager;
+//
+//        }
+        public void bindLook(final Look look){
             this.look = look;
             ImageView thumbnail = lookCardBinding.ivThumbnail;
             TextView message = lookCardBinding.tvMessage;
@@ -99,7 +118,7 @@ public class LookAdapter extends
             thumbnail.setImageResource(0);
             ivLook.setImageResource(0);
             ivTimer.setImageResource(0);
-            Picasso.with(mContext).load(look.getThumbnailImage()).
+            Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).
                     transform(new RoundedCornersTransformation(2,2)).into(thumbnail);
             Picasso.with(mContext).load(look.getPhotoUrl())
                     .transform(new RoundedCornersTransformation(2,2)).into(ivLook);
