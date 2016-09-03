@@ -1,69 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
-<android.support.v7.widget.CardView
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-card_view:cardBackgroundColor="@android:color/white"
-card_view:cardCornerRadius="8dp"
-card_view:cardElevation="8dp"
-android:clickable="true"
-android:foreground="?android:attr/selectableItemBackground"
-android:fitsSystemWindows="true"
->
-    <RelativeLayout
-        android:layout_width="match_parent" android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/iv_thumbnail"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/tv_message"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/iv_thumbnail"
-            android:background="@drawable/ic_chat_bubble_outline_black_24dp"/>
-
-        <ImageView
+    <!--TODO might want to abstract and reuse this for Photo Confirmation-->
+        <RelativeLayout
+            android:id="@+id/rlCaption"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="5dp"
-            android:id="@+id/iv_look"
-            android:layout_below="@+id/tv_message"
-            android:layout_toEndOf="@+id/iv_thumbnail" />
-
-        <RatingBar
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rb_votes"
-            android:layout_below="@+id/iv_look"
-            android:layout_toEndOf="@+id/iv_thumbnail" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/iv_timer"
-            android:layout_below="@+id/iv_thumbnail"
-            android:layout_toStartOf="@+id/iv_look"
-            android:src="@drawable/ic_access_time_black_24dp"
-            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            >
+            <ImageView
+                android:id="@+id/ivThumbnail"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/example_user_thumb"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="hh:mm"
-            android:id="@+id/tvTime"
-            android:layout_below="@+id/iv_timer"
-            android:layout_alignParentStart="true" />
+            <ImageView
+                android:id="@+id/ivDialogueBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ivThumbnail"
+                android:layout_alignBottom="@+id/ivThumbnail"
+                android:layout_alignTop="@+id/ivThumbnail"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/dialogue_box"
+                android:scaleType="fitXY"
+                android:layout_marginLeft="-10dp"
+            />
+            <EditText
+                android:id="@+id/etMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Do I look good in these pants?"
+                android:layout_alignTop="@+id/ivDialogueBox"
+                android:layout_alignBottom="@+id/ivDialogueBox"
+                android:layout_alignRight="@+id/ivDialogueBox"
+                android:layout_alignLeft="@+id/ivDialogueBox"
+                android:layout_marginLeft="25dp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/blackTextColor"
+                />
+        </RelativeLayout>
 
-    </RelativeLayout>
-</android.support.v7.widget.CardView>
+
+        <RelativeLayout
+            android:id="@+id/rlLookContainer"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/rlCaption"
+            android:padding="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/ivClockHands"
+                android:layout_height="25dp"
+                android:layout_width="25dp"
+                android:src="@drawable/clock_hands"
+                android:layout_marginLeft="10dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":30"
+                android:layout_below="@+id/ivClockHands"
+                android:layout_alignLeft="@+id/ivClockHands"
+                android:layout_alignRight="@+id/ivClockHands"
+                android:gravity="center"
+                android:textColor="@color/grayTextColor"
+                />
+
+            <!--TODO figure out how to size this correctly-->
+            <ImageView
+                android:id="@+id/ivLookImage"
+                android:layout_height="310dp"
+                android:layout_width="310dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/example_look"
+                />
+        </RelativeLayout>
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="New Text"-->
+            <!--android:id="@+id/tv_message"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_toRightOf="@+id/iv_thumbnail"-->
+            <!--android:background="@drawable/ic_chat_bubble_outline_black_24dp"/>-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:id="@+id/iv_look"-->
+            <!--android:layout_below="@+id/tv_message"-->
+            <!--android:layout_toEndOf="@+id/iv_thumbnail" />-->
+
+        <!--<RatingBar-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/rb_votes"-->
+            <!--android:layout_below="@+id/iv_look"-->
+            <!--android:layout_toEndOf="@+id/iv_thumbnail" />-->
+
+        <!--<ImageView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/iv_timer"-->
+            <!--android:layout_below="@+id/iv_thumbnail"-->
+            <!--android:layout_toStartOf="@+id/iv_look"-->
+            <!--android:src="@drawable/ic_access_time_black_24dp"-->
+            <!--android:layout_alignParentLeft="true"-->
+            <!--/>-->
+
+        <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall"-->
+            <!--android:text="hh:mm"-->
+            <!--android:id="@+id/tvTime"-->
+            <!--android:layout_below="@+id/iv_timer"-->
+            <!--android:layout_alignParentStart="true" />-->
+
+</RelativeLayout>
 </layout>

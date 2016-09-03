@@ -9,21 +9,16 @@ import android.databinding.DataBindingUtil;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.LookCardBinding;
-import com.fadetoproductions.rvkn.clothesconsensus.dialogs.TimePickerFragment;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
 public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> {
@@ -110,29 +105,28 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         public void bindLook(final Look look){
             this.look = look;
             ImageView thumbnail = lookCardBinding.ivThumbnail;
-            TextView message = lookCardBinding.tvMessage;
-            ImageView ivLook = lookCardBinding.ivLook;
-            RatingBar rb = lookCardBinding.rbVotes;
-            ImageView ivTimer = lookCardBinding.ivTimer;
-            TextView tvTime = lookCardBinding.tvTime;
+            EditText message = lookCardBinding.etMessage;
+            message.setText(look.getMessage());
+            ImageView ivLook = lookCardBinding.ivLookImage;
+//            RatingBar rb = lookCardBinding.rbVotes;
+//            ImageView ivTimer = lookCardBinding.ivTimer;
+//            TextView tvTime = lookCardBinding.tvTime;
             thumbnail.setImageResource(0);
             ivLook.setImageResource(0);
-            ivTimer.setImageResource(0);
-            Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).
-                    transform(new RoundedCornersTransformation(2,2)).into(thumbnail);
-            Picasso.with(mContext).load(look.getPhotoUrl())
-                    .transform(new RoundedCornersTransformation(2,2)).into(ivLook);
-            ivTimer.setImageResource(R.drawable.ic_access_time_black_24dp);
-            ivTimer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    TimePickerFragment newFragment = new TimePickerFragment();
-                    newFragment.show(mFm, "timePicker");
-                }
-            });
-            message.setText(look.getMessage());
-            rb.setRating(look.findAverageRating());
-            tvTime.setText(look.getHour()+":"+look.getMinute());
+//            ivTimer.setImageResource(0);
+            Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).into(thumbnail);
+            Picasso.with(mContext).load(look.getPhotoUrl()).into(ivLook);
+//            ivTimer.setImageResource(R.drawable.ic_access_time_black_24dp);
+//            ivTimer.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    TimePickerFragment newFragment = new TimePickerFragment();
+//                    newFragment.show(mFm, "timePicker");
+//                }
+//            });
+//            message.setText(look.getMessage());
+//            rb.setRating(look.findAverageRating());
+//            tvTime.setText(look.getHour()+":"+look.getMinute());
 
         }
     }
