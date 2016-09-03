@@ -2,13 +2,11 @@ package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityProfileBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
-import com.fadetoproductions.rvkn.clothesconsensus.fragments.YourLooksFragment;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.squareup.picasso.Picasso;
 
@@ -34,8 +32,8 @@ public class ProfileActivity extends AppCompatActivity {
         //Network call here to fetch the looks.
         //Make the model
         //
-        if(savedInstanceState == null)
-            showYourLooksFragment(""+user.getUserId());
+//        if(savedInstanceState == null)
+//            showYourLooksFragment(""+user.getUserId());
     }
     private void populateProfileHeader(User user) {
         final String screenName = user.getName();
@@ -43,10 +41,10 @@ public class ProfileActivity extends AppCompatActivity {
                 transform(new RoundedCornersTransformation(2,2)).into(activityProfileBinding.ivProfileImage);
         activityProfileBinding.tvName.setText(user.getName());
     }
-    private void showYourLooksFragment(String userId) {
-        YourLooksFragment yourLooksFragment = YourLooksFragment.newInstance(userId);
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(activityProfileBinding.flContainer.getId(), yourLooksFragment);
-        ft.commit();
-    }
+//    private void showYourLooksFragment(String userId) {
+//        YourLooksFragment yourLooksFragment = YourLooksFragment.newInstance(userId);
+//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//        ft.replace(activityProfileBinding.flContainer.getId(), yourLooksFragment);
+//        ft.commit();
+//    }
 }

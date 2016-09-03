@@ -1,5 +1,7 @@
 package com.fadetoproductions.rvkn.clothesconsensus.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
@@ -22,8 +24,6 @@ public class User {
         this.name = name;
     }
 
-
-
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
@@ -31,7 +31,6 @@ public class User {
     public void setProfileImageUrl(String profileImageUrl) {
         this.profileImageUrl = profileImageUrl;
     }
-
 
     public ArrayList<Look> getLooks() {
         return looks;
@@ -56,4 +55,20 @@ public class User {
     public void setUserId(long userId) {
         this.userId = userId;
     }
+
+
+    public static User fromJson(JSONObject object) {
+        User user = new User();
+        try {
+            user.userId = object.getInt("id");
+            user.profileImageUrl = object.getString("photo_thumbnail");
+            user.name = object.getString("name");
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
 }
