@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">ClothesConsensus</string>
     <string name="add_your_caption_here">Add your caption here...</string>
+    <string name="post_look">Post Look</string>
 </resources>

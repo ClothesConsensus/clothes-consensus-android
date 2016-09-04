@@ -24,7 +24,6 @@
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Test"
-        android:onClick="login"
         />
 
     <Button
@@ -35,7 +34,6 @@
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Twitter"
-        android:onClick="login"
         />
     <Button
         android:id="@+id/btnSignInWithEmail"
@@ -45,7 +43,6 @@
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Email"
-        android:onClick="login"
         />
 </RelativeLayout>
 </layout>
