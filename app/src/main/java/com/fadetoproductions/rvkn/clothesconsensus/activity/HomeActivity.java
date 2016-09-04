@@ -4,6 +4,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -32,7 +33,7 @@ public class HomeActivity extends AppCompatActivity implements TimePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
-        setupActionBar();
+//        setupActionBar();
         looks = new ArrayList<>();
         adapter = new LooksAdapter(this, looks);
 
@@ -65,9 +66,15 @@ public class HomeActivity extends AppCompatActivity implements TimePickerDialog.
         // Sets the Toolbar to act as the ActionBar for this Activity window.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbarBinding.llToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setLogo(R.drawable.logo);
+
+        actionBar.setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
+
+
+        actionBar.setDisplayUseLogoEnabled(true);
+
 
     }
 

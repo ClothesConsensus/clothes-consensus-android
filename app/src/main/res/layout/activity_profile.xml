@@ -12,17 +12,15 @@
         >
         <include
             layout="@layout/toolbar"
-            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </include>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/toolbar"
+            android:layout_below="@+id/ll_toolbar"
             android:id="@+id/rl_header"
             android:layout_marginTop="10dp">
 

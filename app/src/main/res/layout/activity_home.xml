@@ -8,14 +8,24 @@
     android:layout_height="match_parent"
     tools:context="com.codepath.apps.mysimpletweets.activity.TimelineActivity"
     tools:showIn="@layout/activity_home">
+
+        <!--<include-->
+            <!--layout="@layout/toolbar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:elevation="8dp"-->
+            <!--android:id="@+id/toolbar"-->
+            <!--&gt;-->
+        <!--</include>-->
+
         <include
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="8dp"
+            layout="@layout/non_widget_toolbar"
             android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
             >
         </include>
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvLooks"
