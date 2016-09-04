@@ -21,6 +21,7 @@
             style="@style/NavButton"
             android:src="@drawable/profile_btn"
             android:layout_alignParentLeft="true"
+            android:onClick="loadProfile"
             />
         <ImageView
             android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
             style="@style/NavButton"
             android:src="@drawable/camera_btn"
             android:layout_alignParentRight="true"
+            android:onClick="loadCamera"
             />
     </RelativeLayout>
 </RelativeLayout>

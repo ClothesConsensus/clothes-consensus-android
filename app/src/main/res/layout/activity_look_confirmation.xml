@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fadetoproductions.rvkn.clothesconsensus.activity.LookConfirmationActivity"
+    android:background="@android:color/white"
+    >
+
+    <include
+        layout="@layout/non_widget_toolbar"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+    />
+
+    <include
+        layout="@layout/rl_caption"
+        android:id="@+id/rlCaption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+    />
+
+    <ImageView
+        android:id="@+id/ivLookImage"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:src="@drawable/example_look"
+        android:layout_below="@id/rlCaption"
+        />
+
+
+
+</RelativeLayout>

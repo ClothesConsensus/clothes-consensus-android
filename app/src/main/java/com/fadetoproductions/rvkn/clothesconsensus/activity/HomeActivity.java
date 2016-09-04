@@ -4,12 +4,15 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.LooksAdapter;
@@ -18,12 +21,13 @@ import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBindi
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.PhotoUtils;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, ClothesConsensusClient.ClothesConsensusClientListener{
+public class HomeActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, ClothesConsensusClient.ClothesConsensusClientListener {
 
     ActivityHomeBinding activityHomeBinding;
     LooksAdapter adapter;
@@ -104,4 +108,53 @@ public class HomeActivity extends AppCompatActivity implements TimePickerDialog.
         Log.v("action", "Looks fetched");
         adapter.notifyDataSetChanged();
     }
+
+    public void loadProfile(View view) {
+        Log.v("action", "Loading profile");
+
+    }
+
+
+
+    // TODO move this camera stuff
+    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
+
+    public void loadCamera(View view) {
+        Log.v("action", "Loading camera");
+        launchCamera();
+    }
+
+
+    public void loadLookConfirmationScreen() {
+        // TODO this should become part of the custom camera activity
+        Intent i = new Intent(this, LookConfirmationActivity.class);
+        Log.v("action", "Starting look confirmation screen");
+        startActivity(i);
+    }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Log.v("action", "Photo taken!!");
+                loadLookConfirmationScreen();
+            } else { // Result was a failure
+                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void launchCamera() {
+        // This is all from the guide
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            // Start the image capture intent to take photo
+            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        }
+    }
+
 }
