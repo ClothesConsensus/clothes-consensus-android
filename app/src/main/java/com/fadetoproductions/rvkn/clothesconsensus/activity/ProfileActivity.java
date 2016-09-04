@@ -2,7 +2,6 @@ package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityProfileBinding;
@@ -11,7 +10,11 @@ import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 
 import org.parceler.Parcels;
 
-public class ProfileActivity extends AppCompatActivity {
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+
+public class ProfileActivity extends BaseActivity {
     ActivityProfileBinding activityProfileBinding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,9 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setLogo(R.drawable.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         User user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+
+        ButterKnife.bind(this);
+
 //        populateProfileHeader(user);
         //Network call here to fetch the looks.
         //Make the model
@@ -44,4 +50,11 @@ public class ProfileActivity extends AppCompatActivity {
 //        ft.replace(activityProfileBinding.flContainer.getId(), yourLooksFragment);
 //        ft.commit();
 //    }
+
+
+    @OnClick(R.id.ibCamera)
+    public void loadCamera() {
+        super.loadCamera();
+    }
+
 }

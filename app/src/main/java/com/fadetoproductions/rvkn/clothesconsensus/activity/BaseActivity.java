@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
@@ -59,6 +60,18 @@ public class BaseActivity extends AppCompatActivity  implements ClothesConsensus
         Intent i = new Intent(this, LookConfirmationActivity.class);
         Log.v("action", "Starting look confirmation screen");
         startActivity(i);
+    }
+
+    // TODO this probably shouldn't be in the base activity. We can move it out when we create custom camera view
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Log.v("action", "Photo taken!!");
+                loadLookConfirmationScreen();
+            } else { // Result was a failure
+                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     // The child activity should implement this

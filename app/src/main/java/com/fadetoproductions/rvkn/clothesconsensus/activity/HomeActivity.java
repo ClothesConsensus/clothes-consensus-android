@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.LooksAdapter;
@@ -118,13 +117,6 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                Log.v("action", "Photo taken!!");
-                loadLookConfirmationScreen();
-            } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
-            }
-        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

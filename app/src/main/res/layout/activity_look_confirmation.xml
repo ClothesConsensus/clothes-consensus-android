@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/ibEmailShare"
                 android:text="@string/post_look"
+                android:textAllCaps="false"
                 android:background="@color/blackTextColor"
                 android:textColor="@android:color/white"
                 android:layout_alignParentRight="true"
