@@ -5,15 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TimePicker;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.LooksAdapter;
-import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
@@ -23,7 +22,10 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements TimePickerDialog.OnTimeSetListener, ClothesConsensusClient.ClothesConsensusClientListener{
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTimeSetListener {
 
     ActivityHomeBinding activityHomeBinding;
     LooksAdapter adapter;
@@ -42,16 +44,14 @@ public class HomeActivity extends AppCompatActivity implements TimePickerDialog.
         activityHomeBinding.rvLooks.setLayoutManager(new LinearLayoutManager(this));
 
 
+        ButterKnife.bind(this);
 
         //Network call here to fetch the looks.
         //Make the model
         //
-
-        ClothesConsensusClient client = new ClothesConsensusClient();
-        client.setListener(this);
         client.getLooks();
 
-        Log.v("network_request", "Fetching Looks");
+
 
 
 //        if(savedInstanceState == null) {
@@ -98,10 +98,25 @@ public class HomeActivity extends AppCompatActivity implements TimePickerDialog.
         startActivity(profileIntent);
     }
 
-    @Override
     public void onGetLooks(ArrayList<Look> fetchedLooks) {
         looks.addAll(fetchedLooks);
         Log.v("action", "Looks fetched");
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.ibProfile)
+    public void loadProfile(View view) {
+        User user = new User();
+        super.loadProfileForUser(user);
+    }
+
+    @OnClick(R.id.ibCamera)
+    public void loadCamera() {
+        super.loadCamera();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

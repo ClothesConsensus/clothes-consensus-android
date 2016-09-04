@@ -31,4 +31,18 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
+
+    <style name="ConfirmationButton">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="LoginButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
 </resources>

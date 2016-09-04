@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fadetoproductions.rvkn.clothesconsensus.activity.LookConfirmationActivity"
+    android:background="@android:color/white"
+    >
+
+    <include
+        layout="@layout/non_widget_toolbar"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+    />
+
+    <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/toolbar"
+        >
+
+        <include
+            layout="@layout/rl_caption"
+            android:id="@+id/rlCaption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            />
+        <ImageView
+            android:id="@+id/ivLookImage"
+            android:layout_width="310dp"
+            android:layout_height="310dp"
+            android:src="@drawable/example_look"
+            android:layout_below="@id/rlCaption"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="fitXY"
+            />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@+id/ivLookImage"
+            android:layout_marginTop="10dp"
+            android:layout_alignLeft="@+id/ivLookImage"
+            android:layout_alignRight="@+id/ivLookImage"
+        >
+            <ImageButton
+                style="@style/ConfirmationButton"
+                android:id="@+id/ibFacebookShare"
+                android:src="@drawable/facebook_btn"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="25dp"
+            />
+            <ImageButton
+                style="@style/ConfirmationButton"
+                android:id="@+id/ibTwitterShare"
+                android:src="@drawable/twitter_btn"
+                android:layout_toRightOf="@id/ibFacebookShare"
+                android:layout_marginRight="25dp"
+            />
+
+            <ImageButton
+                style="@style/ConfirmationButton"
+                android:id="@+id/ibEmailShare"
+                android:src="@drawable/mail_btn"
+                android:layout_toRightOf="@id/ibTwitterShare"
+                android:layout_marginRight="25dp"
+            />
+            <Button
+                android:id="@+id/btnPostLook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/ibEmailShare"
+                android:text="@string/post_look"
+                android:textAllCaps="false"
+                android:background="@color/blackTextColor"
+                android:textColor="@android:color/white"
+                android:layout_alignParentRight="true"
+            />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -17,35 +17,29 @@
         android:layout_alignParentTop="true"
         />
     <Button
+        style="@style/LoginButtonStyle"
         android:id="@+id/btnSignInWithFacebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_above="@+id/btnSignInWithTwitter"
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
-        android:text="Sign in with Test"
-        android:onClick="login"
+        android:text="Sign in with Facebook"
         />
 
     <Button
+        style="@style/LoginButtonStyle"
         android:id="@+id/btnSignInWithTwitter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_above="@+id/btnSignInWithEmail"
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Twitter"
-        android:onClick="login"
         />
     <Button
+        style="@style/LoginButtonStyle"
         android:id="@+id/btnSignInWithEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/ivLogo"
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Email"
-        android:onClick="login"
         />
 </RelativeLayout>
 </layout>

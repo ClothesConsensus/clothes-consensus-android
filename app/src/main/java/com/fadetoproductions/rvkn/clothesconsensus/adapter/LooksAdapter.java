@@ -6,7 +6,6 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -26,7 +25,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
     private List<Look> mLooks;
 
-    FragmentManager fragmentManager;
+//    FragmentManager fragmentManager;
 
     private Context getContext() {
         return mContext;
@@ -78,7 +77,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         final LookCardBinding lookCardBinding;
         private Context mContext;
         Look look;
-        FragmentManager mFm;
+//        FragmentManager mFm;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -104,8 +103,8 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 //        }
         public void bindLook(final Look look){
             this.look = look;
-            ImageView thumbnail = lookCardBinding.ivThumbnail;
-            EditText message = lookCardBinding.etMessage;
+            ImageView thumbnail = lookCardBinding.rlCaption.ivThumbnail;
+            EditText message = lookCardBinding.rlCaption.etMessage;
             message.setText(look.getMessage());
             ImageView ivLook = lookCardBinding.ivLookImage;
 //            RatingBar rb = lookCardBinding.rbVotes;

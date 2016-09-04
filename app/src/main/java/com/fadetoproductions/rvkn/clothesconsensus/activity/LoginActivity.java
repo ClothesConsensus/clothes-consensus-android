@@ -8,16 +8,20 @@ import android.view.View;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
     }
 
 
-//    @OnClick({R.id.btnSignInWithTwitter, R.id.btnSignInWithEmail, R.id.btnSignInWithFacebook})
+    @OnClick({R.id.btnSignInWithTwitter, R.id.btnSignInWithEmail, R.id.btnSignInWithFacebook})
     public void login(View view) {
         Log.v("actions", "Logging in");
         Intent i = new Intent(this, HomeActivity.class);
