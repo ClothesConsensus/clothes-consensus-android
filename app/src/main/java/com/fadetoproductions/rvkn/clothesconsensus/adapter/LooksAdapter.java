@@ -19,6 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+
 
 public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> {
     private Context mContext;
@@ -113,8 +115,8 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             thumbnail.setImageResource(0);
             ivLook.setImageResource(0);
 //            ivTimer.setImageResource(0);
-            Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).into(thumbnail);
-            Picasso.with(mContext).load(look.getPhotoUrl()).into(ivLook);
+            Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).transform(new RoundedCornersTransformation(5,0)).fit().into(thumbnail);
+            Picasso.with(mContext).load(look.getPhotoUrl()).transform(new RoundedCornersTransformation(10,0, RoundedCornersTransformation.CornerType.ALL)).fit().into(ivLook);
 //            ivTimer.setImageResource(R.drawable.ic_access_time_black_24dp);
 //            ivTimer.setOnClickListener(new View.OnClickListener() {
 //                @Override
