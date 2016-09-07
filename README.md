@@ -7,6 +7,8 @@ Planning doc:
 https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/edit
 
 
+Current functionality: ![Video Walkthrough](http://imgur.com/bUQnAsM.gif)
+
 ### Login (hardness: 1)
 * Some sort of email auth
 * Facebook auth
@@ -51,19 +53,20 @@ https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/
 
 ##Goals
 ###Sprint 1 Goals
-* [ ] Flow through entire app
-* [ ] Login (twitter login, because that exists)
-* [ ] Android models
-* [ ] Access profile or camera
-* [ ] The camera activity(built in camera)
+* [x] Flow through entire app
+
+* [x] Android models
+* [x] Access profile or camera
+* [x] The camera activity(built in camera)
 * [ ] All the UI elements
-* [ ] Fake data
-* [ ] Research how to vote(swiping method)
+* [x] Fake data
 * [ ] UI element for timer?
 
 ###Sprint 2 Goals
+* [ ] Login (twitter login, because that exists)
 * [ ] Backend/network
 * [ ] Custom camera overlay
+* [ ] Swipe to vote
 
 ###Sprint 3 Goals
 * [ ] Push notifications
@@ -91,5 +94,6 @@ https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/
 
 * Look vs Look
 	* Join to looks that are being compared
+
 
 
