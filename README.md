@@ -9,6 +9,34 @@ https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/
 
 Current functionality: ![Video Walkthrough](http://imgur.com/bUQnAsM.gif)
 
+##Goals
+###Sprint 1 Goals
+* [x] Flow through entire app
+
+* [x] Android models
+* [x] Access profile or camera
+* [x] The camera activity(built in camera)
+* [x] All the UI elements
+* [x] Fake data
+* [ ] UI element for timer?(Ryan)
+
+###Sprint 2 Goals
+* [ ] Custom camera overlay (Ryan)
+* [ ] Swipe to vote (Shashank)
+* [ ] Backend/network (Ryan/Shashank)
+* [ ] Profile Activity (Shashank)
+
+###Sprint 3 Goals
+* [ ] Login (twitter login, because that exists)
+* [ ] Push notifications
+* [ ] UI polish
+* [ ] No scroll until vote on Home Listing
+
+###Sprint 4 Goals
+* [ ] UI polish
+* [ ] Demo planning
+
+
 ### Login (hardness: 1)
 * Some sort of email auth
 * Facebook auth
@@ -49,33 +77,6 @@ Current functionality: ![Video Walkthrough](http://imgur.com/bUQnAsM.gif)
 * Dual look view
 	
 ### Push notification (not a screen) (hardness: ???)
-
-
-##Goals
-###Sprint 1 Goals
-* [x] Flow through entire app
-
-* [x] Android models
-* [x] Access profile or camera
-* [x] The camera activity(built in camera)
-* [ ] All the UI elements
-* [x] Fake data
-* [ ] UI element for timer?
-
-###Sprint 2 Goals
-* [ ] Login (twitter login, because that exists)
-* [ ] Backend/network
-* [ ] Custom camera overlay
-* [ ] Swipe to vote
-
-###Sprint 3 Goals
-* [ ] Push notifications
-* [ ] UI polish
-
-###Sprint 4 Goals
-* [ ] UI polish
-* [ ] Demo planning
-
 
 
 ##Models
