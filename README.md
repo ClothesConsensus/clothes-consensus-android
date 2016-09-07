@@ -7,7 +7,7 @@ Planning doc:
 https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/edit
 
 
-Current functionality: ![Video Walkthrough](http://imgur.com/bUQnAsM.gif)
+Current functionality: http://imgur.com/bUQnAsM.gif
 
 ##Goals
 ###Sprint 1 Goals
@@ -25,17 +25,12 @@ Current functionality: ![Video Walkthrough](http://imgur.com/bUQnAsM.gif)
 * [ ] Swipe to vote (Shashank)
 * [ ] Backend/network (Ryan/Shashank)
 * [ ] Profile Activity (Shashank)
+* [ ] Push notifications (Ryan)
 
 ###Sprint 3 Goals
-* [ ] Login (twitter login, because that exists)
-* [ ] Push notifications
-* [ ] UI polish
-* [ ] No scroll until vote on Home Listing
-
-###Sprint 4 Goals
 * [ ] UI polish
 * [ ] Demo planning
-
+* [ ] No scroll until vote on Home Listing
 
 ### Login (hardness: 1)
 * Some sort of email auth
