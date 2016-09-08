@@ -6,6 +6,7 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -15,29 +16,25 @@ import android.widget.ImageView;
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.LookCardBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
+import com.fadetoproductions.rvkn.clothesconsensus.models.Vote;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemTouchHelperAdapter;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
-public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> {
+public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> implements ItemTouchHelperAdapter {
     private Context mContext;
 
     private List<Look> mLooks;
 
-//    FragmentManager fragmentManager;
-
     private Context getContext() {
         return mContext;
     }
-
-//    public LooksAdapter(Context mContext, List<Look> looks, FragmentManager fm) {
-//        this.mContext = mContext;
-//        this.mLooks = looks;
-//        this.fragmentManager = fm;
-//    }
 
     public LooksAdapter(Context mContext, List<Look> looks) {
         this.mContext = mContext;
@@ -50,9 +47,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         LookCardBinding lookCardBinding = DataBindingUtil.inflate(inflater, R.layout.look_card, parent, false);
         LookViewHolder viewHolder = new LookViewHolder(getContext(), lookCardBinding);
-
-//        viewHolder = new LookViewHolder(getContext(), lookCardBinding, fragmentManager);
-
         return viewHolder;
     }
 
@@ -71,16 +65,53 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         return mLooks.size();
     }
 
+
+    @Override
+    public void onItemDismiss(int position, int direction) {
+        mLooks.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onSwipeRight(int position) {
+        //TODO Make a network call to update the votes. Right now just update the model.
+        Look look = mLooks.get(position);
+        Vote vote = new Vote();
+        vote.setLook(look);
+        vote.setRating(1);
+        if(look.getVotes() != null)
+            look.getVotes().add(vote);
+        else {
+            ArrayList<Vote> votes = new ArrayList<>();
+            votes.add(vote);
+            look.setVotes(votes);
+        }
+    }
+
+    @Override
+    public void onSwipeLeft(int position) {
+        //TODO Make a network call to update the votes. Right now just update the model.
+        Look look = mLooks.get(position);
+        Vote vote = new Vote();
+        vote.setLook(look);
+        vote.setRating(0);
+        if(look.getVotes() != null)
+            look.getVotes().add(vote);
+        else {
+            ArrayList<Vote> votes = new ArrayList<>();
+            votes.add(vote);
+            look.setVotes(votes);
+        }
+    }
+
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
-    public static class LookViewHolder extends RecyclerView.ViewHolder {
+    public static class LookViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
         final LookCardBinding lookCardBinding;
         private Context mContext;
         Look look;
-//        FragmentManager mFm;
-
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
         public LookViewHolder(Context context, LookCardBinding binding) {
@@ -128,6 +159,17 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 //            message.setText(look.getMessage());
 //            rb.setRating(look.findAverageRating());
 //            tvTime.setText(look.getHour()+":"+look.getMinute());
+
+        }
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
 
         }
     }

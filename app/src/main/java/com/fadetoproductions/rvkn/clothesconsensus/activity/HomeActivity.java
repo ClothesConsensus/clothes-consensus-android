@@ -6,6 +6,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,6 +19,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBindi
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.SimpleItemTouchHelperCallback;
 
 import org.parceler.Parcels;
 
@@ -39,9 +42,13 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
         looks = new ArrayList<>();
         adapter = new LooksAdapter(this, looks);
 
-
-        activityHomeBinding.rvLooks.setAdapter(adapter);
-        activityHomeBinding.rvLooks.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView rvLooks = activityHomeBinding.rvLooks;
+        rvLooks.setAdapter(adapter);
+        rvLooks.setLayoutManager(new LinearLayoutManager(this));
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(rvLooks);
 
 
         ButterKnife.bind(this);
