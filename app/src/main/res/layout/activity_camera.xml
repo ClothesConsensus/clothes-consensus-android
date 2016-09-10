@@ -45,7 +45,7 @@
             >
             <ImageButton
                 style="@style/BaseImageButton"
-                android:id="@+id/btnTakePhoto"
+                android:id="@+id/ibTakePhoto"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
@@ -57,7 +57,7 @@
                 style="@style/BaseImageButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_toLeftOf="@+id/btnTakePhoto"
+                android:layout_toLeftOf="@+id/ibTakePhoto"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_photo_library_black_48dp"
                 android:layout_marginRight="15dp"
@@ -67,9 +67,9 @@
                 style="@style/BaseImageButton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_toRightOf="@+id/btnTakePhoto"
+                android:layout_toRightOf="@+id/ibTakePhoto"
                 android:src="@drawable/flip_camera"
-                android:layout_alignTop="@id/btnTakePhoto"
+                android:layout_alignTop="@id/ibTakePhoto"
                 android:layout_marginLeft="15dp"
                 />
 
@@ -77,9 +77,9 @@
                 style="@style/BaseImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_toRightOf="@+id/btnTakePhoto"
+                android:layout_toRightOf="@+id/ibTakePhoto"
                 android:src="@drawable/flash_off"
-                android:layout_alignBottom="@id/btnTakePhoto"
+                android:layout_alignBottom="@id/ibTakePhoto"
                 android:layout_marginLeft="15dp"
                 />
 
