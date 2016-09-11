@@ -22,9 +22,9 @@ Current functionality: http://imgur.com/bUQnAsM.gif
 
 ###Sprint 2 Goals
 * [ ] Custom camera overlay (Ryan)
-* [ ] Swipe to vote (Shashank)
-* [ ] Backend/network (Ryan/Shashank)
-* [ ] Profile Activity (Shashank)
+* [x] Swipe to vote (Shashank)
+* [x] Backend/network (Ryan/Shashank)
+* [x] Profile Activity (Shashank)
 * [ ] Push notifications (Ryan)
 
 ###Sprint 3 Goals

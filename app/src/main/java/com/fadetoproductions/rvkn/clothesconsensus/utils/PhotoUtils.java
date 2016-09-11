@@ -1,10 +1,14 @@
 package com.fadetoproductions.rvkn.clothesconsensus.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
 
+import com.loopj.android.http.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 /**
@@ -42,6 +46,26 @@ public class PhotoUtils {
     public static boolean isExternalStorageAvailable() {
         String state = Environment.getExternalStorageState();
         return state.equals(Environment.MEDIA_MOUNTED);
+    }
+
+    public static File newEmptyFile(Context context) {
+        // creates a file in the directory for our new photo
+
+        File mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
+        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
+            Log.d(APP_TAG, "failed to create directory");
+        }
+
+        return new File(mediaStorageDir.getPath() + File.separator + PHOTO_FILE_NAME);
+
+    }
+
+    public static String encodeBitmapToSendableString(Bitmap bitmap) {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 85, out);
+        byte[] myByteArray = out.toByteArray();
+        String encodedImage = Base64.encodeToString(myByteArray, Base64.DEFAULT);
+        return encodedImage;
     }
 
 

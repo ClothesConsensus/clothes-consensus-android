@@ -24,7 +24,7 @@
         <activity android:name=".activity.LookDetailsActivity" />
         <activity android:name=".activity.ProfileActivity" />
         <activity android:name=".activity.LookConfirmationActivity" />
-        <activity android:name=".activity.CameraActivity"></activity>
+        <activity android:name=".activity.CameraActivity" />
     </application>
 
 </manifest>

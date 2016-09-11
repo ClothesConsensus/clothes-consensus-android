@@ -1,19 +1,16 @@
 package com.fadetoproductions.rvkn.clothesconsensus.clients;
 
-import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.Base64;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -24,8 +21,6 @@ import cz.msebera.android.httpclient.Header;
 
 
 public class ClothesConsensusClient {
-
-
 
     public interface ClothesConsensusClientListener {
         void onGetLooks(ArrayList<Look> looks);
@@ -72,7 +67,7 @@ public class ClothesConsensusClient {
         });
     }
 
-    public void getUser(String user_id) {
+    public void getUser(long user_id) {
         String url = BASE_API_URL + USERS_ENDPOINT + user_id + "/";
         Log.v("network_request", "Fetching User");
         Log.v("network_request", url);
@@ -94,7 +89,7 @@ public class ClothesConsensusClient {
         });
     }
 
-    public void postLook(Bitmap lookBitmap) {
+    public void postLook(long userId, String quote, String expiration, String imageString) {
         // Some user param data
         String url = BASE_API_URL + LOOKS_ENDPOINT;
         Log.v("network_request", "Posting look");
@@ -102,11 +97,10 @@ public class ClothesConsensusClient {
 
         // Some compression stuff from http://stackoverflow.com/questions/18545211/bitmap-to-file-that-can-be-uploaded-via-async
         RequestParams params = new RequestParams();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        lookBitmap.compress(Bitmap.CompressFormat.PNG, 85, out);
-        byte[] myByteArray = out.toByteArray();
-        String encodedImage = Base64.encodeToString(myByteArray, Base64.DEFAULT);
-        params.put("imageString", encodedImage);
+        params.put("image_string", imageString);
+        params.put("user_id", userId);
+        params.put("quote", quote);
+        params.put("expiration", expiration);
 
         client.post(url, params, new JsonHttpResponseHandler() {
             @Override
@@ -124,7 +118,8 @@ public class ClothesConsensusClient {
         });
     }
 
-    public void postVoteForLook(long userId, String lookId, Boolean vote) {
+
+    public void postVoteForLook(long userId, long lookId, Boolean vote) {
         String url = BASE_API_URL + LOOKS_ENDPOINT + lookId + "/" + VOTES_ENDPOINT;
         Log.v("network_request", "Voting on a look");
         Log.v("network_request", url);
