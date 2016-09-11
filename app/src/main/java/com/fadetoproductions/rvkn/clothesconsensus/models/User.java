@@ -15,6 +15,7 @@ public class User {
     private ArrayList<Vote> votes;
     private long userId;
     private String profileImageUrl;
+    private String bannerImageUrl;
     private String name;
     public String getName() {
         return name;
@@ -61,7 +62,8 @@ public class User {
         User user = new User();
         try {
             user.userId = object.getInt("id");
-            user.profileImageUrl = object.getString("photo_thumbnail");
+            user.profileImageUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("profile_image");
+            user.bannerImageUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("banner_image");
             user.name = object.getString("name");
 
         } catch (JSONException e) {

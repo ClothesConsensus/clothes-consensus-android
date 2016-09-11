@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.fadetoproductions.rvkn.clothesconsensus.activity.CameraActivity"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/rlActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarHeight"
+        android:background="@android:color/white"
+        android:padding="5dp"
+        >
+        <ImageButton
+            style="@style/NavButton"
+            android:src="@drawable/x"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dp"
+            />
+    </RelativeLayout>
+    <TextureView
+        android:id="@+id/textureViewCamera"
+        android:layout_width="match_parent"
+        android:layout_height="325dp"
+        android:layout_below="@+id/rlActionBar"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:layout_below="@+id/textureViewCamera"
+        android:layout_alignParentBottom="true"
+        >
+
+        <RelativeLayout
+            android:id="@+id/rlCameraControls"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <ImageButton
+                style="@style/BaseImageButton"
+                android:id="@+id/ibTakePhoto"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/take_photo"
+                android:layout_centerVertical="true"
+                />
+
+            <ImageButton
+                style="@style/BaseImageButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toLeftOf="@+id/ibTakePhoto"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_photo_library_black_48dp"
+                android:layout_marginRight="15dp"
+                />
+
+            <ImageButton
+                style="@style/BaseImageButton"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/ibTakePhoto"
+                android:src="@drawable/flip_camera"
+                android:layout_alignTop="@id/ibTakePhoto"
+                android:layout_marginLeft="15dp"
+                />
+
+            <ImageButton
+                style="@style/BaseImageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/ibTakePhoto"
+                android:src="@drawable/flash_off"
+                android:layout_alignBottom="@id/ibTakePhoto"
+                android:layout_marginLeft="15dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlCameraSwitcher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlCameraControls"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                >
+                <ImageButton
+                    style="@style/BaseImageButton"
+                    android:id="@+id/ibSingleLookSwitch"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:src="@drawable/shirt"
+                    />
+                <ImageButton
+                    style="@style/BaseImageButton"
+                    android:id="@+id/ibDoubleLookSwitch"
+                    android:layout_height="40dp"
+                    android:layout_width="40dp"
+                    android:src="@drawable/two_shirts"
+                    android:layout_toRightOf="@+id/ibSingleLookSwitch"
+                    android:layout_marginLeft="10dp"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
