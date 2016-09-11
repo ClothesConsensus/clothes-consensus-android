@@ -36,6 +36,7 @@ public class ClothesConsensusClient {
     String BASE_API_URL = "https://clothes-consensus-api.herokuapp.com/";
     String LOOKS_ENDPOINT = "looks/";
     String USERS_ENDPOINT = "users/";
+    String VOTES_ENDPOINT = "votes/";
 
 
     public ClothesConsensusClientListener listener;
@@ -51,7 +52,6 @@ public class ClothesConsensusClient {
 
     public void getLooks() {
         String url = BASE_API_URL + LOOKS_ENDPOINT;
-
         Log.v("network_request", "Fetching Looks");
         Log.v("network_request", url);
 
@@ -72,9 +72,8 @@ public class ClothesConsensusClient {
         });
     }
 
-    public void getUser(String user_id) {
+    public void getUser(long user_id) {
         String url = BASE_API_URL + USERS_ENDPOINT + user_id + "/";
-
         Log.v("network_request", "Fetching User");
         Log.v("network_request", url);
 
@@ -120,6 +119,30 @@ public class ClothesConsensusClient {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.v("network_request", "The look failed to post");
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+
+    public void postVoteForLook(long userId, long lookId, Boolean vote) {
+        String url = BASE_API_URL + LOOKS_ENDPOINT + lookId + "/" + VOTES_ENDPOINT;
+        Log.v("network_request", "Voting on a look");
+        Log.v("network_request", url);
+
+        RequestParams params = new RequestParams();
+        params.put("user_id", userId);
+        params.put("vote", vote);
+
+        client.post(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.v("network_request", "The vote was successful");
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.v("network_request", "The vote failed to post");
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
