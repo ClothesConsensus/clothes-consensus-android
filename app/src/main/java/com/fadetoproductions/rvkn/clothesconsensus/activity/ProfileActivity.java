@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.ProfilesAdapter;
@@ -19,7 +18,6 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -54,7 +52,7 @@ public class ProfileActivity extends BaseActivity {
         //Network call here to fetch the looks.
         //Make the model
         //TODO get the looks according to user logged in. Right now hardcoded to my id.
-        client.getMyLooks(""+user.getUserId());
+        client.getUser("" + user.getUserId());
     }
     private void populateProfileHeader() {
         Picasso.with(this).load(user.getProfileImageUrl()).
@@ -62,16 +60,15 @@ public class ProfileActivity extends BaseActivity {
         activityProfileBinding.tvName.setText(user.getName());
     }
 
-
-    public void onGetLooks(ArrayList<Look> fetchedLooks) {
-        profileLooks.addAll(fetchedLooks);
-        Log.v("action", "Looks fetched");
-        adapter.notifyDataSetChanged();
-    }
-
     @OnClick(R.id.ibCamera)
     public void loadCamera() {
         super.loadCamera();
     }
 
+    @Override
+    public void onGetUser(User user) {
+        profileLooks.addAll(user.getLooks());
+        adapter.notifyDataSetChanged();
+        this.user = user;
+    }
 }

@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TimePicker;
 
@@ -21,8 +20,6 @@ import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.SimpleItemTouchHelperCallback;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -54,22 +51,10 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
                 new SimpleItemTouchHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rvLooks);
+        user = User.getLoggedInUser(this);
 
-        client.getUser(getIntent().getStringExtra("user_id"));
         ButterKnife.bind(this);
-
-        //Network call here to fetch the looks.
-        //Make the model
-        //
         client.getLooks();
-
-
-
-//        if(savedInstanceState == null) {
-//            showAllLooksFragment();
-//        }
-
-
     }
 
     private void setupActionBar() {
@@ -88,14 +73,6 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
 
 
     }
-
-
-//    private void showAllLooksFragment() {
-//        AllLooksFragment looksFragment = AllLooksFragment.newInstance();
-//        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-//        ft.replace(activityHomeBinding.flContainer.getId(), looksFragment);
-//        ft.commit();
-//    }
     @Override
     public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
         // Do something with the tvTime here.
@@ -121,10 +98,5 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-    }
-    @Override
-    public void onGetUser(User user) {
-
-        this.user = user;
     }
 }
