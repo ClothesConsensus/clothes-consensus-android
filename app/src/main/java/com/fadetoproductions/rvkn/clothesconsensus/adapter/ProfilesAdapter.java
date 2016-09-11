@@ -124,7 +124,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         textView.setText(""+look.findAverageRating());
         ImageView imageView = viewHolder.ivLook;
         Picasso.with(getContext()).load(look.getPhotoUrl()).
-                transform(new RoundedCornersTransformation(5,5)).into(imageView);
+                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
 
     }
 
@@ -135,7 +135,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         textView.setText(""+look.findAverageRating());
         ImageView imageView = viewHolder.ivLook;
         Picasso.with(getContext()).load(look.getPhotoUrl()).
-                transform(new RoundedCornersTransformation(5,5)).into(imageView);
+                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
     }
     @Override
     public int getItemCount() {

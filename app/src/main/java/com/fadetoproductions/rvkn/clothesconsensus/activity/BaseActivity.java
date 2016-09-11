@@ -33,6 +33,7 @@ public class BaseActivity extends AppCompatActivity  implements ClothesConsensus
         super.onCreate(savedInstanceState);
         client = new ClothesConsensusClient();
         client.setListener(this);
+
     }
 
     public void loadCamera() {
@@ -84,4 +85,9 @@ public class BaseActivity extends AppCompatActivity  implements ClothesConsensus
     // The child activity should implement this
     @Override
     public void onPostLook(JSONObject response) {}
+
+    // The child activity should implement this
+    @Override
+    public void onGetUser(User user) {
+    }
 }

@@ -12,6 +12,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityProfileBi
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -27,6 +28,7 @@ public class ProfileActivity extends BaseActivity {
     ActivityProfileBinding activityProfileBinding;
     ArrayList<Look> profileLooks;
     ProfilesAdapter adapter;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,27 +41,22 @@ public class ProfileActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setLogo(R.drawable.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
-//        User user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
-
-//        ButterKnife.bind(this);
-
-//        populateProfileHeader(user);
+        //TODO We need to find the logged in user here.
+        user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        populateProfileHeader();
         RecyclerView rvProfile = activityProfileBinding.rvProfile;
         adapter = new ProfilesAdapter(this,profileLooks);
         rvProfile.setAdapter(adapter);
         rvProfile.setLayoutManager(new LinearLayoutManager(this));
-
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+        rvProfile.addItemDecoration(itemDecoration);
         //Network call here to fetch the looks.
         //Make the model
-        //
-        client.getLooks();
-
-
-
-
+        //TODO get the looks according to user logged in. Right now hardcoded to my id.
+        client.getMyLooks(""+user.getUserId());
     }
-    private void populateProfileHeader(User user) {
-        final String screenName = user.getName();
+    private void populateProfileHeader() {
         Picasso.with(this).load(user.getProfileImageUrl()).
                 transform(new RoundedCornersTransformation(2,2)).into(activityProfileBinding.ivProfileImage);
         activityProfileBinding.tvName.setText(user.getName());
