@@ -35,24 +35,28 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class ExpiredProfileViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivLook;
         public TextView tvRatings;
+        public TextView tvMessage;
         ExpiredProfileRowBinding binding;
         public ExpiredProfileViewHolder(View itemView, ExpiredProfileRowBinding binding) {
             super(itemView);
             this.binding = binding;
             ivLook = binding.ivExpiredLook;
             tvRatings = binding.tvRating;
+            tvMessage = binding.tvMessage;
         }
     }
 
     public static class CurrentProfileViewHolder extends RecyclerView.ViewHolder{
         public ImageView ivLook;
         public TextView tvRatings;
+        public TextView tvMessage;
         CurrentProfileRowBinding binding;
         public CurrentProfileViewHolder(View itemView, CurrentProfileRowBinding binding) {
             super(itemView);
             this.binding = binding;
             ivLook = binding.ivExpiredLook;
             tvRatings = binding.tvRating;
+            tvMessage = binding.tvMessage;
         }
     }
 
@@ -86,11 +90,13 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // Inflate the custom layout
         switch (viewType){
             case EXPIRED_LOOK :
-                ExpiredProfileRowBinding binding= DataBindingUtil.inflate(inflater,R.layout.expired_profile_row, parent, false);
+                ExpiredProfileRowBinding binding= DataBindingUtil.inflate(inflater,
+                        R.layout.expired_profile_row, parent, false);
                 viewHolder = new ExpiredProfileViewHolder(binding.getRoot(), binding);
                 break;
             case CURRENT_LOOK:
-                CurrentProfileRowBinding binding2= DataBindingUtil.inflate(inflater,R.layout.current_profile_row, parent, false);
+                CurrentProfileRowBinding binding2= DataBindingUtil.inflate(inflater,
+                        R.layout.current_profile_row, parent, false);
                 viewHolder = new CurrentProfileViewHolder(binding2.getRoot(), binding2);
                 break;
         }
@@ -120,22 +126,26 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Look look = mLooks.get(position);
 
         TextView textView = viewHolder.tvRatings;
+        TextView tvMessage = viewHolder.tvMessage;
         //TODO : Ideally, we will be doing the calculation of rating on backend.
         textView.setText(""+look.findAverageRating());
         ImageView imageView = viewHolder.ivLook;
         Picasso.with(getContext()).load(look.getPhotoUrl()).
                 transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
+        tvMessage.setText(look.getMessage());
 
     }
 
     private void configureCurrentViewHolder(CurrentProfileViewHolder viewHolder, int position) {
         Look look = mLooks.get(position);
         TextView textView = viewHolder.tvRatings;
+        TextView tvMessage = viewHolder.tvMessage;
         //TODO : Ideally, we will be doing the calculation of rating on backend.
         textView.setText(""+look.findAverageRating());
         ImageView imageView = viewHolder.ivLook;
         Picasso.with(getContext()).load(look.getPhotoUrl()).
                 transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
+        tvMessage.setText(look.getMessage());
     }
     @Override
     public int getItemCount() {
