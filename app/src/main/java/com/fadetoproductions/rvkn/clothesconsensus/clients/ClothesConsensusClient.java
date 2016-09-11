@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
+import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.Base64;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -13,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -24,14 +26,19 @@ import cz.msebera.android.httpclient.Header;
 
 public class ClothesConsensusClient {
 
+
+
     public interface ClothesConsensusClientListener {
         void onGetLooks(ArrayList<Look> looks);
         void onPostLook(JSONObject response);
+
+        void onGetUser(User user);
     }
 
 
     String BASE_API_URL = "https://clothes-consensus-api.herokuapp.com/";
     String LOOKS_ENDPOINT = "looks/";
+    String USERS_ENDPOINT = "users/";
 
 
     public ClothesConsensusClientListener listener;
@@ -64,6 +71,60 @@ public class ClothesConsensusClient {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+    }
+
+    public void getUser(String user_id) {
+        Log.v("network_request", "Fetching User");
+        String url = BASE_API_URL + USERS_ENDPOINT + user_id;
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.v("network_request", "Success");
+                User user = User.fromJson(response);
+                listener.onGetUser(user);
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.v("network_request", "Failure");
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+    public void getMyLooks(final String user_id) {
+        Log.v("network_request", "Fetching User Looks");
+        String url = BASE_API_URL + LOOKS_ENDPOINT;
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                Log.v("network_request", "Success");
+                ArrayList<Look> looks = Look.fromJsonArray(response);
+                //TODO Temporary: Need to be calculated in back-end.
+                looks = filter(looks, user_id);
+                listener.onGetLooks(looks);
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.v("network_request", "Failure");
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+
+    private ArrayList<Look> filter(ArrayList<Look> looks, String user_id) {
+        ArrayList<Look> myLooks = new ArrayList<>();
+        for (int i=0; i<looks.size(); i++){
+            if(looks.get(i).getUser().getUserId() == Long.parseLong(user_id)){
+                myLooks.add(looks.get(i));
+            }
+
+        }
+        return myLooks;
     }
 
     public void postLook(Bitmap lookBitmap) {

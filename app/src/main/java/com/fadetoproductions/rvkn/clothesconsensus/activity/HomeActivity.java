@@ -19,6 +19,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBindi
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.SimpleItemTouchHelperCallback;
 
 import org.parceler.Parcels;
@@ -33,6 +34,7 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
     ActivityHomeBinding activityHomeBinding;
     LooksAdapter adapter;
     ArrayList<Look> looks;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +47,21 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
         RecyclerView rvLooks = activityHomeBinding.rvLooks;
         rvLooks.setAdapter(adapter);
         rvLooks.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
+        rvLooks.addItemDecoration(itemDecoration);
         ItemTouchHelper.Callback callback =
                 new SimpleItemTouchHelperCallback(adapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
         touchHelper.attachToRecyclerView(rvLooks);
 
-
+        client.getUser(getIntent().getStringExtra("user_id"));
         ButterKnife.bind(this);
 
         //Network call here to fetch the looks.
         //Make the model
         //
         client.getLooks();
-
 
 
 
@@ -97,13 +101,6 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
         // Do something with the tvTime here.
 
     }
-    public void onProfileView(MenuItem item) {
-        Intent profileIntent = new Intent(this, ProfileActivity.class);
-        // TODO get current user by api calls.
-        User user = null;
-        profileIntent.putExtra("user_id", Parcels.wrap(user));
-        startActivity(profileIntent);
-    }
 
     public void onGetLooks(ArrayList<Look> fetchedLooks) {
         looks.addAll(fetchedLooks);
@@ -113,7 +110,6 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
 
     @OnClick(R.id.ibProfile)
     public void loadProfile(View view) {
-        User user = new User();
         super.loadProfileForUser(user);
     }
 
@@ -125,5 +121,10 @@ public class HomeActivity extends BaseActivity implements TimePickerDialog.OnTim
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+    }
+    @Override
+    public void onGetUser(User user) {
+
+        this.user = user;
     }
 }

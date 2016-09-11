@@ -25,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     public void login(View view) {
         Log.v("actions", "Logging in");
         Intent i = new Intent(this, HomeActivity.class);
+        //TODO: Hardcoded user for now. Change to the user which is logged in.
+        i.putExtra("user_id","22");
         startActivity(i);
     }
 
