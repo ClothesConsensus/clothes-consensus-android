@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.fadetoproductions.rvkn.clothesconsensus.activity.CameraActivity"
-
     >
 
     <RelativeLayout
@@ -82,6 +81,9 @@
                 android:layout_alignBottom="@id/ibTakePhoto"
                 android:layout_marginLeft="15dp"
                 />
+
+
+
         </RelativeLayout>
 
         <RelativeLayout
