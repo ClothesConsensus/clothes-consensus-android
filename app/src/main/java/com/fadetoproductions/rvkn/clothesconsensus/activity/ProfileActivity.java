@@ -40,7 +40,7 @@ public class ProfileActivity extends BaseActivity {
         getSupportActionBar().setLogo(R.drawable.logo);
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         //TODO We need to find the logged in user here.
-        user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        user = User.getLoggedInUser(this);
         populateProfileHeader();
         RecyclerView rvProfile = activityProfileBinding.rvProfile;
         adapter = new ProfilesAdapter(this,profileLooks);
@@ -52,11 +52,11 @@ public class ProfileActivity extends BaseActivity {
         //Network call here to fetch the looks.
         //Make the model
         //TODO get the looks according to user logged in. Right now hardcoded to my id.
-        client.getUser(user.getUserId());
+        client.getUser(""+user.getUserId());
     }
     private void populateProfileHeader() {
         Picasso.with(this).load(user.getProfileImageUrl()).
-                transform(new RoundedCornersTransformation(2,2)).into(activityProfileBinding.ivProfileImage);
+                transform(new RoundedCornersTransformation(5,5)).resize(75,75).into(activityProfileBinding.ivProfileImage);
         activityProfileBinding.tvName.setText(user.getName());
     }
 
