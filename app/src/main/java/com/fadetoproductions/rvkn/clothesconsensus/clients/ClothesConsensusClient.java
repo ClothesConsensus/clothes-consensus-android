@@ -72,7 +72,7 @@ public class ClothesConsensusClient {
         });
     }
 
-    public void getUser(long user_id) {
+    public void getUser(String user_id) {
         String url = BASE_API_URL + USERS_ENDPOINT + user_id + "/";
         Log.v("network_request", "Fetching User");
         Log.v("network_request", url);
@@ -124,7 +124,7 @@ public class ClothesConsensusClient {
         });
     }
 
-    public void postVoteForLook(long userId, long lookId, Boolean vote) {
+    public void postVoteForLook(long userId, String lookId, Boolean vote) {
         String url = BASE_API_URL + LOOKS_ENDPOINT + lookId + "/" + VOTES_ENDPOINT;
         Log.v("network_request", "Voting on a look");
         Log.v("network_request", url);
@@ -133,7 +133,7 @@ public class ClothesConsensusClient {
         params.put("user_id", userId);
         params.put("vote", vote);
 
-        client.post(url, params, new JsonHttpResponseHandler() {
+        client.post(url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.v("network_request", "The vote was successful");
