@@ -160,4 +160,9 @@ public class Look {
     public Integer getVotesNo() {
         return votesNo;
     }
+
+    public boolean isCurrent() {
+        //TODO find whether timer expired or not.
+        return true;
+    }
 }
