@@ -1,5 +1,11 @@
 package com.fadetoproductions.rvkn.clothesconsensus.models;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.google.gson.Gson;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
@@ -66,6 +72,9 @@ public class User {
             user.bannerImageUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("banner_image");
             user.name = object.getString("name");
 
+            if (object.has("looks")) {
+                user.looks = Look.fromJsonArray(object.getJSONArray("looks"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -74,4 +83,22 @@ public class User {
     }
 
 
+    public static void setLoggedInUser(Activity activity, User user) {
+        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences.Editor editor = mSettings.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+
+        editor.putString("loggedInUser", json);
+        editor.commit();
+    }
+
+    public static User getLoggedInUser(Activity activity) {
+        SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(activity);
+        Gson gson = new Gson();
+        String json = mSettings.getString("loggedInUser", "");
+        User user = gson.fromJson(json, User.class);
+        return user;
+    }
 }
