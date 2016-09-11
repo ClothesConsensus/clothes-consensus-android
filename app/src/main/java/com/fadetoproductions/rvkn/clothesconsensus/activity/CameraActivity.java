@@ -86,9 +86,6 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
         setupListenersAndCallbacks();
-
-
-
     }
 
     public void setupListenersAndCallbacks() {

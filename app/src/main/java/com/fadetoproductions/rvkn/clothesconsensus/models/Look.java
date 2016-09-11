@@ -21,6 +21,9 @@ public class Look {
     private String message;
     private String hour;
     private String minute;
+    private Integer votesYes;
+    private Integer votesNo;
+
 
     public String getHour() {
         return hour;
@@ -45,13 +48,6 @@ public class Look {
 
     public long findAverageRating(){
         return 0;
-//        long average;
-//        int sum = 0;
-//        for(int i=0; i<votes.size(); i++){
-//            sum += votes.get(i).getRating();
-//        }
-//        average = sum/votes.size();
-//        return average;
     }
 
     public String getLookId() {
@@ -86,10 +82,15 @@ public class Look {
         Look look = new Look();
         try {
             look.lookId = object.getString("id");
-            look.photoUrl = object.getString("photo_url");
-            look.message = object.getString("message");
+            look.photoUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("image_url");
+            look.message = object.getString("quote");
             JSONObject userObject = object.getJSONObject("user");
             look.user = User.fromJson(userObject);
+
+            JSONObject voteResults = object.getJSONObject("vote_results");
+            look.votesYes = voteResults.getInt("yes");
+            look.votesNo = voteResults.getInt("no");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -100,23 +101,39 @@ public class Look {
     public static ArrayList<Look> fromJsonArray(JSONArray jsonArray) {
         /** CURRENT JSON STRUCTURE
          [{
-             "id": 1,
-             "photo_url": "http://localhost:4567/100.jpg",
-             "message": "Is this good for business casual?",
+             "id": 78,
+             "user_id": 24,
+             "image_url": "/looks/20.jpg",
+             "quote": "Is this a cool style?",
+             "expiration": "2017-01-01T01:01:01.000Z",
+             "type_index": 0,
+             "vote_results": {
+                 "yes": 18,
+                 "no": 43
+             },
              "user": {
-                 "id": 3,
-                 "photo_thumbnail": "http://localhost:4567/user-thumbnails/3.jpg",
-                 "name": "Shashank"
-             }
-         },
-         {
-             "id": 2,
-             "photo_url": "http://localhost:4567/101.jpg",
-             "message": "Does this fit?",
+                 "id": 24,
+                 "name": "Joe",
+                 "profile_image": "/user-thumbnails/11.jpg",
+                 "banner_image": "/user-banners/11.jpg"
+                 }
+             },
+             {
+             "id": 100,
+             "user_id": 23,
+             "image_url": "/looks/78.jpg",
+             "quote": "Is this a good pattern?",
+             "expiration": "2017-01-01T01:01:01.000Z",
+             "type_index": 0,
+             "vote_results": {
+                 "yes": 49,
+                 "no": 3
+             },
              "user": {
-                 "id": 2,
-                 "photo_thumbnail": "http://localhost:4567/user-thumbnails/2.jpg",
-                 "name": "Ryan"
+                 "id": 23,
+                 "name": "Amanda",
+                 "profile_image": "/user-thumbnails/10.jpg",
+                 "banner_image": "/user-banners/10.jpg"
              }
          }]
          */
@@ -134,5 +151,13 @@ public class Look {
             }
         }
         return looks;
+    }
+
+    public Integer getVotesYes() {
+        return votesYes;
+    }
+
+    public Integer getVotesNo() {
+        return votesNo;
     }
 }
