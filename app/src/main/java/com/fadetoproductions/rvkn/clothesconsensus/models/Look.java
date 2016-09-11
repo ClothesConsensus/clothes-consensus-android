@@ -15,31 +15,13 @@ public class Look {
 
 
     private User user;
-    private String lookId;
+    private Long lookId;
     private String photoUrl;
     private ArrayList<Vote> votes;
     private String message;
-    private String hour;
-    private String minute;
     private Integer votesYes;
     private Integer votesNo;
 
-
-    public String getHour() {
-        return hour;
-    }
-
-    public void setHour(String hour) {
-        this.hour = hour;
-    }
-
-    public String getMinute() {
-        return minute;
-    }
-
-    public void setMinute(String minute) {
-        this.minute = minute;
-    }
 
     public User getUser() {
         return user;
@@ -50,20 +32,13 @@ public class Look {
         return 0;
     }
 
-    public String getLookId() {
+    public Long getLookId() {
         return lookId;
     }
 
-    public void setLookId(String lookId) {
-        this.lookId = lookId;
-    }
 
     public String getPhotoUrl() {
         return photoUrl;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
     }
 
     public ArrayList<Vote> getVotes() {
@@ -81,7 +56,7 @@ public class Look {
     public static Look fromJson(JSONObject object) {
         Look look = new Look();
         try {
-            look.lookId = object.getString("id");
+            look.lookId = object.getLong("id");
             look.photoUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("image_url");
             look.message = object.getString("quote");
             JSONObject userObject = object.getJSONObject("user");
@@ -151,14 +126,6 @@ public class Look {
             }
         }
         return looks;
-    }
-
-    public Integer getVotesYes() {
-        return votesYes;
-    }
-
-    public Integer getVotesNo() {
-        return votesNo;
     }
 
     public boolean isCurrent() {

@@ -16,18 +16,17 @@ import android.widget.ImageView;
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.LookCardBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
-import com.fadetoproductions.rvkn.clothesconsensus.models.Vote;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemTouchHelperAdapter;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemTouchHelperViewHolder;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 
 public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> implements ItemTouchHelperAdapter {
+
     private Context mContext;
 
     private List<Look> mLooks;
@@ -36,11 +35,16 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         return mContext;
     }
 
+    public LookVoteListener lookVoteListener;
+
     public LooksAdapter(Context mContext, List<Look> looks) {
         this.mContext = mContext;
         this.mLooks = looks;
     }
 
+    public interface LookVoteListener {
+        void onVoteLook(Look look, Boolean vote);
+    }
 
     @Override
     public LooksAdapter.LookViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -65,7 +69,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         return mLooks.size();
     }
 
-
     @Override
     public void onItemDismiss(int position, int direction) {
         mLooks.remove(position);
@@ -74,33 +77,17 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
     @Override
     public void onSwipeRight(int position) {
-        //TODO Make a network call to update the votes. Right now just update the model.
         Look look = mLooks.get(position);
-        Vote vote = new Vote();
-        vote.setLook(look);
-        vote.setRating(1);
-        if(look.getVotes() != null)
-            look.getVotes().add(vote);
-        else {
-            ArrayList<Vote> votes = new ArrayList<>();
-            votes.add(vote);
-            look.setVotes(votes);
+        if (lookVoteListener != null) {
+            lookVoteListener.onVoteLook(look, true);
         }
     }
 
     @Override
     public void onSwipeLeft(int position) {
-        //TODO Make a network call to update the votes. Right now just update the model.
         Look look = mLooks.get(position);
-        Vote vote = new Vote();
-        vote.setLook(look);
-        vote.setRating(0);
-        if(look.getVotes() != null)
-            look.getVotes().add(vote);
-        else {
-            ArrayList<Vote> votes = new ArrayList<>();
-            votes.add(vote);
-            look.setVotes(votes);
+        if (lookVoteListener != null) {
+            lookVoteListener.onVoteLook(look, false);
         }
     }
 
