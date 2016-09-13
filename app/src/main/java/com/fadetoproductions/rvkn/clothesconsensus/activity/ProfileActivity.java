@@ -14,8 +14,6 @@ import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
 import com.squareup.picasso.Picasso;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 
 import butterknife.OnClick;
@@ -52,7 +50,7 @@ public class ProfileActivity extends BaseActivity {
         //Network call here to fetch the looks.
         //Make the model
         //TODO get the looks according to user logged in. Right now hardcoded to my id.
-        client.getUser(""+user.getUserId());
+        client.getUser(user.getUserId());
     }
     private void populateProfileHeader() {
         Picasso.with(this).load(user.getProfileImageUrl()).

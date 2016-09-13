@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.PhotoUtils;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -29,9 +30,10 @@ public class LookConfirmationActivity extends BaseActivity {
     Bitmap lookImage;
     User user;
 
-    @BindView(R.id.ivLookImage) ImageView ivLookImage;
     @BindView(R.id.btnPostLook) Button btnPostLook;
     @BindView(R.id.etMessage) EditText etMessage;
+    @BindView(R.id.ivLookImage) ImageView ivLookImage;
+    @BindView(R.id.ivThumbnail) ImageView ivThumbnail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,9 @@ public class LookConfirmationActivity extends BaseActivity {
         setContentView(R.layout.activity_look_confirmation);
         ButterKnife.bind(this);
         user = User.getLoggedInUser(this);
+        Picasso.with(this).load(user.getProfileImageUrl()).into(ivThumbnail);
         loadLookImage();
+
     }
 
     private void loadLookImage() {
@@ -59,8 +63,6 @@ public class LookConfirmationActivity extends BaseActivity {
 
         String message = etMessage.getText().toString();
         String imageString = PhotoUtils.encodeBitmapToSendableString(lookImage);
-
-
         client.postLook(user.getUserId(), message, expirationString, imageString);
     }
 

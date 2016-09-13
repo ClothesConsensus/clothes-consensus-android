@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Using this class so that we don't have to repeat code, especially for activity switching
  *
  */
-public class BaseActivity extends AppCompatActivity  implements ClothesConsensusClient.ClothesConsensusClientListener {
+public class BaseActivity extends AppCompatActivity implements ClothesConsensusClient.ClothesConsensusClientListener {
 
     // TODO move this camera stuff
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -45,7 +45,7 @@ public class BaseActivity extends AppCompatActivity  implements ClothesConsensus
 //        startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
 
-        // This is all from the guide
+//         This is all from the guide
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
         if (intent.resolveActivity(getPackageManager()) != null) {

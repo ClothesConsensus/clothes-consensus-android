@@ -21,16 +21,23 @@ Current functionality: http://imgur.com/bUQnAsM.gif
 * [ ] UI element for timer?(Ryan)
 
 ###Sprint 2 Goals
-* [ ] Custom camera overlay (Ryan)
+* [x] Custom camera overlay (Ryan)
 * [x] Swipe to vote (Shashank)
 * [x] Backend/network (Ryan/Shashank)
 * [x] Profile Activity (Shashank)
 * [ ] Push notifications (Ryan)
 
 ###Sprint 3 Goals
-* [ ] UI polish
-* [ ] Demo planning
-* [ ] No scroll until vote on Home Listing
+* [ ] Profile page styling (Shashank)
+* [ ] Improve swiping (Shashank)
+* [ ] Navigation bar per pages (Ryan)
+* [ ] Activity transitions (Ryan)
+* [ ] Custom camera fully working (Ryan)
+* [ ] Custom slider to set time (Ryan)
+* [ ] Image zoom on profile banner - nice to have (Shashank) (Cornea layout)
+* [ ] Finish push notificiations (Ryan)
+
+
 
 ### Login (hardness: 1)
 * Some sort of email auth

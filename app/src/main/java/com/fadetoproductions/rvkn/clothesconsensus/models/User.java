@@ -98,6 +98,10 @@ public class User {
         SharedPreferences mSettings = PreferenceManager.getDefaultSharedPreferences(activity);
         Gson gson = new Gson();
         String json = mSettings.getString("loggedInUser", "");
+        if (json.isEmpty()) {
+            return null;
+        }
+
         User user = gson.fromJson(json, User.class);
         return user;
     }
