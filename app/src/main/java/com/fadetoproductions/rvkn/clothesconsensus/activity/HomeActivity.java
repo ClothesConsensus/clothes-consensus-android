@@ -76,6 +76,6 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
 
     @Override
     public void onVoteLook(Look look, Boolean vote) {
-        client.postVoteForLook(user.getUserId(), ""+look.getLookId(), vote);
+        client.postVoteForLook(user.getUserId(), look.getLookId(), vote);
     }
 }
