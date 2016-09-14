@@ -7,7 +7,10 @@ Planning doc:
 https://docs.google.com/document/d/1LOxPFthKg2wUkl2SDUod_5-D1DhNKHpguzYgspH2ct8/edit
 
 
-Current functionality: http://imgur.com/bUQnAsM.gif
+<img src='http://i.imgur.com/e21Pdlx.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+Current functionality: http://i.imgur.com/e21Pdlx.gif
+
 
 ##Goals
 ###Sprint 1 Goals
