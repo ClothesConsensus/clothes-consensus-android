@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.ProfilesAdapter;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityProfileBinding;
-import com.fadetoproductions.rvkn.clothesconsensus.databinding.ToolbarBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
@@ -16,6 +15,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -30,13 +30,7 @@ public class ProfileActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         activityProfileBinding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
         profileLooks = new ArrayList<>();
-        ToolbarBinding toolbarBinding = DataBindingUtil.inflate(getLayoutInflater(),R.layout.toolbar,null,false);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
-        setSupportActionBar(toolbarBinding.llToolbar);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setLogo(R.drawable.logo);
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
+
         //TODO We need to find the logged in user here.
         user = User.getLoggedInUser(this);
         populateProfileHeader();
@@ -47,10 +41,10 @@ public class ProfileActivity extends BaseActivity {
         RecyclerView.ItemDecoration itemDecoration = new
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
         rvProfile.addItemDecoration(itemDecoration);
-        //Network call here to fetch the looks.
-        //Make the model
-        //TODO get the looks according to user logged in. Right now hardcoded to my id.
+
         client.getUser(user.getUserId());
+
+        ButterKnife.bind(this);
     }
     private void populateProfileHeader() {
         Picasso.with(this).load(user.getProfileImageUrl()).
@@ -61,6 +55,11 @@ public class ProfileActivity extends BaseActivity {
     @OnClick(R.id.ibCamera)
     public void loadCamera() {
         super.loadCamera();
+    }
+
+    @OnClick(R.id.ibBack)
+    public void back() {
+        super.back();
     }
 
     @Override

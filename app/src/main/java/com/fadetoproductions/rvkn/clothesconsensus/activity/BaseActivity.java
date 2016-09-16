@@ -1,8 +1,11 @@
 package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -10,7 +13,6 @@ import android.widget.Toast;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
-import com.fadetoproductions.rvkn.clothesconsensus.utils.PhotoUtils;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -27,6 +29,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
     // TODO move this camera stuff
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
+    public final static int CAMERA_PERMISSIONS_REQUEST_GRANTED = 9999;
 
     ClothesConsensusClient client;
 
@@ -38,20 +41,64 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
     }
 
+    private Boolean checkAndRequestCameraPermissions() {
+        // https://developer.android.com/training/permissions/requesting.html
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                return false;
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        CAMERA_PERMISSIONS_REQUEST_GRANTED);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case CAMERA_PERMISSIONS_REQUEST_GRANTED: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    loadCamera();
+                } else {
+
+                }
+                return;
+            }
+        }
+    }
+
     public void loadCamera() {
         Log.v("action", "Loading camera 2");
-
-//        Intent i = new Intent(this, CameraActivity.class);
-//        startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-
-
-//         This is all from the guide
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        Boolean hasCameraPermissions = checkAndRequestCameraPermissions();
+        if (!hasCameraPermissions) {
+            return;
         }
+
+        Intent i = new Intent(this, CameraActivity.class);
+        startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+
+
+////         This is all from the guide
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            // Start the image capture intent to take photo
+//            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//        }
+    }
+
+    public void back() {
+        finish();
     }
 
     public void loadProfileForUser(User user) {

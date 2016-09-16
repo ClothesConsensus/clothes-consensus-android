@@ -43,7 +43,6 @@ public class LookConfirmationActivity extends BaseActivity {
         user = User.getLoggedInUser(this);
         Picasso.with(this).load(user.getProfileImageUrl()).into(ivThumbnail);
         loadLookImage();
-
     }
 
     private void loadLookImage() {
@@ -65,6 +64,13 @@ public class LookConfirmationActivity extends BaseActivity {
         String imageString = PhotoUtils.encodeBitmapToSendableString(lookImage);
         client.postLook(user.getUserId(), message, expirationString, imageString);
     }
+
+    @OnClick(R.id.ibBackToCamera)
+    public void backToCamera() {
+        super.loadCamera(); // This is not good. Will create an endless stack.
+    }
+
+
 
     @Override
     public void onPostLook(JSONObject response) {
