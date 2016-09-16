@@ -14,6 +14,7 @@
         android:padding="5dp"
         >
         <ImageButton
+            android:id="@+id/ibBack"
             style="@style/NavButton"
             android:src="@drawable/x"
             android:layout_alignParentTop="true"

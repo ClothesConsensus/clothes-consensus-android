@@ -22,7 +22,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
 import android.view.Surface;
@@ -48,7 +47,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CameraActivity extends AppCompatActivity {
+public class CameraActivity extends BaseActivity {
 
 
     @BindView(R.id.ibTakePhoto) ImageButton ibTakePhoto;
@@ -329,6 +328,11 @@ public class CameraActivity extends AppCompatActivity {
             imageReader.close();
             imageReader = null;
         }
+    }
+
+    @OnClick(R.id.ibBack)
+    public void back() {
+        super.back();
     }
 
     @Override

@@ -8,7 +8,7 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/non_widget_toolbar"
+            layout="@layout/profile_activity_toolbar"
             android:layout_width="match_parent"
             android:layout_height="75dp" />
         <RelativeLayout

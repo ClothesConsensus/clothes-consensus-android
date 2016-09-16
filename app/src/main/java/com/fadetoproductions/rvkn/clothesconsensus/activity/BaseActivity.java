@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
-import com.fadetoproductions.rvkn.clothesconsensus.utils.PhotoUtils;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -86,17 +84,21 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             return;
         }
 
-//        Intent i = new Intent(this, CameraActivity.class);
-//        startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+        Intent i = new Intent(this, CameraActivity.class);
+        startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
 
-//         This is all from the guide
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-        }
+////         This is all from the guide
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
+//        if (intent.resolveActivity(getPackageManager()) != null) {
+//            // Start the image capture intent to take photo
+//            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//        }
+    }
+
+    public void back() {
+        finish();
     }
 
     public void loadProfileForUser(User user) {

@@ -8,7 +8,7 @@
     >
 
     <include
-        layout="@layout/non_widget_toolbar"
+        layout="@layout/look_confirmation_activity_toolbar"
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="75dp"
