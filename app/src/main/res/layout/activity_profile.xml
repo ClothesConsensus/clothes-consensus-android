@@ -12,32 +12,37 @@
             android:layout_width="match_parent"
             android:layout_height="75dp" />
         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/rl_header"
-        android:layout_marginTop="10dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/toolbar"
+            android:id="@+id/rl_header"
+            >
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="centerCrop"
+                     android:id="@+id/ivBackgroundImage"/>
+                <ImageView
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:id="@+id/iv_profileImage"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-        <ImageView
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:id="@+id/iv_profileImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:id="@+id/tv_Name"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/iv_profileImage"
-        android:layout_toEndOf="@+id/iv_profileImage"
-        android:textSize="16sp"
-        android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:id="@+id/tv_Name"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/iv_profileImage"
+                    android:layout_toEndOf="@+id/iv_profileImage"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"/>
         </RelativeLayout>
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

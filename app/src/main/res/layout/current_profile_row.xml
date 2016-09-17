@@ -22,15 +22,6 @@
         android:layout_alignBottom="@+id/iv_expired_look"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="155dp" />
-
-        <ImageView
-            android:id="@+id/ivDialogueBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/dialogue_box"
-            android:scaleType="fitXY"
-            android:layout_below="@+id/iv_expired_look"
-            android:layout_alignParentEnd="true" />
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"

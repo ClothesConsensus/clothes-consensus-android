@@ -21,6 +21,15 @@ public class User {
     private ArrayList<Vote> votes;
     private long userId;
     private String profileImageUrl;
+
+    public String getBannerImageUrl() {
+        return bannerImageUrl;
+    }
+
+    public void setBannerImageUrl(String bannerImageUrl) {
+        this.bannerImageUrl = bannerImageUrl;
+    }
+
     private String bannerImageUrl;
     private String name;
     public String getName() {
