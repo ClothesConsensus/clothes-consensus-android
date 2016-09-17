@@ -21,7 +21,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] The camera activity(built in camera)
 * [x] All the UI elements
 * [x] Fake data
-* [ ] UI element for timer?(Ryan)
+* [x] UI element for timer?(Ryan)
 
 ###Sprint 2 Goals
 * [x] Custom camera overlay (Ryan)
@@ -33,10 +33,10 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 ###Sprint 3 Goals
 * [ ] Profile page styling (Shashank)
 * [ ] Improve swiping (Shashank)
-* [ ] Navigation bar per pages (Ryan)
+* [x] Navigation bar per pages (Ryan)
 * [ ] Activity transitions (Ryan)
 * [ ] Custom camera fully working (Ryan)
-* [ ] Custom slider to set time (Ryan)
+* [x] Custom slider to set time (Ryan)
 * [ ] Image zoom on profile banner - nice to have (Shashank) (Cornea layout)
 * [ ] Finish push notificiations (Ryan)
 
