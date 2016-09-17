@@ -41,6 +41,7 @@
         android:background="@android:color/transparent"
         android:textColor="@color/blackTextColor"
         android:hint="@string/add_your_caption_here"
+        android:textCursorDrawable="@null"
         />
 </RelativeLayout>
 </layout>

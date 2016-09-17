@@ -17,6 +17,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -27,6 +28,7 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -86,6 +88,15 @@ public class CameraActivity extends BaseActivity {
         setupListenersAndCallbacks();
         cameraSettings = CameraSettings.getCameraSettings(this);
         renderBasedOnCameraSettings();
+
+        // Need to do this after the layout is created. TODO can this be put in a lifecycle?
+        textureView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                textureView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                textureView.getLayoutParams().height = textureView.getWidth();
+            }
+        });
     }
 
     public void setupListenersAndCallbacks() {
@@ -389,12 +400,19 @@ public class CameraActivity extends BaseActivity {
 
     @OnClick(R.id.ibFlipCamera)
     public void flipCamera(View view) {
-
         cameraSettings.toggleCamera();
         if (cameraIds.length > 1) {
             closeCamera();
             cameraId = cameraSettings.getUseBackCamera() ? cameraIds[0] : cameraIds[1];
             openCamera();
         }
+    }
+
+    @OnClick(R.id.ibGallery)
+    public void loadGallery(View view) {
+        // TODO this doesn't do anything with the gallery item received yet
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                "content://media/internal/images/media"));
+        startActivity(intent);
     }
 }
