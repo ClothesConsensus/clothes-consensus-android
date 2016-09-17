@@ -19,6 +19,11 @@ public class CameraSettings {
         flashOn = !flashOn;
     }
 
+    public void toggleCamera() {
+        useBackCamera = !useBackCamera;
+    }
+
+
     public Boolean getUseBackCamera() {
         return useBackCamera;
     }

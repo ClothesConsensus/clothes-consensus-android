@@ -48,6 +48,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+// Guide used http://inducesmile.com/android/android-camera2-api-example-tutorial/
+
 public class CameraActivity extends BaseActivity {
 
 
@@ -58,6 +60,7 @@ public class CameraActivity extends BaseActivity {
 
     final private String TAG = "CameraActivity";
     private String cameraId;
+    private String[] cameraIds;
     protected CameraDevice cameraDevice;
     protected CameraCaptureSession cameraCaptureSessions;
     protected CaptureRequest captureRequest;
@@ -82,6 +85,7 @@ public class CameraActivity extends BaseActivity {
         ButterKnife.bind(this);
         setupListenersAndCallbacks();
         cameraSettings = CameraSettings.getCameraSettings(this);
+        renderBasedOnCameraSettings();
     }
 
     public void setupListenersAndCallbacks() {
@@ -97,7 +101,6 @@ public class CameraActivity extends BaseActivity {
             public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
                 return false;
             }
-
             @Override
             public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
 
@@ -297,7 +300,10 @@ public class CameraActivity extends BaseActivity {
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         Log.e(TAG, "is camera open");
         try {
-            cameraId = manager.getCameraIdList()[0];
+            cameraIds = manager.getCameraIdList();
+            if (cameraId == null) {
+                cameraId = cameraIds[0];
+            }
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             assert map != null;
@@ -381,4 +387,14 @@ public class CameraActivity extends BaseActivity {
         renderBasedOnCameraSettings();
     }
 
+    @OnClick(R.id.ibFlipCamera)
+    public void flipCamera(View view) {
+
+        cameraSettings.toggleCamera();
+        if (cameraIds.length > 1) {
+            closeCamera();
+            cameraId = cameraSettings.getUseBackCamera() ? cameraIds[0] : cameraIds[1];
+            openCamera();
+        }
+    }
 }
