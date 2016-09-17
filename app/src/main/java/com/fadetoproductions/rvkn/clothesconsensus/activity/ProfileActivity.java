@@ -1,9 +1,13 @@
 package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageView;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.ProfilesAdapter;
@@ -20,7 +24,7 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
-
+import com.squareup.picasso.Target;
 
 public class ProfileActivity extends BaseActivity {
     ActivityProfileBinding activityProfileBinding;
@@ -37,7 +41,39 @@ public class ProfileActivity extends BaseActivity {
         user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         populateProfileHeader();
         RecyclerView rvProfile = activityProfileBinding.rvProfile;
-        adapter = new ProfilesAdapter(this,profileLooks);
+        final ImageView ivBackground = activityProfileBinding.ivBackgroundImage;
+        Target target = new Target() {
+            // Fires when Picasso finishes loading the bitmap for the target
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                // TODO 1. Insert the bitmap into the profile image view
+                ivBackground.setImageBitmap(bitmap);
+                // TODO 2. Use generate() method from the Palette API to get the vibrant color from the bitmap
+                // Set the result as the background color for `R.id.vPalette` view containing the contact's name.
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        if(swatch != null) {
+                            activityProfileBinding.tvName.setTextColor(swatch.getTitleTextColor());
+                        }
+                    }
+                });
+            }
+
+            // Fires if bitmap fails to load
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+        Picasso.with(this).load(user.getBannerImageUrl()).into(target);
+        adapter = new ProfilesAdapter(this, profileLooks);
         rvProfile.setAdapter(adapter);
         rvProfile.setLayoutManager(new LinearLayoutManager(this));
         RecyclerView.ItemDecoration itemDecoration = new

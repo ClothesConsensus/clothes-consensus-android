@@ -2,11 +2,15 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +20,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.databinding.ExpiredProfileRow
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -36,6 +41,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public ImageView ivLook;
         public TextView tvRatings;
         public TextView tvMessage;
+        public ImageView ivBackgroundImage;
         ExpiredProfileRowBinding binding;
         public ExpiredProfileViewHolder(View itemView, ExpiredProfileRowBinding binding) {
             super(itemView);
@@ -43,6 +49,8 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ivLook = binding.ivExpiredLook;
             tvRatings = binding.tvRating;
             tvMessage = binding.tvMessage;
+            ivBackgroundImage = binding.ivBackgroundImage;
+
         }
     }
 
@@ -51,12 +59,18 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView tvRatings;
         public TextView tvMessage;
         CurrentProfileRowBinding binding;
+        public ImageView ivBackgroundImage;
+        public Chronometer chronometer;
+
         public CurrentProfileViewHolder(View itemView, CurrentProfileRowBinding binding) {
             super(itemView);
             this.binding = binding;
             ivLook = binding.ivExpiredLook;
             tvRatings = binding.tvRating;
             tvMessage = binding.tvMessage;
+            ivBackgroundImage = binding.ivBackgroundImage;
+            chronometer = binding.chronometer;
+
         }
     }
 
@@ -125,27 +139,98 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void configureExpireViewHolder(ExpiredProfileViewHolder viewHolder, int position) {
         Look look = mLooks.get(position);
 
-        TextView textView = viewHolder.tvRatings;
-        TextView tvMessage = viewHolder.tvMessage;
-        //TODO : Ideally, we will be doing the calculation of rating on backend.
-        textView.setText(""+look.findAverageRating());
-        ImageView imageView = viewHolder.ivLook;
+        final TextView tvRatings = viewHolder.tvRatings;
+        final TextView tvMessage = viewHolder.tvMessage;
+        final ImageView ivBackground = viewHolder.ivBackgroundImage;
+        final ImageView ivLook = viewHolder.ivLook;
+
+        Target target = new Target() {
+            // Fires when Picasso finishes loading the bitmap for the target
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                // TODO 1. Insert the bitmap into the profile image view
+                ivLook.setImageBitmap(bitmap);
+                // TODO 2. Use generate() method from the Palette API to get the vibrant color from the bitmap
+                // Set the result as the background color for `R.id.vPalette` view containing the contact's name.
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        if(swatch != null) {
+                            ivBackground.setBackgroundColor(swatch.getRgb());
+                            tvMessage.setTextColor(swatch.getTitleTextColor());
+                            tvRatings.setTextColor(swatch.getTitleTextColor());
+                        }
+                    }
+                });
+            }
+
+            // Fires if bitmap fails to load
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };        //TODO : Ideally, we will be doing the calculation of rating on backend.
+        tvRatings.setText(""+look.findAverageRating());
         Picasso.with(getContext()).load(look.getPhotoUrl()).
-                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
+                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(target);
         tvMessage.setText(look.getMessage());
 
     }
 
     private void configureCurrentViewHolder(CurrentProfileViewHolder viewHolder, int position) {
         Look look = mLooks.get(position);
-        TextView textView = viewHolder.tvRatings;
-        TextView tvMessage = viewHolder.tvMessage;
+        final TextView tvRatings = viewHolder.tvRatings;
+        final TextView tvMessage = viewHolder.tvMessage;
         //TODO : Ideally, we will be doing the calculation of rating on backend.
-        textView.setText(""+look.findAverageRating());
-        ImageView imageView = viewHolder.ivLook;
+        final ImageView ivLook = viewHolder.ivLook;
+        final ImageView ivBackground = viewHolder.ivBackgroundImage;
+        final Chronometer chronometer = viewHolder.chronometer;
+
+        Target target = new Target() {
+            // Fires when Picasso finishes loading the bitmap for the target
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                // TODO 1. Insert the bitmap into the profile image view
+                ivLook.setImageBitmap(bitmap);
+                // TODO 2. Use generate() method from the Palette API to get the vibrant color from the bitmap
+                // Set the result as the background color for `R.id.vPalette` view containing the contact's name.
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        if(swatch != null) {
+                            ivBackground.setBackgroundColor(swatch.getRgb());
+                            tvMessage.setTextColor(swatch.getTitleTextColor());
+                            tvRatings.setTextColor(swatch.getTitleTextColor());
+                            chronometer.setTextColor(swatch.getTitleTextColor());
+                        }
+                    }
+                });
+            }
+
+            // Fires if bitmap fails to load
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+        tvRatings.setText(""+look.findAverageRating());
         Picasso.with(getContext()).load(look.getPhotoUrl()).
-                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
+                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(target);
         tvMessage.setText(look.getMessage());
+        chronometer.setBase(5000);
+        chronometer.start();
     }
     @Override
     public int getItemCount() {

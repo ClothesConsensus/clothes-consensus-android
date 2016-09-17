@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <RelativeLayout
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grayTextColor">
-
-    <ImageView
-        android:layout_width="310dp"
-        android:layout_height="310dp"
-        android:id="@+id/iv_expired_look"
-        android:src="@mipmap/ic_launcher"
-        android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/tv_rating" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/tv_rating"
-        android:layout_alignBottom="@+id/iv_expired_look"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="155dp" />
-
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <ImageView
-            android:id="@+id/ivDialogueBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:id="@+id/ivBackgroundImage"
+            android:alpha="0.5"
+            />
+        <ImageView
+            android:layout_width="310dp"
+            android:layout_height="310dp"
+            android:id="@+id/iv_expired_look"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/tv_rating" />
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/dialogue_box"
-            android:scaleType="fitXY"
-            android:layout_below="@+id/iv_expired_look"
-            android:layout_alignParentEnd="true" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/tv_rating"
+            android:layout_alignBottom="@+id/iv_expired_look"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="155dp" />
         <TextView
             android:id="@+id/tvMessage"
             android:layout_width="wrap_content"
@@ -38,8 +34,14 @@
             android:layout_marginLeft="25dp"
             android:background="@android:color/transparent"
             android:textColor="@color/blackTextColor"
-            android:hint="@string/add_your_caption_here"
             android:layout_below="@+id/iv_expired_look"
             android:layout_centerHorizontal="true" />
+
+        <Chronometer
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chronometer"
+            android:layout_below="@+id/tvMessage"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </layout>

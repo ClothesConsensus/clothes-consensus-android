@@ -57,7 +57,7 @@ public class Look {
         Look look = new Look();
         try {
             look.lookId = object.getLong("id");
-            look.photoUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("image_url");
+            look.photoUrl = "https://clothes-consensus-api.herokuapp.com/" + object.getString("image_url");
             look.message = object.getString("quote");
             JSONObject userObject = object.getJSONObject("user");
             look.user = User.fromJson(userObject);
