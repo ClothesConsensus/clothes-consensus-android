@@ -30,7 +30,7 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityProfileBinding = DataBindingUtil.setContentView(this,R.layout.activity_profile);
+        activityProfileBinding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         profileLooks = new ArrayList<>();
 
         //TODO We need to find the logged in user here.
@@ -50,7 +50,7 @@ public class ProfileActivity extends BaseActivity {
     }
     private void populateProfileHeader() {
         Picasso.with(this).load(user.getProfileImageUrl()).
-                transform(new RoundedCornersTransformation(5,5)).resize(75,75).into(activityProfileBinding.ivProfileImage);
+                transform(new RoundedCornersTransformation(5, 5)).resize(75, 75).into(activityProfileBinding.ivProfileImage);
         activityProfileBinding.tvName.setText(user.getName());
     }
 
@@ -62,6 +62,7 @@ public class ProfileActivity extends BaseActivity {
     @OnClick(R.id.ibBack)
     public void back() {
         super.back();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     @Override

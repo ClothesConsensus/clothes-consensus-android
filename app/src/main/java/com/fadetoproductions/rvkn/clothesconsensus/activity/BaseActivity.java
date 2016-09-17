@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
@@ -87,7 +88,6 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         Intent i = new Intent(this, CameraActivity.class);
         startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
-
 ////         This is all from the guide
 //        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
@@ -106,6 +106,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         Intent i = new Intent(this, ProfileActivity.class);
         i.putExtra("user", Parcels.wrap(user));
         startActivity(i);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
     public void loadLookConfirmationScreen() {

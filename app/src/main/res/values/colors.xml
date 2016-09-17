@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="blackTextColor">#393939</color>
     <color name="grayTextColor">#898989</color>
+    <color name="timeBarFill">#DDDDDD</color>
 </resources>

@@ -27,7 +27,59 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+        />
+
+        <RelativeLayout
+            android:id="@+id/rlTimePicker"
+            android:layout_width="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ivLookImage"
+            android:layout_alignBottom="@+id/ivLookImage"
+            android:layout_alignLeft="@+id/ivThumbnail"
+            android:layout_alignRight="@+id/ivThumbnail"
+        >
+            <View
+                android:layout_width="15dp"
+                android:layout_height="match_parent"
+                android:background="@color/timeBarFill"
+                android:layout_centerHorizontal="true"
             />
+
+            <RelativeLayout
+                android:id="@+id/rlClockImageAndText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/white"
+                android:layout_marginTop="30dp"
+                >
+                <ImageView
+                    android:id="@+id/ivClockHands"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+
+                    android:src="@drawable/clock_hands"
+                    android:layout_centerHorizontal="true"
+                />
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ivClockHands"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentLeft="true"
+                    android:textAlignment="center"
+                    android:textSize="12sp"
+                    android:text="2:00h"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
+
         <ImageView
             android:id="@+id/ivLookImage"
             android:layout_width="310dp"
