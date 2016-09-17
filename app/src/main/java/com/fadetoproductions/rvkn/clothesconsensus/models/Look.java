@@ -130,6 +130,6 @@ public class Look {
 
     public boolean isCurrent() {
         //TODO find whether timer expired or not.
-        return false;
+        return true;
     }
 }

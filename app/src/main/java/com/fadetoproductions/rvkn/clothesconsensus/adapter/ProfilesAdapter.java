@@ -58,12 +58,16 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView tvRatings;
         public TextView tvMessage;
         CurrentProfileRowBinding binding;
+        public ImageView ivBackgroundImage;
+
         public CurrentProfileViewHolder(View itemView, CurrentProfileRowBinding binding) {
             super(itemView);
             this.binding = binding;
             ivLook = binding.ivExpiredLook;
             tvRatings = binding.tvRating;
             tvMessage = binding.tvMessage;
+            ivBackgroundImage = binding.ivBackgroundImage;
+
         }
     }
 
@@ -178,13 +182,47 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     private void configureCurrentViewHolder(CurrentProfileViewHolder viewHolder, int position) {
         Look look = mLooks.get(position);
-        TextView textView = viewHolder.tvRatings;
-        TextView tvMessage = viewHolder.tvMessage;
+        final TextView tvRatings = viewHolder.tvRatings;
+        final TextView tvMessage = viewHolder.tvMessage;
         //TODO : Ideally, we will be doing the calculation of rating on backend.
-        textView.setText(""+look.findAverageRating());
-        ImageView imageView = viewHolder.ivLook;
+        final ImageView ivLook = viewHolder.ivLook;
+        final ImageView ivBackground = viewHolder.ivBackgroundImage;
+
+        Target target = new Target() {
+            // Fires when Picasso finishes loading the bitmap for the target
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                // TODO 1. Insert the bitmap into the profile image view
+                ivLook.setImageBitmap(bitmap);
+                // TODO 2. Use generate() method from the Palette API to get the vibrant color from the bitmap
+                // Set the result as the background color for `R.id.vPalette` view containing the contact's name.
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        Palette.Swatch swatch = palette.getVibrantSwatch();
+                        if(swatch != null) {
+                            ivBackground.setBackgroundColor(swatch.getRgb());
+                            tvMessage.setTextColor(swatch.getTitleTextColor());
+                            tvRatings.setTextColor(swatch.getTitleTextColor());
+                        }
+                    }
+                });
+            }
+
+            // Fires if bitmap fails to load
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+        tvRatings.setText(""+look.findAverageRating());
         Picasso.with(getContext()).load(look.getPhotoUrl()).
-                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(imageView);
+                transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(target);
         tvMessage.setText(look.getMessage());
     }
     @Override
