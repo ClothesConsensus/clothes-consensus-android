@@ -2,6 +2,7 @@ package com.fadetoproductions.rvkn.clothesconsensus.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
@@ -10,6 +11,8 @@ import com.loopj.android.http.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by rnewton on 9/4/16.
@@ -57,7 +60,12 @@ public class PhotoUtils {
         }
 
         return new File(mediaStorageDir.getPath() + File.separator + PHOTO_FILE_NAME);
+    }
 
+    public static void deleteStoredFile(Context context) {
+        File mediaStorageDir = new File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
+        File file = new File(mediaStorageDir.getPath() + File.separator + PHOTO_FILE_NAME);
+        file.delete();
     }
 
     public static String encodeBitmapToSendableString(Bitmap bitmap) {
@@ -68,5 +76,26 @@ public class PhotoUtils {
         return encodedImage;
     }
 
+    public static void resizeStoredImage(Context context) {
+        Uri takenPhotoUri = getPhotoFileUri(context, PhotoUtils.PHOTO_FILE_NAME);
+        Bitmap rawTakenImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+        Bitmap resizedBitmap = Bitmap.createBitmap(rawTakenImage, 0, 0, 480, 480);
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        resizedBitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+        Uri resizedUri = getPhotoFileUri(context, PHOTO_FILE_NAME);
+
+        deleteStoredFile(context);
+
+        File resizedFile = new File(resizedUri.getPath());
+        try {
+            resizedFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(resizedFile);
+            fos.write(bytes.toByteArray());
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
