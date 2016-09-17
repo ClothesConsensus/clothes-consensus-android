@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView tvMessage;
         CurrentProfileRowBinding binding;
         public ImageView ivBackgroundImage;
+        public Chronometer chronometer;
 
         public CurrentProfileViewHolder(View itemView, CurrentProfileRowBinding binding) {
             super(itemView);
@@ -67,6 +69,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             tvRatings = binding.tvRating;
             tvMessage = binding.tvMessage;
             ivBackgroundImage = binding.ivBackgroundImage;
+            chronometer = binding.chronometer;
 
         }
     }
@@ -187,6 +190,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         //TODO : Ideally, we will be doing the calculation of rating on backend.
         final ImageView ivLook = viewHolder.ivLook;
         final ImageView ivBackground = viewHolder.ivBackgroundImage;
+        final Chronometer chronometer = viewHolder.chronometer;
 
         Target target = new Target() {
             // Fires when Picasso finishes loading the bitmap for the target
@@ -204,6 +208,7 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             ivBackground.setBackgroundColor(swatch.getRgb());
                             tvMessage.setTextColor(swatch.getTitleTextColor());
                             tvRatings.setTextColor(swatch.getTitleTextColor());
+                            chronometer.setTextColor(swatch.getTitleTextColor());
                         }
                     }
                 });
@@ -224,6 +229,8 @@ public class ProfilesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Picasso.with(getContext()).load(look.getPhotoUrl()).
                 transform(new RoundedCornersTransformation(5,5)).resize(310,310).into(target);
         tvMessage.setText(look.getMessage());
+        chronometer.setBase(5000);
+        chronometer.start();
     }
     @Override
     public int getItemCount() {

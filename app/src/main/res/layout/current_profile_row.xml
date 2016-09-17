@@ -8,8 +8,9 @@
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
             android:scaleType="centerCrop"
-            android:id="@+id/ivBackgroundImage"/>
-
+            android:id="@+id/ivBackgroundImage"
+            android:alpha="0.5"
+            />
         <ImageView
             android:layout_width="310dp"
             android:layout_height="310dp"
@@ -33,8 +34,14 @@
             android:layout_marginLeft="25dp"
             android:background="@android:color/transparent"
             android:textColor="@color/blackTextColor"
-            android:hint="@string/add_your_caption_here"
             android:layout_below="@+id/iv_expired_look"
             android:layout_centerHorizontal="true" />
+
+        <Chronometer
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chronometer"
+            android:layout_below="@+id/tvMessage"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 </layout>
