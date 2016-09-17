@@ -3,12 +3,17 @@
     <RelativeLayout
         android:orientation="horizontal" android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:id="@+id/ivBackgroundImage"/>
 
         <ImageView
             android:layout_width="310dp"
             android:layout_height="310dp"
             android:id="@+id/iv_expired_look"
-            android:src="@mipmap/ic_launcher"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@+id/tv_rating" />
 
