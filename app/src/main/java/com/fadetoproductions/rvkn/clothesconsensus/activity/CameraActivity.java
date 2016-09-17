@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
+import com.fadetoproductions.rvkn.clothesconsensus.models.CameraSettings;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.PhotoUtils;
 
 import java.io.File;
@@ -52,6 +53,8 @@ public class CameraActivity extends BaseActivity {
 
     @BindView(R.id.ibTakePhoto) ImageButton ibTakePhoto;
     @BindView(R.id.textureViewCamera) TextureView textureView;
+    @BindView(R.id.ibFlash) ImageButton ibFlash;
+    @BindView(R.id.ibFlipCamera) ImageButton ibFlipCamera;
 
     final private String TAG = "CameraActivity";
     private String cameraId;
@@ -69,6 +72,7 @@ public class CameraActivity extends BaseActivity {
     private CameraDevice.StateCallback stateCallback;
     private CameraCaptureSession.CaptureCallback captureCallbackListener;
     private TextureView.SurfaceTextureListener textureListener;
+    private CameraSettings cameraSettings;
 
 
     @Override
@@ -77,6 +81,7 @@ public class CameraActivity extends BaseActivity {
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
         setupListenersAndCallbacks();
+        cameraSettings = CameraSettings.getCameraSettings(this);
     }
 
     public void setupListenersAndCallbacks() {
@@ -363,4 +368,17 @@ public class CameraActivity extends BaseActivity {
         stopBackgroundThread();
         super.onPause();
     }
+
+    private void renderBasedOnCameraSettings() {
+        Boolean flashOn = cameraSettings.getFlashOn();
+        ibFlash.setImageResource(flashOn ? R.drawable.flash_on : R.drawable.flash_off);
+    }
+
+    @OnClick(R.id.ibFlash)
+    public void switchFlash(View view) {
+        cameraSettings.toggleFlash();
+        CameraSettings.setCameraSettings(this, cameraSettings);
+        renderBasedOnCameraSettings();
+    }
+
 }

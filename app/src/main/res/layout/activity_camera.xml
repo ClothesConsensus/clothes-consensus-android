@@ -54,6 +54,7 @@
                 />
 
             <ImageButton
+                android:id="@+id/ibGallery"
                 style="@style/BaseImageButton"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -64,6 +65,7 @@
                 />
 
             <ImageButton
+                android:id="@+id/ibFlipCamera"
                 style="@style/BaseImageButton"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -74,6 +76,7 @@
                 />
 
             <ImageButton
+                android:id="@+id/ibFlash"
                 style="@style/BaseImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
