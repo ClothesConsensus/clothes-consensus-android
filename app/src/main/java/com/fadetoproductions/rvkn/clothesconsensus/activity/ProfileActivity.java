@@ -13,6 +13,8 @@ import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
 import com.squareup.picasso.Picasso;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
@@ -32,7 +34,7 @@ public class ProfileActivity extends BaseActivity {
         profileLooks = new ArrayList<>();
 
         //TODO We need to find the logged in user here.
-        user = User.getLoggedInUser(this);
+        user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         populateProfileHeader();
         RecyclerView rvProfile = activityProfileBinding.rvProfile;
         adapter = new ProfilesAdapter(this,profileLooks);
