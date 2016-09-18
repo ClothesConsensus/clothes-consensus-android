@@ -212,11 +212,6 @@ public class CameraActivity extends BaseActivity {
                     Image image = null;
                     try {
                         image = reader.acquireLatestImage();
-//
-//                        Rect cropRect = new Rect(0, 0, 480, 480);
-//                        image.setCropRect(cropRect);
-
-
                         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
@@ -253,7 +248,12 @@ public class CameraActivity extends BaseActivity {
                     super.onCaptureCompleted(session, request, result);
                     Toast.makeText(CameraActivity.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     closeCamera();
-                    PhotoUtils.resizeStoredImage(CameraActivity.this);
+
+
+
+//                    PhotoUtils.resizeStoredImage(CameraActivity.this);
+
+
 
                     Intent data = new Intent();
                     data.putExtra("code", 1034);

@@ -16,7 +16,6 @@
         android:layout_alignParentStart="true"
         android:src="@drawable/example_user_thumb"
         />
-
     <ImageView
         android:id="@+id/ivDialogueBox"
         android:layout_width="wrap_content"
