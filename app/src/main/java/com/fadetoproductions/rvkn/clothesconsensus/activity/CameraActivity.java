@@ -54,6 +54,8 @@ import butterknife.OnClick;
 
 public class CameraActivity extends BaseActivity {
 
+    int RESULT_SELECT_IMAGE_FROM_GALLERY = 1098;
+
 
     @BindView(R.id.ibTakePhoto) ImageButton ibTakePhoto;
     @BindView(R.id.textureViewCamera) TextureView textureView;
@@ -411,8 +413,17 @@ public class CameraActivity extends BaseActivity {
     @OnClick(R.id.ibGallery)
     public void loadGallery(View view) {
         // TODO this doesn't do anything with the gallery item received yet
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(
-                "content://media/internal/images/media"));
-        startActivity(intent);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("content://media/internal/images/media"));
+        startActivityForResult(intent, RESULT_SELECT_IMAGE_FROM_GALLERY);
+        overridePendingTransition(R.anim.slide_up_2, R.anim.no_change);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RESULT_SELECT_IMAGE_FROM_GALLERY) {
+            overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
+        }
     }
 }

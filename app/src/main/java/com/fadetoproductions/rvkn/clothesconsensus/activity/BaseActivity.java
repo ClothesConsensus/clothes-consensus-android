@@ -88,8 +88,6 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         Intent i = new Intent(this, CameraActivity.class);
         startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
 
-        overridePendingTransition(R.anim.slide_up_into_screen, R.anim.no_change);
-
 ////         This is all from the guide
 //        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));

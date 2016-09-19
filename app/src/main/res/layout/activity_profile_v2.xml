@@ -53,6 +53,7 @@
         android:layout_below="@+id/toolbar"
         android:layout_marginTop="-35dp"
         android:padding="10dp"
+        android:background="@android:color/transparent"
         >
 
         <ImageView
@@ -73,6 +74,7 @@
             />
 
         <TextView
+            android:id="@+id/tvLookCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="35 looks"
@@ -87,8 +89,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/rlUserInfo"
+        android:layout_below="@+id/rlUserInfo"
         android:background="@android:color/white"
-        android:id="@+id/rvProfile">
+        android:id="@+id/rvProfile"
+        >
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
