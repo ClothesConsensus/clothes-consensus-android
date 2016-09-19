@@ -16,7 +16,12 @@
         android:layout_height="wrap_content">
 
         <!--TODO might want to abstract and reuse this for Photo Confirmation-->
-
+        <!--<ImageView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:id="@+id/iv_overlay"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:visibility="gone"/>-->
         <include
             android:id="@+id/rlCaption"
             layout="@layout/rl_caption" />
@@ -26,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlCaption">
+
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -57,6 +63,8 @@
                         android:textColor="@color/grayTextColor" />
                 </LinearLayout>
                 <!--TODO figure out how to size this correctly-->
+
+
                 <ImageView
                     android:id="@+id/ivLookImage"
                     android:layout_width="290dp"
@@ -65,6 +73,23 @@
             </LinearLayout>
 
         </RelativeLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivNope"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLike"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            />
 
         <!--<TextView-->
         <!--android:layout_width="wrap_content"-->
