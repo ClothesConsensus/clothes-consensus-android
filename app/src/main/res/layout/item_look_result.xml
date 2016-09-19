@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+    >
+        <ImageView
+            android:id="@+id/ivLookImage"
+            android:layout_width="@dimen/profilePageLookDimension"
+            android:layout_height="@dimen/profilePageLookDimension"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/example_look"
+            android:transitionName="profile"
+            />
+        <View
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@color/transparentImageDarkener"
+            android:layout_alignLeft="@+id/ivLookImage"
+            android:layout_alignRight="@+id/ivLookImage"
+            android:layout_alignBottom="@+id/ivLookImage"
+            android:layout_alignTop="@+id/ivLookImage"
+        />
+        <RelativeLayout
+            android:layout_width="@dimen/halfProfilePageLookDimension"
+            android:layout_height="@dimen/profilePageLookDimension"
+            android:layout_alignLeft="@+id/ivLookImage"
+            android:layout_alignTop="@+id/ivLookImage"
+            >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+                >
+
+                <ImageView
+                    style="@style/ExpiredLookFaceStyle"
+                    android:id="@+id/ivUnsmile"
+                    android:src="@drawable/unsmile"
+                />
+                <TextView
+                    android:id="@+id/tvDislikes"
+                    style="@style/ExpiredLookTextStyle"
+                    android:layout_below="@+id/ivUnsmile"
+                    android:layout_alignLeft="@+id/ivUnsmile"
+                    android:layout_alignRight="@+id/ivUnsmile"
+                    android:text="355"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="@dimen/halfProfilePageLookDimension"
+            android:layout_height="@dimen/profilePageLookDimension"
+            android:layout_alignRight="@+id/ivLookImage"
+            android:layout_alignTop="@+id/ivLookImage"
+            >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="80dp"
+                >
+                <ImageView
+                    style="@style/ExpiredLookFaceStyle"
+                    android:id="@+id/ivSmile"
+                    android:src="@drawable/smile"
+                    />
+                <TextView
+                    android:id="@+id/tvLikes"
+                    style="@style/ExpiredLookTextStyle"
+                    android:layout_below="@+id/ivSmile"
+                    android:layout_alignLeft="@+id/ivSmile"
+                    android:layout_alignRight="@+id/ivSmile"
+                    android:text="423"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+    <!-- TODO this is really dumb and hacky to put this here-->
+    <TextView
+        android:id="@+id/tvTimeRemaining"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        />
+
+</RelativeLayout>

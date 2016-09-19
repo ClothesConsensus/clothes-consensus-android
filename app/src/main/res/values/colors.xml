@@ -7,4 +7,6 @@
     <color name="grayTextColor">#898989</color>
     <color name="timeBarFill">#DDDDDD</color>
     <color name="cursorBlueColor">#24639A</color>
+    <color name="transparentImageDarkener">#80000000</color>
+    <color name="transparentAlmostBlack">#80000000</color>
 </resources>

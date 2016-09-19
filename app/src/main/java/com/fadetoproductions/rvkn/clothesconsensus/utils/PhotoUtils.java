@@ -73,7 +73,7 @@ public class PhotoUtils {
 
     public static String encodeBitmapToSendableString(Bitmap bitmap) {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 85, out);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 85, out);
         byte[] myByteArray = out.toByteArray();
         String encodedImage = Base64.encodeToString(myByteArray, Base64.DEFAULT);
         return encodedImage;
@@ -85,7 +85,7 @@ public class PhotoUtils {
         Bitmap resizedBitmap = Bitmap.createBitmap(rawTakenImage, 0, 0, 480, 480);
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        resizedBitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes);
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
         Uri resizedUri = getPhotoFileUri(context, PHOTO_FILE_NAME);
 
         deleteStoredFile(context);

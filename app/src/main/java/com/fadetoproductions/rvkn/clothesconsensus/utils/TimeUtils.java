@@ -16,4 +16,22 @@ public class TimeUtils {
         DecimalFormat formatter = new DecimalFormat("00");
         return Integer.toString(hours) + ":" + formatter.format(minutesLeft) + "h";
     }
+
+    public static String minutesToVerboseString(int minutes) {
+        if (minutes < 60) {
+            return Integer.toString(minutes) + " minutes";
+        }
+        int hours = minutes / 60;
+        int minutesLeft = minutes % 60;
+
+        if (minutesLeft == 0) {
+            return Integer.toString(hours) + " hours";
+        }
+        return Integer.toString(hours) + " hours and " + Integer.toString(minutesLeft) + " minutes";
+    }
+
+
+
+
+
 }

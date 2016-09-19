@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        >
+        <ImageView
+            android:id="@+id/ivLookImage"
+            android:layout_width="@dimen/profilePageLookDimension"
+            android:layout_height="@dimen/profilePageLookDimension"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/example_look"
+            android:transitionName="profile"
+            />
+        <View
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@color/transparentImageDarkener"
+            android:layout_alignLeft="@+id/ivLookImage"
+            android:layout_alignRight="@+id/ivLookImage"
+            android:layout_alignBottom="@+id/ivLookImage"
+            android:layout_alignTop="@+id/ivLookImage"
+            />
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+
+            >
+            <ImageView
+                android:id="@+id/ivClockHands"
+                android:layout_height="@dimen/halfProfilePageLookDimension"
+                android:layout_width="@dimen/halfProfilePageLookDimension"
+                android:src="@drawable/clock_hands_large"
+                android:layout_centerHorizontal="true"
+                android:alpha="0.5"
+            />
+            <TextView
+                android:id="@+id/tvTimeRemaining"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/ivClockHands"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="15dp"
+                android:text="2:05h remaining"
+                />
+        </RelativeLayout>
+        <!--TODO hacky to put these here-->
+        <TextView
+            android:id="@+id/tvLikes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            />
+        <TextView
+            android:id="@+id/tvDislikes"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+</RelativeLayout>
