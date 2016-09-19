@@ -2,6 +2,8 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 /**
  * Created by rnewton on 9/18/16.
@@ -87,7 +90,7 @@ public class ProfilesV2Adapter extends RecyclerView.Adapter<ProfilesV2Adapter.Vi
             return  CURRENT_LOOK;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends AnimateViewHolder {
 
         BaseActivity mContext;
         Look look;
@@ -109,6 +112,31 @@ public class ProfilesV2Adapter extends RecyclerView.Adapter<ProfilesV2Adapter.Vi
                 }
             });
         }
+
+        @Override
+        public void animateAddImpl(ViewPropertyAnimatorListener listener) {
+            ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
+            ViewCompat.setAlpha(itemView, 0);
+        }
+
+        @Override
+        public void animateRemoveImpl(ViewPropertyAnimatorListener listener) {
+            ViewCompat.animate(itemView)
+                    .translationY(-itemView.getHeight() * 0.3f)
+                    .alpha(0)
+                    .setDuration(300)
+                    .setListener(listener)
+                    .start();
+        }
+
+        @Override
+        public void preAnimateAddImpl() {
+            ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
+            ViewCompat.setAlpha(itemView, 0);
+        }
+
+
+
 
         public void loadFrom(Look look) {
             this.look = look;

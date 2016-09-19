@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class ProfileV2Activity extends BaseActivity {
 
@@ -50,11 +51,9 @@ public class ProfileV2Activity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvProfile.setLayoutManager(layoutManager);
 
-
         adapter = new ProfilesV2Adapter(this, profileLooks);
         rvProfile.setAdapter(adapter);
-
-
+        rvProfile.setAdapter(new ScaleInAnimationAdapter(adapter));
         client.getUser(user.getUserId());
     }
 
