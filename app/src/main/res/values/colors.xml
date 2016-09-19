@@ -9,4 +9,7 @@
     <color name="cursorBlueColor">#24639A</color>
     <color name="transparentImageDarkener">#80000000</color>
     <color name="transparentAlmostBlack">#80000000</color>
+    <color name="lightGreen">#00ff00</color>
+    <color name="lightRed">#e91f4d</color>
+    <color name="white">#ffffff</color>
 </resources>
