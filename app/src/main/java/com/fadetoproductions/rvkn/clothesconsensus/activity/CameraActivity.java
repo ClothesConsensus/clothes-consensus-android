@@ -17,6 +17,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -27,6 +28,7 @@ import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -48,6 +50,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+// Guide used http://inducesmile.com/android/android-camera2-api-example-tutorial/
+
 public class CameraActivity extends BaseActivity {
 
 
@@ -58,6 +62,7 @@ public class CameraActivity extends BaseActivity {
 
     final private String TAG = "CameraActivity";
     private String cameraId;
+    private String[] cameraIds;
     protected CameraDevice cameraDevice;
     protected CameraCaptureSession cameraCaptureSessions;
     protected CaptureRequest captureRequest;
@@ -82,6 +87,16 @@ public class CameraActivity extends BaseActivity {
         ButterKnife.bind(this);
         setupListenersAndCallbacks();
         cameraSettings = CameraSettings.getCameraSettings(this);
+        renderBasedOnCameraSettings();
+
+        // Need to do this after the layout is created. TODO can this be put in a lifecycle?
+        textureView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                textureView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                textureView.getLayoutParams().height = textureView.getWidth();
+            }
+        });
     }
 
     public void setupListenersAndCallbacks() {
@@ -97,7 +112,6 @@ public class CameraActivity extends BaseActivity {
             public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
                 return false;
             }
-
             @Override
             public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
 
@@ -198,11 +212,6 @@ public class CameraActivity extends BaseActivity {
                     Image image = null;
                     try {
                         image = reader.acquireLatestImage();
-//
-//                        Rect cropRect = new Rect(0, 0, 480, 480);
-//                        image.setCropRect(cropRect);
-
-
                         ByteBuffer buffer = image.getPlanes()[0].getBuffer();
                         byte[] bytes = new byte[buffer.capacity()];
                         buffer.get(bytes);
@@ -239,7 +248,12 @@ public class CameraActivity extends BaseActivity {
                     super.onCaptureCompleted(session, request, result);
                     Toast.makeText(CameraActivity.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     closeCamera();
-                    PhotoUtils.resizeStoredImage(CameraActivity.this);
+
+
+
+//                    PhotoUtils.resizeStoredImage(CameraActivity.this);
+
+
 
                     Intent data = new Intent();
                     data.putExtra("code", 1034);
@@ -297,7 +311,10 @@ public class CameraActivity extends BaseActivity {
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         Log.e(TAG, "is camera open");
         try {
-            cameraId = manager.getCameraIdList()[0];
+            cameraIds = manager.getCameraIdList();
+            if (cameraId == null) {
+                cameraId = cameraIds[0];
+            }
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             assert map != null;
@@ -381,4 +398,21 @@ public class CameraActivity extends BaseActivity {
         renderBasedOnCameraSettings();
     }
 
+    @OnClick(R.id.ibFlipCamera)
+    public void flipCamera(View view) {
+        cameraSettings.toggleCamera();
+        if (cameraIds.length > 1) {
+            closeCamera();
+            cameraId = cameraSettings.getUseBackCamera() ? cameraIds[0] : cameraIds[1];
+            openCamera();
+        }
+    }
+
+    @OnClick(R.id.ibGallery)
+    public void loadGallery(View view) {
+        // TODO this doesn't do anything with the gallery item received yet
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(
+                "content://media/internal/images/media"));
+        startActivity(intent);
+    }
 }

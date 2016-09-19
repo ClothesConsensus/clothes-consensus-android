@@ -16,6 +16,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.parceler.Parcels;
 
@@ -24,13 +25,15 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
-import com.squareup.picasso.Target;
 
 public class ProfileActivity extends BaseActivity {
     ActivityProfileBinding activityProfileBinding;
     ArrayList<Look> profileLooks;
     ProfilesAdapter adapter;
     User user;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

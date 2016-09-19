@@ -5,7 +5,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by sdass on 8/31/16.
@@ -21,7 +25,15 @@ public class Look {
     private String message;
     private Integer votesYes;
     private Integer votesNo;
+    private Date expirationDate;
 
+    public Integer getVotesYes() {
+        return votesYes;
+    }
+
+    public Integer getVotesNo() {
+        return votesNo;
+    }
 
     public User getUser() {
         return user;
@@ -53,18 +65,36 @@ public class Look {
         return message;
     }
 
+    public long getMinutesRemaining() {
+        Date now = new Date();
+        long duration = expirationDate.getTime() - now.getTime();
+        return TimeUnit.MILLISECONDS.toMinutes(duration);
+    }
+
+    public boolean isExpired() {
+        return getMinutesRemaining() < 0;
+    }
+
     public static Look fromJson(JSONObject object) {
         Look look = new Look();
         try {
             look.lookId = object.getLong("id");
-            look.photoUrl = "https://clothes-consensus-api.herokuapp.com/" + object.getString("image_url");
+            look.photoUrl = "https://clothes-consensus-api.herokuapp.com" + object.getString("image_url");
             look.message = object.getString("quote");
-            JSONObject userObject = object.getJSONObject("user");
-            look.user = User.fromJson(userObject);
-
             JSONObject voteResults = object.getJSONObject("vote_results");
             look.votesYes = voteResults.getInt("yes");
             look.votesNo = voteResults.getInt("no");
+
+            String dateString = object.getString("expiration");
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                look.expirationDate = format.parse(dateString);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            JSONObject userObject = object.getJSONObject("user");
+            look.user = User.fromJson(userObject);
 
         } catch (JSONException e) {
             e.printStackTrace();

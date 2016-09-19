@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="wrap_content"
     >
-    <include
-        layout="@layout/toolbar_background"
-        android:id="@+id/rlCaption"
+    <ImageView
+        android:id="@+id/ivBackgroundImage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:src="@drawable/example_background"
+        android:scaleType="centerCrop"
         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="-25dp"
         >
         <ImageButton
             android:id="@+id/ibBack"

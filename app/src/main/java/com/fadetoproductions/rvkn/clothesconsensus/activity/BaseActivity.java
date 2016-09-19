@@ -103,7 +103,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
     public void loadProfileForUser(User user) {
         Log.v("action", "Loading user profile");
-        Intent i = new Intent(this, ProfileActivity.class);
+        Intent i = new Intent(this, ProfileV2Activity.class);
         i.putExtra("user", Parcels.wrap(user));
         startActivity(i);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

@@ -53,40 +53,63 @@
                 android:layout_centerVertical="true"
                 />
 
-            <ImageButton
-                android:id="@+id/ibGallery"
-                style="@style/BaseImageButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toLeftOf="@+id/ibTakePhoto"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_photo_library_black_48dp"
-                android:layout_marginRight="15dp"
-                />
-
-            <ImageButton
-                android:id="@+id/ibFlipCamera"
-                style="@style/BaseImageButton"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_toRightOf="@+id/ibTakePhoto"
-                android:src="@drawable/flip_camera"
-                android:layout_alignTop="@id/ibTakePhoto"
-                android:layout_marginLeft="15dp"
-                />
-
-            <ImageButton
-                android:id="@+id/ibFlash"
-                style="@style/BaseImageButton"
+            <RelativeLayout
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:layout_toRightOf="@+id/ibTakePhoto"
-                android:src="@drawable/flash_off"
+                android:layout_toLeftOf="@+id/ibTakePhoto"
+                android:layout_alignTop="@id/ibTakePhoto"
                 android:layout_alignBottom="@id/ibTakePhoto"
-                android:layout_marginLeft="15dp"
-                />
+                android:layout_alignParentLeft="true"
+                >
+
+                <ImageButton
+                    android:id="@+id/ibGallery"
+                    style="@style/BaseImageButton"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_photo_library_black_48dp"
+                    android:layout_marginRight="15dp"
+                    />
+            </RelativeLayout>
 
 
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/ibTakePhoto"
+                android:layout_alignTop="@id/ibTakePhoto"
+                android:layout_alignBottom="@id/ibTakePhoto"
+                >
+
+                <ImageButton
+                    android:id="@+id/ibFlipCamera"
+                    style="@style/BaseImageButton"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/flip_camera"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerHorizontal="true"
+                    />
+
+                <ImageButton
+                    android:id="@+id/ibFlash"
+                    style="@style/BaseImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:src="@drawable/flash_off"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="10dp"
+                    android:layout_centerHorizontal="true"
+                    />
+            </RelativeLayout>
 
         </RelativeLayout>
 

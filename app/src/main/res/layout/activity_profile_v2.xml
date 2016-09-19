@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#50FFFFFF"
+    >
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        >
+        <ImageView
+            android:id="@+id/ivBackgroundImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/example_background"
+            android:scaleType="centerCrop"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="5dp"
+            android:layout_marginTop="-25dp"
+            >
+            <ImageButton
+                android:id="@+id/ibBack"
+                style="@style/NavButton"
+                android:src="@drawable/back_arrow"
+                android:layout_alignParentLeft="true"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/ibProfile"
+                android:layout_toLeftOf="@+id/ibCamera"
+                android:src="@drawable/logo_no_hanger"
+                android:layout_centerVertical="true"
+                />
+            <ImageButton
+                android:id="@+id/ibCamera"
+                style="@style/NavButton"
+                android:src="@drawable/camera_btn"
+                android:layout_alignParentRight="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlUserInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="-35dp"
+        android:padding="10dp"
+        >
+
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/example_user_thumb"
+            />
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ryan"
+            android:layout_toRightOf="@+id/ivThumbnail"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="35 looks"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/tvName"
+            android:layout_alignBottom="@+id/tvName"
+            />
+    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/rlUserInfo"
+        android:background="@android:color/white"
+        android:id="@+id/rvProfile">
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

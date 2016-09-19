@@ -1,8 +1,6 @@
 package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -56,8 +54,7 @@ public class LookConfirmationActivity extends BaseActivity {
     }
 
     private void loadLookImage() {
-        Uri takenPhotoUri = PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME);
-        lookImage = BitmapFactory.decodeFile(takenPhotoUri.getPath());
+        lookImage = PhotoUtils.resizeAndRotateAndGetCurrentImage(this);
         ivLookImage.setImageBitmap(lookImage);
     }
 
@@ -91,7 +88,6 @@ public class LookConfirmationActivity extends BaseActivity {
     public void backToCamera() {
         super.loadCamera(); // This is not good. Will create an endless stack.
     }
-
 
     private float calculatePercentOnRlTimepicker(float eventY) {
         float height = rlTimePicker.getHeight();

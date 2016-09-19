@@ -16,7 +16,6 @@
         android:layout_alignParentStart="true"
         android:src="@drawable/example_user_thumb"
         />
-
     <ImageView
         android:id="@+id/ivDialogueBox"
         android:layout_width="wrap_content"
@@ -41,6 +40,7 @@
         android:background="@android:color/transparent"
         android:textColor="@color/blackTextColor"
         android:hint="@string/add_your_caption_here"
+        android:textCursorDrawable="@null"
         />
 </RelativeLayout>
 </layout>
