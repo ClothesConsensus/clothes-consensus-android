@@ -87,6 +87,7 @@ public class LookConfirmationActivity extends BaseActivity {
     @OnClick(R.id.ibBackToCamera)
     public void backToCamera() {
         super.loadCamera(); // This is not good. Will create an endless stack.
+        finish();
     }
 
     private float calculatePercentOnRlTimepicker(float eventY) {

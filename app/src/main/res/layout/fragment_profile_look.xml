@@ -10,17 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         >
-        <!--<TextView-->
-            <!--android:id="@+id/tvQuote"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Does this look good?"-->
-            <!--android:textColor="@android:color/white"-->
-            <!--android:textSize="25dp"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_marginBottom="20dp"-->
-        <!--/>-->
-        <ImageView
+        <uk.co.senab.photoview.PhotoView
+
             android:id="@+id/ivLookImage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
