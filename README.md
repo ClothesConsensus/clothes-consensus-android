@@ -49,7 +49,8 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [ ] Swipe follow finger
 * [ ] Profile page gradient
 * [ ] Refresher circle
-* [ ] Pinch to zoom
+* [x] Pinch to zoom
+* [ ] Rounded border to image view in profile
 
 
 ### Login (hardness: 1)
