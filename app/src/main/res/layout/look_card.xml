@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="4dp"
-        app:cardUseCompatPadding="true"
         >
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,7 +44,7 @@
                         android:layout_below="@+id/ivClockHands"
                         android:layout_margin="15dp"
                         android:gravity="center"
-                        android:text=":30"
+                        android:text=":15"
                         android:textColor="@color/grayTextColor" />
                 </LinearLayout>
                 <!--TODO figure out how to size this correctly-->
@@ -61,7 +56,38 @@
                     android:layout_height="310dp"
                     android:src="@drawable/example_look" />
             </LinearLayout>
+        </RelativeLayout>
 
+
+
+        <!--TODO wtf... I have to set the height on this... align parent top bottom isn't stretching it-->
+        <RelativeLayout
+            android:layout_width="125dp"
+            android:layout_height="370dp"
+            android:id="@+id/vDraggableZoneNo"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+            />
+        </RelativeLayout>
+
+        <!--TODO wtf... I have to set the height on this... align parent top bottom isn't stretching it-->
+        <RelativeLayout
+            android:layout_width="125dp"
+            android:layout_height="370dp"
+            android:id="@+id/vDraggableZoneYes"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            >
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                />
         </RelativeLayout>
 
         <ImageView
@@ -82,5 +108,4 @@
             />
     </RelativeLayout>
     </android.support.v7.widget.CardView>
-
 </layout>

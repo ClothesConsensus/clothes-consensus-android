@@ -106,14 +106,6 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-//    public void loadLookConfirmationScreen() {
-//        // TODO this should become part of the custom camera activity
-//        Intent i = new Intent(this, LookConfirmationActivity.class);
-//        Log.v("action", "Starting look confirmation screen");
-//        startActivity(i);
-//        overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
-//    }
-
     // TODO this probably shouldn't be in the base activity. We can move it out when we create custom camera view
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {

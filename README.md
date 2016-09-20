@@ -42,15 +42,14 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 
 
 ###Additional Styling Goals
-* [ ] Activity Transitions
+* [x] Activity Transitions
 * [ ] Pull to zoom & blur
 * [ ] Progress Bar
 * [ ] Camera click press down
 * [ ] Swipe follow finger
-* [ ] Profile page gradient
 * [ ] Refresher circle
 * [x] Pinch to zoom
-* [ ] Rounded border to image view in profile
+* [x] Login email
 
 
 ### Login (hardness: 1)
