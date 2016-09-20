@@ -78,6 +78,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         LookViewHolder lvh = viewHolder;
         if (look != null) {
             lvh.bindLook(this, look);
+
         }
     }
 
@@ -125,6 +126,8 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         private BaseActivity mContext;
         Look look;
         ImageView ivLook;
+        ImageView ivSmile;
+        ImageView ivUnsmile;
         View vDraggableZoneYes;
         View vDraggableZoneNo;
         LooksAdapter adapter; // TODO this is really bad and hacky, but was having trouble with the listeners
@@ -148,6 +151,8 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             message.setText(look.getMessage());
             vDraggableZoneNo = lookCardBinding.vDraggableZoneNo;
             vDraggableZoneYes = lookCardBinding.vDraggableZoneYes;
+            ivSmile = lookCardBinding.ivSmile;
+            ivUnsmile = lookCardBinding.ivUnsmile;
             ivLook = lookCardBinding.ivLookImage;
             thumbnail.setImageResource(0);
             ivLook.setImageResource(0);
@@ -186,6 +191,9 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                         // Hide the actual view as shadow is being dragged
                         view.setVisibility(View.INVISIBLE);
                         return true;
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        view.setVisibility(View.VISIBLE);
+                        return false;
                     } else {
                         return false;
                     }
@@ -206,13 +214,16 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                             // Signals to a View that the drag point has
                             // entered the bounding box of the View.
                             Log.v("ACTION", "ENTERED");
+                            ivSmile.setVisibility(View.VISIBLE);
                             break;
                         case DragEvent.ACTION_DRAG_EXITED:
                             // Signals that the user has moved the drag shadow
                             // outside the bounding box of the View.
                             Log.v("ACTION", "EXITED");
+                            ivSmile.setVisibility(View.INVISIBLE);
                             break;
                         case DragEvent.ACTION_DROP:
+                            ivLook.setVisibility(View.VISIBLE);
                             // Signals to a View that the user has released the drag shadow,
                             // and the drag point is within the bounding box of the View.
                             // Get View dragged item is being dropped on
@@ -227,10 +238,11 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                         case DragEvent.ACTION_DRAG_ENDED:
                             // Signals to a View that the drag and drop operation has concluded.
                             // If event result is set, this means the dragged view was dropped in target
-
+                            ivLook.setVisibility(View.VISIBLE);
                             if (event.getResult()) { // drop succeeded
                                 Log.v("ACTION", "ENDED INSIDE");
                                 if (adapter != null) {
+                                    ivLook.setVisibility(View.VISIBLE);
                                     adapter.onVoteLook(look, true);
                                 }
                             } else { // drop did not occur
@@ -247,6 +259,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                         default:
                             break;
                     }
+                    ivLook.setVisibility(View.VISIBLE);
                     return true;
                 }
             });
@@ -265,13 +278,16 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                             // Signals to a View that the drag point has
                             // entered the bounding box of the View.
                             Log.v("ACTION", "ENTERED");
+                            ivUnsmile.setVisibility(View.VISIBLE);
                             break;
                         case DragEvent.ACTION_DRAG_EXITED:
                             // Signals that the user has moved the drag shadow
                             // outside the bounding box of the View.
                             Log.v("ACTION", "EXITED");
+                            ivUnsmile.setVisibility(View.INVISIBLE);
                             break;
                         case DragEvent.ACTION_DROP:
+                            ivLook.setVisibility(View.VISIBLE);
                             // Signals to a View that the user has released the drag shadow,
                             // and the drag point is within the bounding box of the View.
                             // Get View dragged item is being dropped on
@@ -290,6 +306,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                             if (event.getResult()) { // drop succeeded
                                 Log.v("ACTION", "ENDED INSIDE");
                                 if (adapter != null) {
+                                    ivLook.setVisibility(View.VISIBLE);
                                     adapter.onVoteLook(look, false);
                                 }
                             } else { // drop did not occur
@@ -306,6 +323,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                         default:
                             break;
                     }
+                    ivLook.setVisibility(View.VISIBLE);
                     return true;
                 }
             });

@@ -58,6 +58,28 @@
             </LinearLayout>
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/ivSmile"
+            android:layout_marginTop="25dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/rlCaption"
+            android:src="@drawable/smile"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            />
+
+        <ImageView
+            android:id="@+id/ivUnsmile"
+            android:layout_marginTop="25dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@+id/rlCaption"
+            android:src="@drawable/unsmile"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            />
+
 
 
         <!--TODO wtf... I have to set the height on this... align parent top bottom isn't stretching it-->
