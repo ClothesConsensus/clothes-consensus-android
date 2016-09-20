@@ -55,6 +55,7 @@ import butterknife.OnClick;
 public class CameraActivity extends BaseActivity {
 
     int RESULT_SELECT_IMAGE_FROM_GALLERY = 1098;
+    int LOOK_CONFIRMATION_COMPLETED = 1097;
 
 
     @BindView(R.id.ibTakePhoto) ImageButton ibTakePhoto;
@@ -178,22 +179,8 @@ public class CameraActivity extends BaseActivity {
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
 
         try {
-            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
-
-
-//            Size[] jpegSizes = null;
-
-//            if (characteristics != null) {
-//                jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
-//            }
-
             int width = 640;
             int height = 480;
-
-//            if (jpegSizes != null && 0 < jpegSizes.length) {
-//                width = jpegSizes[0].getWidth();
-//                height = jpegSizes[0].getHeight();
-//            }
 
             ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
             List<Surface> outputSurfaces = new ArrayList<Surface>(2);
@@ -250,17 +237,7 @@ public class CameraActivity extends BaseActivity {
                     super.onCaptureCompleted(session, request, result);
                     Toast.makeText(CameraActivity.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     closeCamera();
-
-
-
-//                    PhotoUtils.resizeStoredImage(CameraActivity.this);
-
-
-
-                    Intent data = new Intent();
-                    data.putExtra("code", 1034);
-                    setResult(RESULT_OK, data);
-                    finish();
+                    loadLookConfirmation();
                 }
             };
             cameraDevice.createCaptureSession(outputSurfaces, new CameraCaptureSession.StateCallback() {
@@ -418,12 +395,32 @@ public class CameraActivity extends BaseActivity {
         overridePendingTransition(R.anim.slide_up_2, R.anim.no_change);
     }
 
+
+    public void loadLookConfirmation() {
+        Intent data = new Intent();
+        data.putExtra("code", 1034);
+        setResult(RESULT_OK, data);
+        Intent i = new Intent(CameraActivity.this, LookConfirmationActivity.class);
+        Log.v("action", "Starting look confirmation screen");
+        startActivityForResult(i, LOOK_CONFIRMATION_COMPLETED);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.no_change);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RESULT_SELECT_IMAGE_FROM_GALLERY) {
             overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
+        }
+
+        if (requestCode == LOOK_CONFIRMATION_COMPLETED) {
+            if (resultCode == RESULT_OK) {
+                overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
+                setResult(RESULT_OK, data);
+                this.finish();
+            } else {
+                overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
+            }
         }
     }
 }
