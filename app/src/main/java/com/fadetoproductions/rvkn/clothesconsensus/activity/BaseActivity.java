@@ -87,14 +87,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
         Intent i = new Intent(this, CameraActivity.class);
         startActivityForResult(i, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-
-////         This is all from the guide
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, PhotoUtils.getPhotoFileUri(this, PhotoUtils.PHOTO_FILE_NAME));
-//        if (intent.resolveActivity(getPackageManager()) != null) {
-//            // Start the image capture intent to take photo
-//            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-//        }
+        overridePendingTransition(R.anim.slide_up_2, R.anim.no_change);
     }
 
     public void back() {
@@ -109,25 +102,25 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
-    public void loadLookConfirmationScreen() {
-        // TODO this should become part of the custom camera activity
-        Intent i = new Intent(this, LookConfirmationActivity.class);
-        Log.v("action", "Starting look confirmation screen");
-        startActivity(i);
-        overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
-    }
+//    public void loadLookConfirmationScreen() {
+//        // TODO this should become part of the custom camera activity
+//        Intent i = new Intent(this, LookConfirmationActivity.class);
+//        Log.v("action", "Starting look confirmation screen");
+//        startActivity(i);
+//        overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
+//    }
 
     // TODO this probably shouldn't be in the base activity. We can move it out when we create custom camera view
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                Log.v("action", "Photo taken!!");
-                loadLookConfirmationScreen();
-
+//                loadLookConfirmationScreen();
+                Log.v("action", "Look was uploaded");
+                Toast.makeText(this, "Your look was uploaded!", Toast.LENGTH_SHORT).show();
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                Log.v("action", "Look was not uploaded");
             }
-
         }
     }
 

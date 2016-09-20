@@ -1,5 +1,6 @@
 package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -86,7 +87,6 @@ public class LookConfirmationActivity extends BaseActivity {
 
     @OnClick(R.id.ibBackToCamera)
     public void backToCamera() {
-        super.loadCamera(); // This is not good. Will create an endless stack.
         finish();
     }
 
@@ -108,9 +108,11 @@ public class LookConfirmationActivity extends BaseActivity {
         return expirationTimeInMinutes;
     }
 
-
     @Override
     public void onPostLook(JSONObject response) {
+        overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
+        Intent data = new Intent();
+        setResult(RESULT_OK, data);
         finish();
     }
 }

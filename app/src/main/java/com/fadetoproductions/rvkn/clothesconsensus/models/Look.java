@@ -68,7 +68,8 @@ public class Look {
     public long getMinutesRemaining() {
         Date now = new Date();
         long duration = expirationDate.getTime() - now.getTime();
-        return TimeUnit.MILLISECONDS.toMinutes(duration);
+
+        return TimeUnit.MILLISECONDS.toMinutes(duration) - (7 * 60); // this is super hacky right now, but were screwing up by GMT
     }
 
     public boolean isExpired() {

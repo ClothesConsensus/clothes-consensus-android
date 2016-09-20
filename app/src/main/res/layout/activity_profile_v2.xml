@@ -47,20 +47,23 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:layout_marginTop="-45dp"
         android:id="@+id/rlUserInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:layout_marginTop="-35dp"
         android:padding="10dp"
-        android:background="@android:color/transparent"
-        >
+        android:background="#00FFFFFF"
+    >
 
         <ImageView
+            android:padding="4dp"
             android:id="@+id/ivThumbnail"
             android:layout_width="75dp"
             android:layout_height="75dp"
             android:src="@drawable/example_user_thumb"
+            android:background="@android:color/white"
+            android:transitionName="ivThumbnail"
             />
         <TextView
             android:id="@+id/tvName"
@@ -71,6 +74,7 @@
             android:layout_marginTop="35dp"
             android:layout_marginLeft="5dp"
             android:textSize="20sp"
+            android:background="@android:color/transparent"
             />
 
         <TextView
@@ -81,6 +85,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tvName"
             android:layout_alignBottom="@+id/tvName"
+            android:background="@android:color/transparent"
             />
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
@@ -90,8 +95,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/rlUserInfo"
-        android:background="@android:color/white"
         android:id="@+id/rvProfile"
+        android:background="@android:color/white"
         >
     </android.support.v7.widget.RecyclerView>
+
 </RelativeLayout>

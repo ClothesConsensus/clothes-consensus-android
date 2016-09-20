@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class ProfileV2Activity extends BaseActivity {
@@ -59,7 +58,7 @@ public class ProfileV2Activity extends BaseActivity {
 
     private void populateProfileHeader() {
         Picasso.with(this).load(user.getBannerImageUrl()).into(ivBackgroundImage);
-        Picasso.with(this).load(user.getProfileImageUrl()).transform(new RoundedCornersTransformation(5, 5)).resize(75, 75).into(ivThumbnail);
+        Picasso.with(this).load(user.getProfileImageUrl()).into(ivThumbnail);
         tvName.setText(user.getName());
     }
 
