@@ -414,10 +414,12 @@ public class CameraActivity extends BaseActivity {
         }
 
         if (requestCode == LOOK_CONFIRMATION_COMPLETED) {
-            Log.v("action", "Ending");
             if (resultCode == RESULT_OK) {
+                overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
                 setResult(RESULT_OK, data);
                 this.finish();
+            } else {
+                overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
             }
         }
     }

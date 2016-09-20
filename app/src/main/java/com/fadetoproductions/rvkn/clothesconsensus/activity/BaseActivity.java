@@ -113,6 +113,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     // TODO this probably shouldn't be in the base activity. We can move it out when we create custom camera view
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
             if (resultCode == RESULT_OK) {
 //                loadLookConfirmationScreen();
                 Log.v("action", "Look was uploaded");

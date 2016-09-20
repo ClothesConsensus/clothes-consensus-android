@@ -110,7 +110,6 @@ public class LookConfirmationActivity extends BaseActivity {
 
     @Override
     public void onPostLook(JSONObject response) {
-        overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);
         Intent data = new Intent();
         setResult(RESULT_OK, data);
         finish();
