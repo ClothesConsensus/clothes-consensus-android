@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "725444208046",
-    "firebase_url": "https://clothesconsensus.firebaseio.com",
-    "project_id": "clothesconsensus",
-    "storage_bucket": "clothesconsensus.appspot.com"
+    "project_number": "456879936660",
+    "firebase_url": "https://clothesconcensus-20a5a.firebaseio.com",
+    "project_id": "clothesconcensus-20a5a",
+    "storage_bucket": "clothesconcensus-20a5a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:725444208046:android:a4dbc7944b3d7a8a",
+        "mobilesdk_app_id": "1:456879936660:android:a4dbc7944b3d7a8a",
         "android_client_info": {
           "package_name": "com.fadetoproductions.rvkn.clothesconsensus"
         }
       },
       "oauth_client": [
         {
-          "client_id": "725444208046-16qcmfbv6c5chhk5464aivp0ehqg6hu4.apps.googleusercontent.com",
+          "client_id": "456879936660-t54cbljdc7af91l1nrimd67pqmj6lgj5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fadetoproductions.rvkn.clothesconsensus",
+            "certificate_hash": "7D35B7207BCBFD2B946A47C5BABC048FAE91B4B3"
+          }
+        },
+        {
+          "client_id": "456879936660-g1v8oom10319q3pk9avmoh8udjip5pp8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB86QiFpWdGuxaj19L3-aew7aOZwgrbLWE"
+          "current_key": "AIzaSyAbU1PtoPdszOjk5MibDGs2EoH0odF7G1E"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456879936660-g1v8oom10319q3pk9avmoh8udjip5pp8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
