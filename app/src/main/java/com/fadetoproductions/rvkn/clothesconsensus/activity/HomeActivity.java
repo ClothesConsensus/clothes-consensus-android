@@ -36,7 +36,15 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
 
         RecyclerView rvLooks = activityHomeBinding.rvLooks;
         rvLooks.setAdapter(adapter);
-        rvLooks.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        rvLooks.setLayoutManager(linearLayoutManager);
+//        rvLooks.setLayoutManager(new LinearLayoutManager(this));
 
 //        ItemTouchHelper.Callback callback =
 //                new SimpleItemTouchHelperCallback(adapter);

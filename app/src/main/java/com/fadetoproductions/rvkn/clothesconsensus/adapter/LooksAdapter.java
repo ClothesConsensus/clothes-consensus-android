@@ -6,13 +6,17 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -123,12 +127,16 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
         final LookCardBinding lookCardBinding;
         private BaseActivity mContext;
+        float originalPostionX;
+        float originalPositionY;
+        float mLastTouchX;
+        float mLastTouchY;
+        private int mActivePointerId = 0;
+
         Look look;
         ImageView ivLook;
         ImageView ivSmile;
         ImageView ivUnsmile;
-        View vDraggableZoneYes;
-        View vDraggableZoneNo;
         LooksAdapter adapter; // TODO this is really bad and hacky, but was having trouble with the listeners
 //        ViewHolderLookVoteListener lookVoteListener;
 
@@ -148,8 +156,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             ImageView thumbnail = lookCardBinding.rlCaption.ivThumbnail;
             EditText message = lookCardBinding.rlCaption.etMessage;
             message.setText(look.getMessage());
-            vDraggableZoneNo = lookCardBinding.vDraggableZoneNo;
-            vDraggableZoneYes = lookCardBinding.vDraggableZoneYes;
             ivSmile = lookCardBinding.ivSmile;
             ivUnsmile = lookCardBinding.ivUnsmile;
             ivLook = lookCardBinding.ivLookImage;
@@ -180,152 +186,100 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         }
 
         public void setupDraggability() {
+            int test1[] = new int[2];
+            ivLook.getLocationOnScreen(test1);
+
+
+
+
+
             ivLook.setOnTouchListener(new View.OnTouchListener() {
-                public boolean onTouch(View view, MotionEvent motionEvent) {
+                public boolean onTouch(final View view, MotionEvent motionEvent) {
+
+
+
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                        // Construct draggable shadow for view
-                        View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(view);
-                        // Start the drag of the shadow
-                        view.startDrag(null, shadowBuilder, view, 0);
-                        // Hide the actual view as shadow is being dragged
-                        view.setVisibility(View.INVISIBLE);
+                        final int pointerIndex = MotionEventCompat.getActionIndex(motionEvent);
+                        final float x = MotionEventCompat.getX(motionEvent, pointerIndex);
+                        final float y = MotionEventCompat.getY(motionEvent, pointerIndex);
+                        mLastTouchX = x;
+                        mLastTouchY = y;
+
+                        originalPostionX = view.getX();
+                        originalPositionY = view.getY();
+
+
                         return true;
+                    } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                        final int pointerIndex = MotionEventCompat.findPointerIndex(motionEvent, mActivePointerId);
+
+                        final float x = MotionEventCompat.getX(motionEvent, pointerIndex);
+                        final float y = MotionEventCompat.getY(motionEvent, pointerIndex);
+
+                        // Calculate the distance moved
+                        final float dx = x - mLastTouchX;
+                        final float dy = y - mLastTouchY;
+
+                        view.setY(view.getY() + dy);
+                        view.setX(view.getX() + dx);
+                        return true;
+
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        view.setVisibility(View.VISIBLE);
-                        return false;
+                        if (viewIsInLeftDropZone(view)) {
+                            Log.v("s", "inside left");
+                            adapter.onVoteLook(look, false);
+                            view.setY(originalPositionY);
+                            view.setX(originalPostionX);
+                        } else if (viewIsInRightDropZone(view)) {
+                            Log.v("s", "inside right");
+                            adapter.onVoteLook(look, true);
+                            view.setY(originalPositionY);
+                            view.setX(originalPostionX);
+                        } else {
+                            TranslateAnimation anim = new TranslateAnimation(view.getX(), originalPostionX, view.getY(), originalPositionY);
+                            anim.setDuration(150);
+                            anim.setInterpolator(new AccelerateInterpolator());
+                            anim.setAnimationListener(new TranslateAnimation.AnimationListener() {
+
+                                @Override
+                                public void onAnimationStart(Animation animation) { }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) { }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+                                    view.setY(originalPositionY);
+                                    view.setX(originalPostionX);
+                                }
+                            });
+
+                            view.startAnimation(anim);
+                        }
+                        return true;
+
                     } else {
                         return false;
                     }
                 }
             });
+        }
+        public boolean viewIsInLeftDropZone(View view) {
+            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            float screenWidth = metrics.widthPixels;
+            float percent = (float) 0.25;
+            float leftBoundary = screenWidth * percent;
+            float centerOfView = view.getX() + view.getWidth() / 2;
+            return centerOfView < leftBoundary;
+        }
 
-            vDraggableZoneYes.setOnDragListener(new View.OnDragListener() {
-                @Override
-                public boolean onDrag(View v, DragEvent event) {
-                    // Get the dragged view being dropped over a target view
-                    final View draggedView = (View) event.getLocalState();
-                    switch (event.getAction()) {
-                        case DragEvent.ACTION_DRAG_STARTED:
-                            // Signals the start of a drag and drop operation.
-                            // Code for that event here
-                            break;
-                        case DragEvent.ACTION_DRAG_ENTERED:
-                            // Signals to a View that the drag point has
-                            // entered the bounding box of the View.
-                            Log.v("ACTION", "ENTERED");
-                            ivSmile.setVisibility(View.VISIBLE);
-                            break;
-                        case DragEvent.ACTION_DRAG_EXITED:
-                            // Signals that the user has moved the drag shadow
-                            // outside the bounding box of the View.
-                            Log.v("ACTION", "EXITED");
-                            ivSmile.setVisibility(View.INVISIBLE);
-                            break;
-                        case DragEvent.ACTION_DROP:
-                            ivLook.setVisibility(View.VISIBLE);
-                            // Signals to a View that the user has released the drag shadow,
-                            // and the drag point is within the bounding box of the View.
-                            // Get View dragged item is being dropped on
-                            View dropTarget = v;
-                            // Make desired changes to the drop target below
-                            dropTarget.setTag("dropped");
-                            // Get owner of the dragged view and remove the view (if needed)
-                            ViewGroup owner = (ViewGroup) draggedView.getParent();
-                            owner.removeView(draggedView);
-                            Log.v("ACTION", "DROPPED");
-                            break;
-                        case DragEvent.ACTION_DRAG_ENDED:
-                            // Signals to a View that the drag and drop operation has concluded.
-                            // If event result is set, this means the dragged view was dropped in target
-                            ivLook.setVisibility(View.VISIBLE);
-                            if (event.getResult()) { // drop succeeded
-                                Log.v("ACTION", "ENDED INSIDE");
-                                if (adapter != null) {
-                                    ivLook.setVisibility(View.VISIBLE);
-                                    adapter.onVoteLook(look, true);
-                                }
-                            } else { // drop did not occur
-                                // restore the view as visible
-                                draggedView.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        draggedView.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                                // restore drop zone default background
-                                Log.v("ACTION", "ENDED OUTSIDE");
-                            }
-                        default:
-                            break;
-                    }
-                    ivLook.setVisibility(View.VISIBLE);
-                    return true;
-                }
-            });
-
-            vDraggableZoneNo.setOnDragListener(new View.OnDragListener() {
-                @Override
-                public boolean onDrag(View v, DragEvent event) {
-                    // Get the dragged view being dropped over a target view
-                    final View draggedView = (View) event.getLocalState();
-                    switch (event.getAction()) {
-                        case DragEvent.ACTION_DRAG_STARTED:
-                            // Signals the start of a drag and drop operation.
-                            // Code for that event here
-                            break;
-                        case DragEvent.ACTION_DRAG_ENTERED:
-                            // Signals to a View that the drag point has
-                            // entered the bounding box of the View.
-                            Log.v("ACTION", "ENTERED");
-                            ivUnsmile.setVisibility(View.VISIBLE);
-                            break;
-                        case DragEvent.ACTION_DRAG_EXITED:
-                            // Signals that the user has moved the drag shadow
-                            // outside the bounding box of the View.
-                            Log.v("ACTION", "EXITED");
-                            ivUnsmile.setVisibility(View.INVISIBLE);
-                            break;
-                        case DragEvent.ACTION_DROP:
-                            ivLook.setVisibility(View.VISIBLE);
-                            // Signals to a View that the user has released the drag shadow,
-                            // and the drag point is within the bounding box of the View.
-                            // Get View dragged item is being dropped on
-                            View dropTarget = v;
-                            // Make desired changes to the drop target below
-                            dropTarget.setTag("dropped");
-                            // Get owner of the dragged view and remove the view (if needed)
-                            ViewGroup owner = (ViewGroup) draggedView.getParent();
-                            owner.removeView(draggedView);
-                            Log.v("ACTION", "DROPPED");
-                            break;
-                        case DragEvent.ACTION_DRAG_ENDED:
-                            // Signals to a View that the drag and drop operation has concluded.
-                            // If event result is set, this means the dragged view was dropped in target
-
-                            if (event.getResult()) { // drop succeeded
-                                Log.v("ACTION", "ENDED INSIDE");
-                                if (adapter != null) {
-                                    ivLook.setVisibility(View.VISIBLE);
-                                    adapter.onVoteLook(look, false);
-                                }
-                            } else { // drop did not occur
-                                // restore the view as visible
-                                draggedView.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        draggedView.setVisibility(View.VISIBLE);
-                                    }
-                                });
-                                // restore drop zone default background
-                                Log.v("ACTION", "ENDED OUTSIDE");
-                            }
-                        default:
-                            break;
-                    }
-                    ivLook.setVisibility(View.VISIBLE);
-                    return true;
-                }
-            });
+        public boolean viewIsInRightDropZone(View view) {
+            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            float screenWidth = metrics.widthPixels;
+            float percent = (float) 0.25;
+            float rightBoundary = screenWidth - (screenWidth * percent);
+            float centerOfView = view.getX() + view.getWidth() / 2;
+            return centerOfView > rightBoundary;
         }
     }
 }
