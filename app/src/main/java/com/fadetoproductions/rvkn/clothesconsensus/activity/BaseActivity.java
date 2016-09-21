@@ -14,6 +14,8 @@ import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.services.RegistrationIntentService;
+import com.google.android.gms.common.ConnectionResult;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -37,6 +39,8 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        startService(intent);
         client = new ClothesConsensusClient();
         client.setListener(this);
 

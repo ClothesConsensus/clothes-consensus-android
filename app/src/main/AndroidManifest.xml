@@ -17,6 +17,13 @@
             <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
         </intent-filter>
     </service>
+    <!--<service-->
+        <!--android:name=".services.MyInstanceIDListenerService"-->
+        <!--android:exported="false">-->
+        <!--<intent-filter>-->
+            <!--<action android:name="com.google.android.gms.iid.InstanceID"/>-->
+        <!--</intent-filter>-->
+    <!--</service>-->
 
     <application
         android:allowBackup="true"
@@ -61,6 +68,16 @@
             android:screenOrientation="portrait"
             android:launchMode="singleTask"
             />
+        <service
+            android:name=".services.FCMMessageHandler"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".services.RegistrationIntentService" android:exported="false"/>
+
+
     </application>
 
 </manifest>
