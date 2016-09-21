@@ -1,6 +1,8 @@
 package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.Manifest;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -8,6 +10,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
@@ -35,6 +40,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     public final static int CAMERA_PERMISSIONS_REQUEST_GRANTED = 9999;
 
     ClothesConsensusClient client;
+    ObjectAnimator pbAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +49,36 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         startService(intent);
         client = new ClothesConsensusClient();
         client.setListener(this);
-
     }
+
+    public void startProgressBar() {
+        ProgressBar pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
+        if (pbLoading != null) {
+            pbLoading.setVisibility(View.VISIBLE);
+            pbAnimation = ObjectAnimator.ofInt(pbLoading, "progress", 0, 100);
+            pbAnimation.setDuration(1000);
+            pbAnimation.setInterpolator(new AccelerateInterpolator());
+            pbAnimation.setRepeatCount(ValueAnimator.INFINITE);
+            pbAnimation.start();
+        }
+    }
+
+    public void stopProgressBar() {
+        ProgressBar pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
+        if (pbLoading != null) {
+            if (pbAnimation != null) {
+                pbAnimation.cancel();
+            }
+
+            ObjectAnimator animation = ObjectAnimator.ofInt(pbLoading, "progress", pbLoading.getProgress(), 100);
+            animation.setDuration(100);
+            animation.setInterpolator(new AccelerateInterpolator());
+            animation.start();
+            pbLoading.setVisibility(View.INVISIBLE);
+        }
+    }
+
+
 
     private Boolean checkAndRequestCameraPermissions() {
         // https://developer.android.com/training/permissions/requesting.html
@@ -123,14 +157,19 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
     // The child activity should implement this
     @Override
-    public void onGetLooks(ArrayList<Look> looks) {}
+    public void onGetLooks(ArrayList<Look> looks) {
+        stopProgressBar();
+    }
 
     // The child activity should implement this
     @Override
-    public void onPostLook(JSONObject response) {}
+    public void onPostLook(JSONObject response) {
+        stopProgressBar();
+    }
 
     // The child activity should implement this
     @Override
     public void onGetUser(User user) {
+        stopProgressBar();
     }
 }

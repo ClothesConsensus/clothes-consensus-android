@@ -83,6 +83,7 @@ public class LookConfirmationActivity extends BaseActivity {
         String message = etMessage.getText().toString();
         String imageString = PhotoUtils.encodeBitmapToSendableString(lookImage);
         client.postLook(user.getUserId(), message, expirationString, imageString);
+        startProgressBar();
     }
 
     @OnClick(R.id.ibBackToCamera)
@@ -110,6 +111,7 @@ public class LookConfirmationActivity extends BaseActivity {
 
     @Override
     public void onPostLook(JSONObject response) {
+        super.onPostLook(response);
         Intent data = new Intent();
         setResult(RESULT_OK, data);
         finish();

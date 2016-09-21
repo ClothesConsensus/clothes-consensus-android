@@ -6,8 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity"
     android:background="@drawable/background2x"
-
     >
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:layout_marginTop="18dp"
+        android:visibility="invisible"
+        />
+
     <RelativeLayout
         android:id="@+id/rlButtonContainer"
         android:layout_width="match_parent"

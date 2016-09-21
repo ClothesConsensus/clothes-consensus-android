@@ -37,6 +37,10 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.rlButtonContainer)
     public void hideLoginWithEmailStuff(View view) {
+        if (rlEmailLogin.getVisibility() != View.VISIBLE) {
+            return;
+        }
+
         Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.slide_down_email);
         animFadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -59,23 +63,22 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.btnSignInWithEmail)
     public void loginWithEmail(View view) {
+        stopProgressBar();
+
         rlEmailLogin.setVisibility(View.VISIBLE);
 
         Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.slide_up_email);
         animFadeOut.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                // Fires when animation starts
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                // ...
             }
 
             @Override
             public void onAnimationRepeat(Animation animation) {
-                // ...
             }
         });
 
@@ -89,10 +92,12 @@ public class LoginActivity extends BaseActivity {
         Log.v("actions", "Logging in");
         //TODO: Hardcoded user for now. Change to the user which is logged in.
         client.getUser(119);
+        startProgressBar();
     }
 
     @Override
     public void onGetUser(User user) {
+        super.onGetUser(user);
         User.setLoggedInUser(this, user);
         startHomeActivity();
     }

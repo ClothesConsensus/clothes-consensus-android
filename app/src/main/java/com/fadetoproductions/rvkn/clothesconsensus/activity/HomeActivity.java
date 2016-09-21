@@ -37,9 +37,6 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
         RecyclerView rvLooks = activityHomeBinding.rvLooks;
         rvLooks.setAdapter(adapter);
         rvLooks.setLayoutManager(new LinearLayoutManager(this));
-//        RecyclerView.ItemDecoration itemDecoration = new
-//                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-//        rvLooks.addItemDecoration(itemDecoration);
 
 //        ItemTouchHelper.Callback callback =
 //                new SimpleItemTouchHelperCallback(adapter);
@@ -51,9 +48,11 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
 
         ButterKnife.bind(this);
         client.getLooks();
+        startProgressBar();
     }
 
     public void onGetLooks(ArrayList<Look> fetchedLooks) {
+        super.onGetLooks(fetchedLooks);
         looks.addAll(fetchedLooks);
         Log.v("action", "Looks fetched");
         adapter.notifyDataSetChanged();
