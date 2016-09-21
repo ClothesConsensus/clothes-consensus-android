@@ -78,7 +78,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         LookViewHolder lvh = viewHolder;
         if (look != null) {
             lvh.bindLook(this, look);
-
         }
     }
 

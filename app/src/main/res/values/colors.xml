@@ -2,13 +2,15 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#24639A</color>
     <color name="blackTextColor">#393939</color>
     <color name="grayTextColor">#898989</color>
     <color name="timeBarFill">#DDDDDD</color>
     <color name="cursorBlueColor">#24639A</color>
     <color name="transparentImageDarkener">#80000000</color>
     <color name="transparentAlmostBlack">#80000000</color>
+    <color name="transparentReallyAlmostBlack">#DD000000</color>
+    <color name="transparentAlmostWhite">#DDFFFFFF</color>
     <color name="lightGreen">#00ff00</color>
     <color name="lightRed">#e91f4d</color>
     <color name="white">#ffffff</color>
