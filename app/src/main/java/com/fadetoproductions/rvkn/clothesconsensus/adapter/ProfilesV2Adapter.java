@@ -41,18 +41,6 @@ public class ProfilesV2Adapter extends RecyclerView.Adapter<ProfilesV2Adapter.Vi
         mLooks = looks;
     }
 
-//    @Override
-//    public FinishedViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View lookView = LayoutInflater.from(mContext).inflate(R.layout.item_look_result, parent, false);
-//        return new FinishedViewHolder(lookView);
-//    }
-
-//    @Override
-//    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-//        Look look = mLooks.get(position);
-////        viewHolder.loadFrom(look);
-//    }
-
     @Override
     public int getItemCount() {
         return mLooks.size();
@@ -60,7 +48,6 @@ public class ProfilesV2Adapter extends RecyclerView.Adapter<ProfilesV2Adapter.Vi
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View lookView = LayoutInflater.from(mContext).inflate(R.layout.item_look_result, parent, false);
         View lookView = null;
 
         switch (viewType){

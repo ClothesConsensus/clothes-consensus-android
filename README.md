@@ -1,5 +1,7 @@
 # Clothes Consensus
 
+A video of the current app can be viewed here: https://youtu.be/j6XFYo-_Qck
+
 Wireframe:
 <img src='http://i.imgur.com/u1p4n03.jpg' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
