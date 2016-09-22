@@ -162,6 +162,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             ivSmile = lookCardBinding.ivSmile;
             ivUnsmile = lookCardBinding.ivUnsmile;
             ivLook = lookCardBinding.ivLookImage;
+            ivLook.setVisibility(View.VISIBLE);
             tvTimeRemaining = lookCardBinding.tvTimeRemaining;
             tvTimeRemaining.setText(TimeUtils.minutesToSimpleString((int) look.getMinutesRemaining()));
             thumbnail.setImageResource(0);
@@ -193,9 +194,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         public void setupDraggability() {
             ivLook.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(final View view, MotionEvent motionEvent) {
-
-
-
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         final int pointerIndex = MotionEventCompat.getActionIndex(motionEvent);
                         final float x = MotionEventCompat.getX(motionEvent, pointerIndex);
@@ -205,8 +203,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
                         originalPostionX = view.getX();
                         originalPositionY = view.getY();
-
-
                         return true;
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
                         final int pointerIndex = MotionEventCompat.findPointerIndex(motionEvent, mActivePointerId);
@@ -232,17 +228,23 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                         }
                         return true;
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+
                         if (viewIsInLeftDropZone(view)) {
+                            // Voted No
                             Log.v("s", "inside left");
                             adapter.onVoteLook(look, false);
+                            view.setVisibility(View.INVISIBLE);
                             view.setY(originalPositionY);
                             view.setX(originalPostionX);
                         } else if (viewIsInRightDropZone(view)) {
+                            // Voted Yes
                             Log.v("s", "inside right");
                             adapter.onVoteLook(look, true);
+                            view.setVisibility(View.INVISIBLE);
                             view.setY(originalPositionY);
                             view.setX(originalPostionX);
                         } else {
+                            // Didn't vote
                             TranslateAnimation anim = new TranslateAnimation(view.getX(), originalPostionX, view.getY(), originalPositionY);
                             anim.setDuration(150);
                             anim.setInterpolator(new AccelerateInterpolator());
