@@ -9,8 +9,6 @@ import android.util.Log;
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.google.firebase.iid.FirebaseInstanceId;
 
-import java.io.IOException;
-
 /**
  * Created by sdass on 9/20/16.
  */

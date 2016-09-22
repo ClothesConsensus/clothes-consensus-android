@@ -18,37 +18,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rlCaption">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                >
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginRight="13dp">
+                    android:layout_marginRight="13dp"
+                    android:layout_centerHorizontal="true"
+                    >
 
                     <ImageView
                         android:id="@+id/ivClockHands"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
-                        android:src="@drawable/clock_hands" />
-
+                        android:src="@drawable/clock_hands"
+                        android:layout_centerHorizontal="true"
+                        />
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvTimeRemaining"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/ivClockHands"
-                        android:layout_alignRight="@+id/ivClockHands"
-                        android:layout_below="@+id/ivClockHands"
-                        android:layout_margin="15dp"
+                        android:layout_below="@id/ivClockHands"
+                        android:layout_centerHorizontal="true"
                         android:gravity="center"
-                        android:text=":15"
-                        android:textColor="@color/grayTextColor" />
-                </LinearLayout>
+                        />
+                </RelativeLayout>
                 <!--TODO figure out how to size this correctly-->
-            </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
 
         <ImageView
@@ -60,9 +61,6 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="10dp"
             />
-
-
-
         <ImageView
             android:id="@+id/ivSmile"
             android:layout_marginTop="25dp"
@@ -73,7 +71,6 @@
             android:layout_centerHorizontal="true"
             android:visibility="invisible"
             />
-
         <ImageView
             android:id="@+id/ivUnsmile"
             android:layout_marginTop="25dp"
@@ -100,8 +97,6 @@
             android:layout_centerVertical="true"
             android:visibility="gone"
             />
-
-
     </RelativeLayout>
 
 

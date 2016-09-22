@@ -2,10 +2,12 @@ package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Selection;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
@@ -19,6 +21,7 @@ public class LoginActivity extends BaseActivity {
 
     @BindView(R.id.rlEmailLogin) RelativeLayout rlEmailLogin;
     @BindView(R.id.rlButtonContainer) RelativeLayout rlButtonContainer;
+    @BindView(R.id.etEmail) EditText etEmail;
 
 
     @Override
@@ -41,8 +44,8 @@ public class LoginActivity extends BaseActivity {
             return;
         }
 
-        Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.slide_down_email);
-        animFadeOut.setAnimationListener(new Animation.AnimationListener() {
+        Animation slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_down_email);
+        slideAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
@@ -56,8 +59,7 @@ public class LoginActivity extends BaseActivity {
             public void onAnimationRepeat(Animation animation) {
             }
         });
-
-        rlEmailLogin.startAnimation(animFadeOut);
+        rlEmailLogin.startAnimation(slideAnim);
     }
 
 
@@ -67,14 +69,16 @@ public class LoginActivity extends BaseActivity {
 
         rlEmailLogin.setVisibility(View.VISIBLE);
 
-        Animation animFadeOut = AnimationUtils.loadAnimation(this, R.anim.slide_up_email);
-        animFadeOut.setAnimationListener(new Animation.AnimationListener() {
+        Animation slideAnim = AnimationUtils.loadAnimation(this, R.anim.slide_up_email);
+        slideAnim.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                // Set cursor to the end of edittext
+                Selection.setSelection(etEmail.getText(), etEmail.getText().length());
             }
 
             @Override
@@ -82,10 +86,8 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        rlEmailLogin.startAnimation(animFadeOut);
+        rlEmailLogin.startAnimation(slideAnim);
     }
-
-
 
     @OnClick({R.id.btnSignInWithTwitter, R.id.btnSignInWithFacebook, R.id.btnCompleteLogin})
     public void login(View view) {

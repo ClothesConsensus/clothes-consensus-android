@@ -30,8 +30,10 @@ public class TimeUtils {
         return Integer.toString(hours) + " hours and " + Integer.toString(minutesLeft) + " minutes";
     }
 
-
-
-
-
+    public static String minutesToSimpleString(int minutes) {
+        if (minutes < 60) {
+            return Integer.toString(minutes) + "m";
+        }
+        return Integer.toString(minutes/60) + "h";
+    }
 }

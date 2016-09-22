@@ -19,12 +19,14 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.activity.BaseActivity;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.LookCardBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemTouchHelperViewHolder;
+import com.fadetoproductions.rvkn.clothesconsensus.utils.TimeUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -137,6 +139,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         ImageView ivLook;
         ImageView ivSmile;
         ImageView ivUnsmile;
+        TextView tvTimeRemaining;
         LooksAdapter adapter; // TODO this is really bad and hacky, but was having trouble with the listeners
 //        ViewHolderLookVoteListener lookVoteListener;
 
@@ -159,10 +162,12 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             ivSmile = lookCardBinding.ivSmile;
             ivUnsmile = lookCardBinding.ivUnsmile;
             ivLook = lookCardBinding.ivLookImage;
+            tvTimeRemaining = lookCardBinding.tvTimeRemaining;
+            tvTimeRemaining.setText(TimeUtils.minutesToSimpleString((int) look.getMinutesRemaining()));
             thumbnail.setImageResource(0);
             ivLook.setImageResource(0);
             Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).transform(new RoundedCornersTransformation(5,0)).fit().into(thumbnail);
-            Picasso.with(mContext).load(look.getPhotoUrl()).transform(new RoundedCornersTransformation(10,0, RoundedCornersTransformation.CornerType.ALL)).fit().into(ivLook);
+            Picasso.with(mContext).load(look.getPhotoUrl()).fit().into(ivLook);
 
             // TODO This shouldn't be done this way
             thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -186,13 +191,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         }
 
         public void setupDraggability() {
-            int test1[] = new int[2];
-            ivLook.getLocationOnScreen(test1);
-
-
-
-
-
             ivLook.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(final View view, MotionEvent motionEvent) {
 
@@ -222,8 +220,17 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
                         view.setY(view.getY() + dy);
                         view.setX(view.getX() + dx);
-                        return true;
 
+
+                        if (viewIsInLeftDropZone(view)) {
+                            ivUnsmile.setVisibility(View.VISIBLE);
+                        } else if (viewIsInRightDropZone(view)) {
+                            ivSmile.setVisibility(View.VISIBLE);
+                        } else {
+                            ivUnsmile.setVisibility(View.INVISIBLE);
+                            ivSmile.setVisibility(View.INVISIBLE);
+                        }
+                        return true;
                     } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
                         if (viewIsInLeftDropZone(view)) {
                             Log.v("s", "inside left");
@@ -256,6 +263,10 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
                             view.startAnimation(anim);
                         }
+
+                        ivUnsmile.setVisibility(View.INVISIBLE);
+                        ivSmile.setVisibility(View.INVISIBLE);
+
                         return true;
 
                     } else {

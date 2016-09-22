@@ -32,22 +32,19 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 
 ###Sprint 3 Goals
 * [x] Profile page styling (Shashank)
-* [ ] Improve swiping (Shashank)
+* [x] Improve swiping (Ryan)
 * [x] Navigation bar per pages (Ryan)
-* [ ] Activity transitions (Ryan)
+* [x] Activity transitions (Ryan)
 * [x] Custom camera fully working (Ryan)
 * [x] Custom slider to set time (Ryan)
-* [ ] Image zoom on profile banner - nice to have (Shashank) (Cornea layout)
 * [ ] Finish push notificiations (Ryan)
 
 
 ###Additional Styling Goals
 * [x] Activity Transitions
-* [ ] Pull to zoom & blur
-* [ ] Progress Bar
+* [x] Progress Bar
 * [ ] Camera click press down
-* [ ] Swipe follow finger
-* [ ] Refresher circle
+* [x] Swipe follow finger
 * [x] Pinch to zoom
 * [x] Login email
 
