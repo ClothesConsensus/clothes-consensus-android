@@ -7,6 +7,8 @@ package com.fadetoproductions.rvkn.clothesconsensus.adapter;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPropertyAnimatorListener;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -32,6 +34,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
+import jp.wasabeef.recyclerview.animators.holder.AnimateViewHolder;
 
 
 public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHolder> {
@@ -119,13 +122,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
-    public static class LookViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
-        // Your holder should contain a member variable
-        // for any view that will be set as you render a row
-
-//        public interface ViewHolderLookVoteListener {
-//            void onVoteLook(Look look, Boolean vote);
-//        }
+    public static class LookViewHolder extends AnimateViewHolder implements ItemTouchHelperViewHolder {
 
         final LookCardBinding lookCardBinding;
         private BaseActivity mContext;
@@ -294,5 +291,29 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             float centerOfView = view.getX() + view.getWidth() / 2;
             return centerOfView > rightBoundary;
         }
+
+        @Override
+        public void animateAddImpl(ViewPropertyAnimatorListener listener) {
+            ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
+            ViewCompat.setAlpha(itemView, 0);
+
+        }
+
+        @Override
+        public void animateRemoveImpl(ViewPropertyAnimatorListener listener) {
+            ViewCompat.animate(itemView)
+                    .translationY(-itemView.getHeight() * 0.3f)
+                    .alpha(0)
+                    .setDuration(300)
+                    .setListener(listener)
+                    .start();
+        }
+
+        @Override
+        public void preAnimateAddImpl() {
+            ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
+            ViewCompat.setAlpha(itemView, 0);
+        }
+
     }
 }

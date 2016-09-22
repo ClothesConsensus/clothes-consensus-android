@@ -93,7 +93,7 @@ public class LoginActivity extends BaseActivity {
     public void login(View view) {
         Log.v("actions", "Logging in");
         //TODO: Hardcoded user for now. Change to the user which is logged in.
-        client.getUser(145);
+        client.getUser(171);
         startProgressBar();
     }
 

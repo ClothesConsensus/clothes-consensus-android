@@ -44,13 +44,6 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
             }
         };
         rvLooks.setLayoutManager(linearLayoutManager);
-//        rvLooks.setLayoutManager(new LinearLayoutManager(this));
-
-//        ItemTouchHelper.Callback callback =
-//                new SimpleItemTouchHelperCallback(adapter);
-//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-//        touchHelper.attachToRecyclerView(rvLooks);
-
 
         user = User.getLoggedInUser(this);
 
