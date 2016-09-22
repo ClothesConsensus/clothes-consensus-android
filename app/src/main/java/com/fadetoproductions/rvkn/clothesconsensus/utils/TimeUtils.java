@@ -31,6 +31,7 @@ public class TimeUtils {
     }
 
     public static String minutesToSimpleString(int minutes) {
+        minutes = Math.abs(minutes); // TODO just covering up some bad api data for now.
         if (minutes < 60) {
             return Integer.toString(minutes) + "m";
         }
