@@ -1,5 +1,7 @@
 package com.fadetoproductions.rvkn.clothesconsensus.models;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +52,8 @@ public class Look {
 
 
     public String getPhotoUrl() {
+        Log.v("url", photoUrl);
+
         return photoUrl;
     }
 

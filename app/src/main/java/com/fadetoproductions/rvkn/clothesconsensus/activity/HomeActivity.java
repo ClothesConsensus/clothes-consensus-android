@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 
@@ -14,8 +13,6 @@ import com.fadetoproductions.rvkn.clothesconsensus.adapter.LooksAdapter;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
-import com.fadetoproductions.rvkn.clothesconsensus.utils.DividerItemDecoration;
-import com.fadetoproductions.rvkn.clothesconsensus.utils.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 
@@ -39,21 +36,31 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
 
         RecyclerView rvLooks = activityHomeBinding.rvLooks;
         rvLooks.setAdapter(adapter);
-        rvLooks.setLayoutManager(new LinearLayoutManager(this));
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST);
-        rvLooks.addItemDecoration(itemDecoration);
-        ItemTouchHelper.Callback callback =
-                new SimpleItemTouchHelperCallback(adapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(rvLooks);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        rvLooks.setLayoutManager(linearLayoutManager);
+//        rvLooks.setLayoutManager(new LinearLayoutManager(this));
+
+//        ItemTouchHelper.Callback callback =
+//                new SimpleItemTouchHelperCallback(adapter);
+//        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+//        touchHelper.attachToRecyclerView(rvLooks);
+
+
         user = User.getLoggedInUser(this);
 
         ButterKnife.bind(this);
         client.getLooks();
+        startProgressBar();
     }
 
     public void onGetLooks(ArrayList<Look> fetchedLooks) {
+        super.onGetLooks(fetchedLooks);
         looks.addAll(fetchedLooks);
         Log.v("action", "Looks fetched");
         adapter.notifyDataSetChanged();

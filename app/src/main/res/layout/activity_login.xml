@@ -6,8 +6,24 @@
     android:layout_height="match_parent"
     tools:context=".activity.LoginActivity"
     android:background="@drawable/background2x"
-    android:padding="40dp"
     >
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:layout_marginTop="18dp"
+        android:visibility="invisible"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rlButtonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="40dp"
+        >
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
@@ -24,7 +40,6 @@
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Facebook"
         />
-
     <Button
         style="@style/LoginButtonStyle"
         android:id="@+id/btnSignInWithTwitter"
@@ -41,5 +56,51 @@
         android:layout_alignLeft="@+id/ivLogo"
         android:text="Sign in with Email"
         />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlEmailLogin"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@color/transparentReallyAlmostBlack"
+        android:padding="40dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="invisible"
+        >
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="rnewton@hearsaycorp.com"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_below="@id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="xxxxxxxxxxxxxxxxxxxx"
+            android:inputType="textPassword"
+            android:layout_centerHorizontal="true"
+            android:textColor="@android:color/white"
+            android:gravity="center"
+            />
+
+        <Button
+            android:id="@+id/btnCompleteLogin"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/etPassword"
+            android:text="Login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@color/transparentAlmostWhite"
+            android:layout_marginBottom="100dp"
+            android:textAllCaps="false"
+            />
+    </RelativeLayout>
 </RelativeLayout>
 </layout>
