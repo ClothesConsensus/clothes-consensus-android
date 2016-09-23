@@ -30,7 +30,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] Swipe to vote (Shashank)
 * [x] Backend/network (Ryan/Shashank)
 * [x] Profile Activity (Shashank)
-* [ ] Push notifications (Ryan)
+* [ ] Push notifications (Shashank)
 
 ###Sprint 3 Goals
 * [x] Profile page styling (Shashank)
@@ -39,7 +39,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] Activity transitions (Ryan)
 * [x] Custom camera fully working (Ryan)
 * [x] Custom slider to set time (Ryan)
-* [ ] Finish push notificiations (Ryan)
+* [ ] Finish push notificiations (Shashank)
 
 
 ###Additional Styling Goals
@@ -49,6 +49,17 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] Swipe follow finger
 * [x] Pinch to zoom
 * [x] Login email
+
+
+###Sprint 4
+* [ ] Success banner (for after posts and dropdown)
+* [ ] Placeholder images
+* [ ] Load image before slide
+* [ ] Have exact ordering of demo looks set
+* [ ] Sqllite cache, or already have some of the starting images?
+* [ ] Finish push
+* [ ] Improve swipe
+* [ ] Prevent using from swiping second table view cell
 
 
 ### Login (hardness: 1)
