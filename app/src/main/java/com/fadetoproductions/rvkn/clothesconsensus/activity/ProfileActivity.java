@@ -42,6 +42,9 @@ public class ProfileActivity extends BaseActivity {
 
         //TODO We need to find the logged in user here.
         user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        if (user == null) {
+            user = User.getLoggedInUser(this);
+        }
         populateProfileHeader();
         RecyclerView rvProfile = activityProfileBinding.rvProfile;
         final ImageView ivBackground = activityProfileBinding.ivBackgroundImage;
