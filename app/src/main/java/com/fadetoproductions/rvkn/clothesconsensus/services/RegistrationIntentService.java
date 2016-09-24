@@ -6,8 +6,14 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by sdass on 9/20/16.
@@ -19,6 +25,9 @@ public class RegistrationIntentService extends IntentService {
     private static final String TAG = "RegIntentService";
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String FCM_TOKEN = "FCMToken";
+    String BASE_API_URL = "https://clothes-consensus-api.herokuapp.com/";
+    String REGISTER_ENDPOINT = "register-device/";
+    String USER_ID = "";
 
 
     public RegistrationIntentService() {
@@ -28,26 +37,51 @@ public class RegistrationIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        USER_ID = intent.getStringExtra("user_id");
+        String fcmToken = sharedPreferences.getString(FCM_TOKEN, "");
+        if (fcmToken.isEmpty()) {
+            // Make a call to Instance API
+            FirebaseInstanceId instanceID = FirebaseInstanceId.getInstance();
+            // request token that will be used by the server to send push notifications
+            String token = instanceID.getToken();
+            Log.d(TAG, "FCM Registration Token: " + token);
+            sharedPreferences.edit().putString(FCM_TOKEN, token).apply();
+        }
 
-        // Make a call to Instance API
-        FirebaseInstanceId instanceID = FirebaseInstanceId.getInstance();
-        String senderId = getResources().getString(R.string.gcm_defaultSenderId);
-        // request token that will be used by the server to send push notifications
-            // Token for now :  fP6-4ytom4I:APA91bF7G1yCOSCTYZKlDwn1qg3FncfL_ixYxBcF7L-BthpnCUQiufDhaYsdVG11bMZscdFcWOYlI4knRqLlK26UkM3CkJEBjXD3lSGxzOt68gyV0XZes-ZJNuWO8-ihfnHot5GEmD9s
-        String token = instanceID.getToken();
-        Log.d(TAG, "FCM Registration Token: " + token);
-
-        // pass along this data
-        // save token
-        sharedPreferences.edit().putString(FCM_TOKEN, token).apply();
-        // pass along this data
-        sendRegistrationToServer(token);
+        // If user id is null then the intent is Coming from onRefreshToken.
+        // Don't send information to server right now.
+        if (fcmToken != null && USER_ID != null) {
+            // pass along this data
+            sendRegistrationToServer(fcmToken);
+        } else {
+            Log.d("NULL_TOKEN_OR_USER", "FCM Registration Token is null or USER is not logged in yet.");
+        }
     }
 
-    private void sendRegistrationToServer(String token) {
-        // Add custom implementation, as needed.
+    public void sendRegistrationToServer(String token) {
+        String url = BASE_API_URL + REGISTER_ENDPOINT ;
+        Log.v("register_device", "Registering a device");
+        Log.v("network_request", url);
+
+        RequestParams params = new RequestParams();
+        params.put("reg_token", token);
+        params.put("user_id", USER_ID);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.post(url, params,new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.v("network_request", "The device was registered successfully.");
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.v("network_request", "Failed to register the device.");
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.edit().putBoolean(SENT_TOKEN_TO_SERVER, true).apply();
-
     }
 }

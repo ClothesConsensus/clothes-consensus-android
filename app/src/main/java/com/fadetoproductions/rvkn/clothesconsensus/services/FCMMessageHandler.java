@@ -1,13 +1,12 @@
 package com.fadetoproductions.rvkn.clothesconsensus.services;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.support.v4.app.NotificationCompat;
+
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
-import android.app.NotificationManager;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
 
 import java.util.Map;
 
@@ -29,8 +28,7 @@ public class FCMMessageHandler extends FirebaseMessagingService {
         } else {
             Context context = getBaseContext();
             NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                    .setSmallIcon(R.mipmap.ic_launcher).setContentTitle(""+data.values().toArray()[0])
-                    .setContentText(""+data.values().toArray()[1]);
+                    .setSmallIcon(R.mipmap.ic_launcher).setContentTitle(""+data.values().toArray()[0]);
             NotificationManager mNotificationManager = (NotificationManager) context
                     .getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.notify(MESSAGE_NOTIFICATION_ID, mBuilder.build());

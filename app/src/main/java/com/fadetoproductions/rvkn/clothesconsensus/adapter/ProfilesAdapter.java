@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,13 +17,10 @@ import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.CurrentProfileRowBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ExpiredProfileRowBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
-import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 

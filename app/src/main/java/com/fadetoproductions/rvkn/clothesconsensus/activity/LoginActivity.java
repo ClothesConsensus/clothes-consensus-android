@@ -23,20 +23,16 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.rlButtonContainer) RelativeLayout rlButtonContainer;
     @BindView(R.id.etEmail) EditText etEmail;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         User user = User.getLoggedInUser(this);
         if (user != null) {
             startHomeActivity();
         }
-
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
-
 
     @OnClick(R.id.rlButtonContainer)
     public void hideLoginWithEmailStuff(View view) {
@@ -93,7 +89,7 @@ public class LoginActivity extends BaseActivity {
     public void login(View view) {
         Log.v("actions", "Logging in");
         //TODO: Hardcoded user for now. Change to the user which is logged in.
-        client.getUser(171);
+        client.getUser(197);
         startProgressBar();
     }
 

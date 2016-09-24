@@ -32,8 +32,7 @@ public class ClothesConsensusClient {
     String LOOKS_ENDPOINT = "looks/";
     String USERS_ENDPOINT = "users/";
     String VOTES_ENDPOINT = "votes/";
-
-
+    
     public ClothesConsensusClientListener listener;
     private AsyncHttpClient client;
 
@@ -127,8 +126,7 @@ public class ClothesConsensusClient {
         RequestParams params = new RequestParams();
         params.put("user_id", userId);
         params.put("vote", vote);
-
-        client.post(url, new JsonHttpResponseHandler() {
+        client.post(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 Log.v("network_request", "The vote was successful");
@@ -142,4 +140,5 @@ public class ClothesConsensusClient {
             }
         });
     }
+
 }
