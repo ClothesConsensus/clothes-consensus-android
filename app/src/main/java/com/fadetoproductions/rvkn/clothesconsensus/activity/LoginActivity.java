@@ -11,7 +11,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
+import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +34,13 @@ public class LoginActivity extends BaseActivity {
         if (user != null) {
             startHomeActivity();
         }
+
+        client.getLooks();  // The only reason we're doing this is to precache some images
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
     }
+
 
     @OnClick(R.id.rlButtonContainer)
     public void hideLoginWithEmailStuff(View view) {
@@ -89,13 +97,18 @@ public class LoginActivity extends BaseActivity {
     public void login(View view) {
         Log.v("actions", "Logging in");
         //TODO: Hardcoded user for now. Change to the user which is logged in.
-        client.getUser(197);
+        client.getMe();
         startProgressBar();
     }
 
     @Override
     public void onGetUser(User user) {
+        Log.v("actions", "User fetched");
         super.onGetUser(user);
+
+        Picasso.with(this).load(user.getBannerImageUrl());
+        Picasso.with(this).load(user.getProfileImageUrl());
+
         User.setLoggedInUser(this, user);
         startHomeActivity();
     }
@@ -103,5 +116,15 @@ public class LoginActivity extends BaseActivity {
     private void startHomeActivity() {
         Intent i = new Intent(this, HomeActivity.class);
         startActivity(i);
+    }
+
+    @Override
+    public void onGetLooks(ArrayList<Look> looks) {
+        // The only reason we're doing this is to precache some images
+        for (int i=0; i < 4; i++) {
+            Look look = looks.get(i);
+            Picasso.with(this).load(look.getPhotoUrl());
+            Picasso.with(this).load(look.getUser().getProfileImageUrl());
+        }
     }
 }

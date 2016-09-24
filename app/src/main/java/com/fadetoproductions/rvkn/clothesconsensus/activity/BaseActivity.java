@@ -6,13 +6,18 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
@@ -141,9 +146,11 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
             if (resultCode == RESULT_OK) {
-//                loadLookConfirmationScreen();
                 Log.v("action", "Look was uploaded");
-                Toast.makeText(this, "Your look was uploaded!", Toast.LENGTH_SHORT).show();
+
+                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are ready.");
+
+
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
                 Log.v("action", "Look was not uploaded");
@@ -167,5 +174,43 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     @Override
     public void onGetUser(User user) {
         stopProgressBar();
+    }
+
+    public void displayThenHideNotificationBanner(String text) {
+        final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
+        if (rlNotificationBanner != null) {
+            TextView tvNotificationText = (TextView) findViewById(R.id.tvNotificationText);
+            tvNotificationText.setText(text);
+
+            ScaleAnimation anim = new ScaleAnimation(1, 1, 0, 1);
+            anim.setDuration(500);
+            rlNotificationBanner.setVisibility(View.VISIBLE);
+            rlNotificationBanner.startAnimation(anim);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    ScaleAnimation anim = new ScaleAnimation(1, 1, 1, 0);
+                    anim.setDuration(500);
+                    anim.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            rlNotificationBanner.setVisibility(View.INVISIBLE);
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+
+                    rlNotificationBanner.startAnimation(anim);
+                }
+            }, 3000);
+        }
     }
 }

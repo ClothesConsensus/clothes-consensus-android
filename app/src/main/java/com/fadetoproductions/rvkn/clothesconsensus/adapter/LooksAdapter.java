@@ -54,7 +54,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         this.mLooks = looks;
     }
 
-//    @Override
     public void onVoteLook(Look look, Boolean vote) {
         mLooks.remove(0);
         notifyItemRemoved(0);
@@ -64,10 +63,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         }
     }
 
-    //    public void animate(RecyclerView.ViewHolder viewHolder) {
-//        final Animation animAnticipateOvershoot = AnimationUtils.loadAnimation(mContext, R.anim.bounce);
-//        viewHolder.itemView.setAnimation(animAnticipateOvershoot);
-//    }
     public interface LookVoteListener {
         void onVoteLook(Look look, Boolean vote);
     }
@@ -83,42 +78,27 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
     @Override
     public void onBindViewHolder(LooksAdapter.LookViewHolder viewHolder, int position) {
         Look look = mLooks.get(position);
-//        animate(viewHolder);
         LookViewHolder lvh = viewHolder;
         if (look != null) {
             lvh.bindLook(this, look);
         }
+        cacheNextImage(position);
+    }
+
+    public void cacheNextImage(int currentPosition) {
+        // Load the upcoming image ahead of time
+        int nextPosition = currentPosition + 2;
+        if (mLooks.size() <= nextPosition) {
+            return;
+        }
+        Look look = mLooks.get(nextPosition);
+        Picasso.with(mContext).load(look.getPhotoUrl());
     }
 
     @Override
     public int getItemCount() {
         return mLooks.size();
     }
-
-
-
-
-//    @Override
-//    public void onItemDismiss(int position, int direction) {
-//        mLooks.remove(position);
-//        notifyItemRemoved(position);
-//    }
-//
-//    @Override
-//    public void onSwipeRight(int position) {
-//        Look look = mLooks.get(position);
-//        if (lookVoteListener != null) {
-//            lookVoteListener.onVoteLook(look, true);
-//        }
-//    }
-//
-//    @Override
-//    public void onSwipeLeft(int position) {
-//        Look look = mLooks.get(position);
-//        if (lookVoteListener != null) {
-//            lookVoteListener.onVoteLook(look, false);
-//        }
-//    }
 
     // Provide a direct reference to each of the views within a data item
     // Used to cache the views within the item layout for fast access
@@ -139,6 +119,8 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         TextView tvTimeRemaining;
         LooksAdapter adapter; // TODO this is really bad and hacky, but was having trouble with the listeners
 //        ViewHolderLookVoteListener lookVoteListener;
+
+
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -164,7 +146,12 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             tvTimeRemaining.setText(TimeUtils.minutesToSimpleString((int) look.getMinutesRemaining()));
             thumbnail.setImageResource(0);
             ivLook.setImageResource(0);
-            Picasso.with(mContext).load(look.getUser().getProfileImageUrl()).transform(new RoundedCornersTransformation(5,0)).fit().into(thumbnail);
+            Picasso.with(mContext)
+                    .load(look.getUser().getProfileImageUrl())
+                    .transform(new RoundedCornersTransformation(5,0))
+                    .fit()
+                    .placeholder(R.drawable.ic_person_black_48dp)
+                    .into(thumbnail);
             Picasso.with(mContext).load(look.getPhotoUrl()).fit().into(ivLook);
 
             // TODO This shouldn't be done this way
@@ -191,6 +178,11 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         public void setupDraggability() {
             ivLook.setOnTouchListener(new View.OnTouchListener() {
                 public boolean onTouch(final View view, MotionEvent motionEvent) {
+                    if (getPosition() != 0) {
+                        // Prevent users from swiping cells that aren't the first
+                        return false;
+                    }
+
                     if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
                         final int pointerIndex = MotionEventCompat.getActionIndex(motionEvent);
                         final float x = MotionEventCompat.getX(motionEvent, pointerIndex);

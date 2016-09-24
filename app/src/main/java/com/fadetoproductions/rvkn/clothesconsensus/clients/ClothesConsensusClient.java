@@ -32,7 +32,10 @@ public class ClothesConsensusClient {
     String LOOKS_ENDPOINT = "looks/";
     String USERS_ENDPOINT = "users/";
     String VOTES_ENDPOINT = "votes/";
-    
+    String ME_ENDPOINT = "me/";
+
+
+
     public ClothesConsensusClientListener listener;
     private AsyncHttpClient client;
 
@@ -87,6 +90,30 @@ public class ClothesConsensusClient {
             }
         });
     }
+
+    public void getMe() {
+        String url = BASE_API_URL + ME_ENDPOINT;
+        Log.v("network_request", "Fetching Me");
+        Log.v("network_request", url);
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.v("network_request", "Success");
+                User user = User.fromJson(response);
+                // TODO hacking this for now for the demo.
+                listener.onGetUser(user);
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.v("network_request", "Failure");
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+        });
+    }
+
 
     public void postLook(long userId, String quote, String expiration, String imageString) {
         // Some user param data
