@@ -43,6 +43,9 @@ public class ProfileV2Activity extends BaseActivity {
         ButterKnife.bind(this);
 
         user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
+        if (user == null) {
+            user = User.getLoggedInUser(this);
+        }
         profileLooks = new ArrayList<>();
         populateProfileHeader();
 
