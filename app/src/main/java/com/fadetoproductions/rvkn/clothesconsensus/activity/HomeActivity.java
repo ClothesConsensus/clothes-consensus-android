@@ -13,6 +13,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.adapter.LooksAdapter;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.ActivityHomeBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.services.RegistrationIntentService;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,9 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = new Intent(this, RegistrationIntentService.class);
+        intent.putExtra("user_id",""+User.getLoggedInUser(this).getUserId());
+        startService(intent);
         activityHomeBinding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         looks = new ArrayList<>();
         adapter = new LooksAdapter(this, looks);
