@@ -55,13 +55,5 @@
             android:background="@android:color/white"
             android:id="@+id/rv_profile">
         </android.support.v7.widget.RecyclerView>
-
-        <include
-            layout="@layout/notification_banner"
-            android:layout_below="@+id/toolbar"
-            android:id="@+id/rlNotificationBanner"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/notificationBannerHeight"
-            />
     </RelativeLayout>
 </layout>

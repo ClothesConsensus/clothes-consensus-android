@@ -99,5 +99,11 @@
         android:background="@android:color/white"
         >
     </android.support.v7.widget.RecyclerView>
-
+    <include
+        layout="@layout/notification_banner"
+        android:layout_alignParentTop="true"
+        android:id="@+id/rlNotificationBanner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notificationBannerHeight"
+        />
 </RelativeLayout>

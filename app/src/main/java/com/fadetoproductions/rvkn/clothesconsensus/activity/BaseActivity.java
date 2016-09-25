@@ -63,8 +63,13 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         // Register for the notification broadcast message.
         IntentFilter filter = new IntentFilter(FCMMessageHandler.ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter);
+        final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
+        if (rlNotificationBanner != null) {
+            rlNotificationBanner.clearAnimation();
+            rlNotificationBanner.setVisibility(View.INVISIBLE);
+        }
     }
-    
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -175,13 +180,11 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     // TODO this probably shouldn't be in the base activity. We can move it out when we create custom camera view
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+
             overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
             if (resultCode == RESULT_OK) {
                 Log.v("action", "Look was uploaded");
-
-                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are ready.");
-
-
+                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
                 Log.v("action", "Look was not uploaded");
@@ -210,6 +213,8 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     public void displayThenHideNotificationBanner(String text) {
         final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
         if (rlNotificationBanner != null) {
+            Log.v("STUFF", "CAAAAAMMMS");
+
             final User user = User.getLoggedInUser(this);
             TextView tvNotificationText = (TextView) findViewById(R.id.tvNotificationText);
             tvNotificationText.setText(text);
