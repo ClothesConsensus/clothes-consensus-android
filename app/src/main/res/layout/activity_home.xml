@@ -37,7 +37,7 @@
 
         <include
             layout="@layout/notification_banner"
-            android:layout_below="@+id/toolbar"
+            android:layout_alignParentTop="true"
             android:id="@+id/rlNotificationBanner"
             android:layout_width="match_parent"
             android:layout_height="@dimen/notificationBannerHeight"

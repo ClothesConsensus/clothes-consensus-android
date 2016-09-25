@@ -79,7 +79,8 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             if (resultCode == RESULT_OK) {
                 String resultValue = intent.getStringExtra("resultValue");
                 Log.v("Notification recieved:", resultValue);
-                Toast.makeText(BaseActivity.this, resultValue, Toast.LENGTH_SHORT).show();
+
+                displayThenHideNotificationBanner(resultValue);
             }
         }
     };
@@ -110,8 +111,6 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             pbLoading.setVisibility(View.INVISIBLE);
         }
     }
-
-
 
     private Boolean checkAndRequestCameraPermissions() {
         // https://developer.android.com/training/permissions/requesting.html
@@ -211,8 +210,16 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     public void displayThenHideNotificationBanner(String text) {
         final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
         if (rlNotificationBanner != null) {
+            final User user = User.getLoggedInUser(this);
             TextView tvNotificationText = (TextView) findViewById(R.id.tvNotificationText);
             tvNotificationText.setText(text);
+
+            rlNotificationBanner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loadProfileForUser(user);
+                }
+            });
 
             ScaleAnimation anim = new ScaleAnimation(1, 1, 0, 1);
             anim.setDuration(500);
@@ -242,7 +249,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
                     rlNotificationBanner.startAnimation(anim);
                 }
-            }, 3000);
+            }, 4000);
         }
     }
 }
