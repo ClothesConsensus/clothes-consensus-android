@@ -1,10 +1,13 @@
 package com.fadetoproductions.rvkn.clothesconsensus.services;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.activity.ProfileV2Activity;
@@ -19,12 +22,12 @@ import java.util.Map;
  */
 public class FCMMessageHandler extends FirebaseMessagingService {
     public static final int MESSAGE_NOTIFICATION_ID = 435345;
+    public static final String ACTION = "Local_broadcast_message";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Map<String, String> data = remoteMessage.getData();
         String from = remoteMessage.getFrom();
-
         RemoteMessage.Notification notification = remoteMessage.getNotification();
         if(notification != null) {
             createNotification(notification);
@@ -41,12 +44,20 @@ public class FCMMessageHandler extends FirebaseMessagingService {
     // Creates notification based on title and body received
     private void createNotification(RemoteMessage.Notification notification) {
         Context context = getBaseContext();
+        Intent in = new Intent(ACTION);
+        in.putExtra("resultCode", Activity.RESULT_OK);
+        in.putExtra("resultValue",notification.getTitle()+". "+notification.getBody());
+        LocalBroadcastManager.getInstance(this).sendBroadcast(in);
+        Log.v("LOCAL_BROADCAST","Broadcast Send.");
+
         Intent viewIntent = new Intent(context, ProfileV2Activity.class);
         PendingIntent viewPendingIntent =
                 PendingIntent.getActivity(context, 0, viewIntent, 0);
+
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.cc_icon_sm).setContentTitle(notification.getTitle())
-                .setContentText(notification.getBody()).setContentIntent(viewPendingIntent);
+                .setContentText(notification.getBody()).setContentIntent(viewPendingIntent)
+                .setAutoCancel(true);
         NotificationManager mNotificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(MESSAGE_NOTIFICATION_ID, mBuilder.build());
