@@ -3,12 +3,16 @@ package com.fadetoproductions.rvkn.clothesconsensus.activity;
 import android.Manifest;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +28,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
+import com.fadetoproductions.rvkn.clothesconsensus.services.FCMMessageHandler;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -51,6 +56,33 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         client = new ClothesConsensusClient();
         client.setListener(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Register for the notification broadcast message.
+        IntentFilter filter = new IntentFilter(FCMMessageHandler.ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter);
+    }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Unregister the listener when the application is paused
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(notificationReceiver);
+    }
+
+    private BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int resultCode = intent.getIntExtra("resultCode", RESULT_CANCELED);
+            if (resultCode == RESULT_OK) {
+                String resultValue = intent.getStringExtra("resultValue");
+                Log.v("Notification recieved:", resultValue);
+                Toast.makeText(BaseActivity.this, resultValue, Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
     public void startProgressBar() {
         ProgressBar pbLoading = (ProgressBar) findViewById(R.id.pbLoading);
