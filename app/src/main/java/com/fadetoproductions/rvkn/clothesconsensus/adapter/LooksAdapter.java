@@ -92,7 +92,8 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             return;
         }
         Look look = mLooks.get(nextPosition);
-        Picasso.with(mContext).load(look.getPhotoUrl());
+        ImageView view = new ImageView(mContext);
+        Picasso.with(mContext).load(look.getPhotoUrl()).into(view);
     }
 
     @Override
@@ -206,11 +207,12 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                         view.setY(view.getY() + dy);
                         view.setX(view.getX() + dx);
 
-
                         if (viewIsInLeftDropZone(view)) {
                             ivUnsmile.setVisibility(View.VISIBLE);
+                            ivUnsmile.setImageAlpha(getAlphaForUnsmile(view));
                         } else if (viewIsInRightDropZone(view)) {
                             ivSmile.setVisibility(View.VISIBLE);
+                            ivSmile.setImageAlpha(getAlphaForSmile(view));
                         } else {
                             ivUnsmile.setVisibility(View.INVISIBLE);
                             ivSmile.setVisibility(View.INVISIBLE);
@@ -282,6 +284,38 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             float rightBoundary = screenWidth - (screenWidth * percent);
             float centerOfView = view.getX() + view.getWidth() / 2;
             return centerOfView > rightBoundary;
+        }
+
+        public int getAlphaForSmile(View view) {
+            // TODO simplify this...
+            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            float screenWidth = metrics.widthPixels;
+            float percent = (float) 0.25;
+            float rightBoundary = screenWidth - (screenWidth * percent);
+            float centerOfView = view.getX() + view.getWidth() / 2;
+            float amountBeyondBoundary = centerOfView - rightBoundary;
+            float boundarySize = screenWidth * percent;
+            float percentOfBoundaryCrossed = amountBeyondBoundary / boundarySize;
+            float startingOpacity = (float) 0.5;
+            // 255 is what setImageAlphaTakes
+            int opacity = (int) (startingOpacity + percentOfBoundaryCrossed * 255);
+            return Math.min(opacity, 255);
+        }
+
+        public int getAlphaForUnsmile(View view) {
+            // TODO simplify this...
+            DisplayMetrics metrics = mContext.getResources().getDisplayMetrics();
+            float screenWidth = metrics.widthPixels;
+            float percent = (float) 0.25;
+            float leftBoundary = screenWidth * percent;
+            float centerOfView = view.getX() + view.getWidth() / 2;
+            float amountBeyondBoundary = leftBoundary - centerOfView;
+            float boundarySize = screenWidth * percent;
+            float percentOfBoundaryCrossed = amountBeyondBoundary / boundarySize;
+            float startingOpacity = (float) 0.5;
+            // 255 is what setImageAlphaTakes
+            int opacity = (int) (startingOpacity + percentOfBoundaryCrossed * 255);
+            return Math.min(opacity, 255);
         }
 
         @Override

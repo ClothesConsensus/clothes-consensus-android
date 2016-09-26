@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +30,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClien
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.services.FCMMessageHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -54,8 +56,23 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = new ClothesConsensusClient();
+        client.setUser(User.getLoggedInUser(this));
         client.setListener(this);
+        cacheUserImages();
     }
+
+    private void cacheUserImages() {
+        // TODO just doing this to make the demo smoother
+        User user = User.getLoggedInUser(this);
+        if (user != null) {
+            ImageView view = new ImageView(this);
+            Picasso.with(this).load(user.getBannerImageUrl()).into(view);
+
+            ImageView view2 = new ImageView(this);
+            Picasso.with(this).load(user.getProfileImageUrl()).into(view2);
+        }
+    }
+
 
     @Override
     protected void onResume() {

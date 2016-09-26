@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:background="#50FFFFFF"
+    android:background="@color/white"
     >
 
     <RelativeLayout
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:padding="10dp"
-        android:background="#00FFFFFF"
+        android:background="@android:color/transparent"
     >
 
         <ImageView
@@ -74,18 +74,15 @@
             android:layout_marginTop="35dp"
             android:layout_marginLeft="5dp"
             android:textSize="20sp"
-            android:background="@android:color/transparent"
             />
 
         <TextView
             android:id="@+id/tvLookCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="35 looks"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tvName"
             android:layout_alignBottom="@+id/tvName"
-            android:background="@android:color/transparent"
             />
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView

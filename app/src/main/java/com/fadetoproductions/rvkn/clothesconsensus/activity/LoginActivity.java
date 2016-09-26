@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
@@ -121,10 +122,19 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void onGetLooks(ArrayList<Look> looks) {
         // The only reason we're doing this is to precache some images
-        for (int i=0; i < 4; i++) {
-            Look look = looks.get(i);
-            Picasso.with(this).load(look.getPhotoUrl());
-            Picasso.with(this).load(look.getUser().getProfileImageUrl());
+
+        int index = 0;
+        int numberCached = 0;
+
+        while (index < looks.size() && numberCached < 2) {
+            Look look = looks.get(index);
+            if (look.getUser().getName() != "Ryan") {
+                ImageView view1 = new ImageView(this);
+                ImageView view2 = new ImageView(this);
+                Picasso.with(this).load(look.getPhotoUrl()).into(view1);
+                Picasso.with(this).load(look.getUser().getProfileImageUrl()).into(view2);
+                numberCached += 1;
+            }
         }
     }
 }
