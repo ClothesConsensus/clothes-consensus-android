@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/white"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="75dp"
                 >
                 <ImageView
                     android:id="@+id/ivClockHands"
@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/ivLookImage"
-            android:layout_width="310dp"
-            android:layout_height="310dp"
+            android:layout_width="@dimen/hardCodedLookSize"
+            android:layout_height="@dimen/hardCodedLookSize"
             android:src="@drawable/example_look"
             android:layout_below="@id/rlCaption"
             android:layout_alignParentRight="true"
@@ -143,5 +143,12 @@
         android:max="100"
         android:visibility="invisible"
         android:layout_marginTop="69dp"
+        />
+    <include
+        layout="@layout/notification_banner"
+        android:layout_alignParentTop="true"
+        android:id="@+id/rlNotificationBanner"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/notificationBannerHeight"
         />
 </RelativeLayout>

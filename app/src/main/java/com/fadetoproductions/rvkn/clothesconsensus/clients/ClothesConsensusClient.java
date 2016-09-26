@@ -38,6 +38,12 @@ public class ClothesConsensusClient {
 
     public ClothesConsensusClientListener listener;
     private AsyncHttpClient client;
+    User user;
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public void setListener(ClothesConsensusClientListener listener) {
         this.listener = listener;
@@ -52,7 +58,12 @@ public class ClothesConsensusClient {
         Log.v("network_request", "Fetching Looks");
         Log.v("network_request", url);
 
-        client.get(url, new JsonHttpResponseHandler() {
+        RequestParams params = new RequestParams();
+        if (user != null) {
+            params.put("request_user_id", user.getUserId());
+        }
+
+        client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 Log.v("network_request", "Success");

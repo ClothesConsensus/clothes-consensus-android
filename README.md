@@ -52,7 +52,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 
 
 ###Sprint 4
-* [ ] Success banner (for after posts and dropdown)
+* [x] Success banner (for after posts and dropdown)
 * [ ] Placeholder images
 * [x] Load image before slide
 * [x] Have exact ordering of demo looks set
@@ -64,8 +64,10 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [ ] Aspect ratio during camera flow
 * [ ] Reaction for nav button presses
 * [x] Load first few images in login view for caching purposes
-* [ ] Get /me/ loading
-* [ ] User not load his own looks
+* [x] Get /me/ loading
+* [x] User not load his own looks
+* [x] Background color on profile page banner is slightly off
+* [ ] Banner when posting image is right
 
 
 ### Login (hardness: 1)

@@ -19,16 +19,17 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
 import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.services.FCMMessageHandler;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 import org.parceler.Parcels;
@@ -54,8 +55,23 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         client = new ClothesConsensusClient();
+        client.setUser(User.getLoggedInUser(this));
         client.setListener(this);
+        cacheUserImages();
     }
+
+    private void cacheUserImages() {
+        // TODO just doing this to make the demo smoother
+        User user = User.getLoggedInUser(this);
+        if (user != null) {
+            ImageView view = new ImageView(this);
+            Picasso.with(this).load(user.getBannerImageUrl()).into(view);
+
+            ImageView view2 = new ImageView(this);
+            Picasso.with(this).load(user.getProfileImageUrl()).into(view2);
+        }
+    }
+
 
     @Override
     protected void onResume() {
@@ -63,8 +79,13 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         // Register for the notification broadcast message.
         IntentFilter filter = new IntentFilter(FCMMessageHandler.ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter);
+        final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
+        if (rlNotificationBanner != null) {
+            rlNotificationBanner.clearAnimation();
+            rlNotificationBanner.setVisibility(View.INVISIBLE);
+        }
     }
-    
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -79,7 +100,8 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             if (resultCode == RESULT_OK) {
                 String resultValue = intent.getStringExtra("resultValue");
                 Log.v("Notification recieved:", resultValue);
-                Toast.makeText(BaseActivity.this, resultValue, Toast.LENGTH_SHORT).show();
+
+                displayThenHideNotificationBanner(resultValue);
             }
         }
     };
@@ -110,8 +132,6 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             pbLoading.setVisibility(View.INVISIBLE);
         }
     }
-
-
 
     private Boolean checkAndRequestCameraPermissions() {
         // https://developer.android.com/training/permissions/requesting.html
@@ -176,15 +196,12 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     // TODO this probably shouldn't be in the base activity. We can move it out when we create custom camera view
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+
             overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
             if (resultCode == RESULT_OK) {
                 Log.v("action", "Look was uploaded");
-
-                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are ready.");
-
-
-            } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
+            } else {
                 Log.v("action", "Look was not uploaded");
             }
         }
@@ -211,8 +228,18 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     public void displayThenHideNotificationBanner(String text) {
         final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
         if (rlNotificationBanner != null) {
+            Log.v("STUFF", "CAAAAAMMMS");
+
+            final User user = User.getLoggedInUser(this);
             TextView tvNotificationText = (TextView) findViewById(R.id.tvNotificationText);
             tvNotificationText.setText(text);
+
+            rlNotificationBanner.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    loadProfileForUser(user);
+                }
+            });
 
             ScaleAnimation anim = new ScaleAnimation(1, 1, 0, 1);
             anim.setDuration(500);
@@ -242,7 +269,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
 
                     rlNotificationBanner.startAnimation(anim);
                 }
-            }, 3000);
+            }, 4000);
         }
     }
 }
