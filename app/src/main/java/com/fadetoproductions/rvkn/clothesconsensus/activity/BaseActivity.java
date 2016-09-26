@@ -51,6 +51,8 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     ClothesConsensusClient client;
     ObjectAnimator pbAnimation;
 
+    private boolean shouldTriggerPhotoNotif = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,11 +81,19 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         // Register for the notification broadcast message.
         IntentFilter filter = new IntentFilter(FCMMessageHandler.ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter);
+
         final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
         if (rlNotificationBanner != null) {
             rlNotificationBanner.clearAnimation();
             rlNotificationBanner.setVisibility(View.INVISIBLE);
         }
+
+        // TODO this is kind of hacky, but because we clear the animation, we need to trigger it afterwards. Look into lifecycles more
+        if (shouldTriggerPhotoNotif) {
+            displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
+            shouldTriggerPhotoNotif = false;
+        }
+
     }
 
     @Override
@@ -200,7 +210,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
             if (resultCode == RESULT_OK) {
                 Log.v("action", "Look was uploaded");
-                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
+                shouldTriggerPhotoNotif = true;
             } else {
                 Log.v("action", "Look was not uploaded");
             }
