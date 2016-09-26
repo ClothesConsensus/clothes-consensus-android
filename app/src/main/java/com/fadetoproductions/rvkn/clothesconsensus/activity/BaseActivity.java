@@ -23,7 +23,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.clients.ClothesConsensusClient;
@@ -202,8 +201,7 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
             if (resultCode == RESULT_OK) {
                 Log.v("action", "Look was uploaded");
                 displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
-            } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            } else {
                 Log.v("action", "Look was not uploaded");
             }
         }

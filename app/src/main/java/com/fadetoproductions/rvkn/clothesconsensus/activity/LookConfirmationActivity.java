@@ -63,7 +63,8 @@ public class LookConfirmationActivity extends BaseActivity {
         rlTimePicker.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                rlClockImageAndText.setY(event.getY());
+                rlClockImageAndText.setY(Math.max(event.getY(), 0));  // Maxing it here so we don't go off the widget
+
                 expirationTime = calculateTimeOnDatePicker(event.getY());
                 tvTime.setText(TimeUtils.minutesToString(expirationTime));
                 return true;
@@ -97,8 +98,8 @@ public class LookConfirmationActivity extends BaseActivity {
     }
 
     private int calculateTimeOnDatePicker(float eventY) {
-        int timeMin = 5;  // In minutes
-        int timeMax = 5 * 12 * 24; // half a day
+        int timeMin = 3;  // In minutes
+        int timeMax = 5 * 6 * 24; // 6 hrs
         float percent = calculatePercentOnRlTimepicker(eventY);
         int expirationTimeInMinutes = (int) ((timeMax - timeMin) * percent + timeMin);
 

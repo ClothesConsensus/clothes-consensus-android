@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/white"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="75dp"
                 >
                 <ImageView
                     android:id="@+id/ivClockHands"
@@ -82,8 +82,8 @@
 
         <ImageView
             android:id="@+id/ivLookImage"
-            android:layout_width="310dp"
-            android:layout_height="310dp"
+            android:layout_width="@dimen/hardCodedLookSize"
+            android:layout_height="@dimen/hardCodedLookSize"
             android:src="@drawable/example_look"
             android:layout_below="@id/rlCaption"
             android:layout_alignParentRight="true"
