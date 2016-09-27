@@ -2,7 +2,9 @@ package com.fadetoproductions.rvkn.clothesconsensus.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +21,7 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -87,6 +90,20 @@ public class LookConfirmationActivity extends BaseActivity {
         startProgressBar();
     }
 
+    @OnClick(R.id.ibEmailShare)
+    public  void shareLookWithMail() {
+        Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+        emailIntent.setType("png/image");
+        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Vote My look");
+        String message = etMessage.getText().toString();
+        if(message == null || message.equals(""))
+            message = "How do I look?";
+        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, message);
+        Uri uri = Uri.fromFile(new File(PhotoUtils.getFilePathString(this, PhotoUtils.PHOTO_FILE_NAME)));
+        emailIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        emailIntent.setType("text/plain");
+        startActivity(emailIntent);
+    }
     @OnClick(R.id.ibBackToCamera)
     public void backToCamera() {
         finish();
