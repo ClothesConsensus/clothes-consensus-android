@@ -27,6 +27,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.activity.BaseActivity;
 import com.fadetoproductions.rvkn.clothesconsensus.databinding.LookCardBinding;
 import com.fadetoproductions.rvkn.clothesconsensus.models.Look;
+import com.fadetoproductions.rvkn.clothesconsensus.models.User;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.ItemTouchHelperViewHolder;
 import com.fadetoproductions.rvkn.clothesconsensus.utils.TimeUtils;
 import com.squareup.picasso.Picasso;
@@ -83,6 +84,12 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             lvh.bindLook(this, look);
         }
         cacheNextImage(position);
+        cacheUserBackground(look.getUser());
+    }
+
+    public void cacheUserBackground(User user) {
+        ImageView view = new ImageView(mContext);
+        Picasso.with(mContext).load(user.getProfileImageUrl()).into(view);
     }
 
     public void cacheNextImage(int currentPosition) {
@@ -138,6 +145,7 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             adapter = looksAdapter;
             ImageView thumbnail = lookCardBinding.rlCaption.ivThumbnail;
             EditText message = lookCardBinding.rlCaption.etMessage;
+            message.setFocusable(false);
             message.setText(look.getMessage());
             ivSmile = lookCardBinding.ivSmile;
             ivUnsmile = lookCardBinding.ivUnsmile;
@@ -151,7 +159,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
                     .load(look.getUser().getProfileImageUrl())
                     .transform(new RoundedCornersTransformation(5,0))
                     .fit()
-                    .placeholder(R.drawable.ic_person_black_48dp)
                     .into(thumbnail);
             Picasso.with(mContext).load(look.getPhotoUrl()).fit().into(ivLook);
 
@@ -339,6 +346,5 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
             ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
             ViewCompat.setAlpha(itemView, 0);
         }
-
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +46,10 @@ public class LookConfirmationActivity extends BaseActivity {
     @BindView(R.id.rlClockImageAndText) RelativeLayout rlClockImageAndText;
     @BindView(R.id.tvTime) TextView tvTime;
 
+    @BindView(R.id.ibTwitterShare) ImageButton ibTwitterShare;
+    @BindView(R.id.ibEmailShare) ImageButton ibEmailShare;
+    @BindView(R.id.ibFacebookShare) ImageButton ibFacebookShare;
+
     @BindView(R.id.ibBackToCamera) ImageButton ibBackToCamera;
 
     @Override
@@ -60,6 +63,9 @@ public class LookConfirmationActivity extends BaseActivity {
         setupTimeLister();
 
         setOnTouchListenerOnImageButton(ibBackToCamera);
+        setOnTouchListenerOnImageButton(ibTwitterShare);
+        setOnTouchListenerOnImageButton(ibFacebookShare);
+        setOnTouchListenerOnImageButton(ibEmailShare);
     }
 
     private void loadLookImage() {

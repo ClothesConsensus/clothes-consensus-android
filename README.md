@@ -45,7 +45,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 ###Additional Styling Goals
 * [x] Activity Transitions
 * [x] Progress Bar
-* [ ] Camera click press down
+* [x] Camera click press down
 * [x] Swipe follow finger
 * [x] Pinch to zoom
 * [x] Login email
@@ -53,7 +53,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 
 ###Sprint 4
 * [x] Success banner (for after posts and dropdown)
-* [ ] Placeholder images
+* [x] Remove placeholder images
 * [x] Load image before slide
 * [x] Have exact ordering of demo looks set
 
@@ -62,12 +62,13 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] Prevent using from swiping second table view cell
 * [ ] Icons on login buttons
 * [ ] Aspect ratio during camera flow
-* [ ] Reaction for nav button presses
+* [x] Reaction for nav button presses
 * [x] Load first few images in login view for caching purposes
 * [x] Get /me/ loading
 * [x] User not load his own looks
 * [x] Background color on profile page banner is slightly off
-* [x] Banner when posting image is right
+* [x] Banner when posting image is right	
+* [ ] Reaction on Post Look button
 
 
 ### Login (hardness: 1)
