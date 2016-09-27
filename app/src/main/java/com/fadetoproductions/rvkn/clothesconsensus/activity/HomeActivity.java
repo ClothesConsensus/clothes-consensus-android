@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.fadetoproductions.rvkn.clothesconsensus.R;
 import com.fadetoproductions.rvkn.clothesconsensus.adapter.LooksAdapter;
@@ -17,6 +18,7 @@ import com.fadetoproductions.rvkn.clothesconsensus.services.RegistrationIntentSe
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -26,6 +28,10 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
     LooksAdapter adapter;
     ArrayList<Look> looks;
     User user;
+
+    @BindView(R.id.ibProfile) ImageButton ibProfile;
+    @BindView(R.id.ibCamera) ImageButton ibCamera;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +56,10 @@ public class HomeActivity extends BaseActivity implements LooksAdapter.LookVoteL
         rvLooks.setLayoutManager(linearLayoutManager);
 
         user = User.getLoggedInUser(this);
-
         ButterKnife.bind(this);
+        setOnTouchListenerOnImageButton(ibProfile);
+        setOnTouchListenerOnImageButton(ibCamera);
+
         client.getLooks();
         startProgressBar();
     }

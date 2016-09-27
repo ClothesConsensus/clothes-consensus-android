@@ -322,7 +322,6 @@ public class LooksAdapter extends RecyclerView.Adapter<LooksAdapter.LookViewHold
         public void animateAddImpl(ViewPropertyAnimatorListener listener) {
             ViewCompat.setTranslationY(itemView, -itemView.getHeight() * 0.3f);
             ViewCompat.setAlpha(itemView, 0);
-
         }
 
         @Override

@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +44,8 @@ public class LookConfirmationActivity extends BaseActivity {
     @BindView(R.id.rlClockImageAndText) RelativeLayout rlClockImageAndText;
     @BindView(R.id.tvTime) TextView tvTime;
 
+    @BindView(R.id.ibBackToCamera) ImageButton ibBackToCamera;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,8 @@ public class LookConfirmationActivity extends BaseActivity {
         Picasso.with(this).load(user.getProfileImageUrl()).into(ivThumbnail);
         loadLookImage();
         setupTimeLister();
+
+        setOnTouchListenerOnImageButton(ibBackToCamera);
     }
 
     private void loadLookImage() {
