@@ -376,9 +376,38 @@ public class CameraActivity extends BaseActivity {
 
     private void renderBasedOnCameraSettings() {
         Boolean flashOn = cameraSettings.getFlashOn();
+        if(flashOn){
+            turnOnFlashLight();
+        } else {
+            turnOffFlashLight();
+        }
         ibFlash.setImageResource(flashOn ? R.drawable.flash_on : R.drawable.flash_off);
-    }
 
+    }
+    public void turnOffFlashLight()
+    {
+        try
+        {
+            captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
+            cameraCaptureSessions.setRepeatingRequest(captureRequestBuilder.build(), null, null);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public void turnOnFlashLight()
+    {
+        try
+        {
+            captureRequestBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
+            cameraCaptureSessions.setRepeatingRequest(captureRequestBuilder.build(), null, null);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
     @OnClick(R.id.ibFlash)
     public void switchFlash(View view) {
         cameraSettings.toggleFlash();
