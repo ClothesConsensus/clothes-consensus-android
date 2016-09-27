@@ -15,10 +15,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -47,9 +49,12 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     // TODO move this camera stuff
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public final static int CAMERA_PERMISSIONS_REQUEST_GRANTED = 9999;
+    public final static int LOOK_POSTED_CODE = 1096;
 
     ClothesConsensusClient client;
     ObjectAnimator pbAnimation;
+
+    private boolean shouldTriggerPhotoNotif = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,17 +77,23 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         // Register for the notification broadcast message.
         IntentFilter filter = new IntentFilter(FCMMessageHandler.ACTION);
         LocalBroadcastManager.getInstance(this).registerReceiver(notificationReceiver, filter);
+
         final RelativeLayout rlNotificationBanner = (RelativeLayout) findViewById(R.id.rlNotificationBanner);
         if (rlNotificationBanner != null) {
             rlNotificationBanner.clearAnimation();
             rlNotificationBanner.setVisibility(View.INVISIBLE);
+        }
+
+        // TODO this is kind of hacky, but because we clear the animation, we need to trigger it afterwards. Look into lifecycles more
+        if (shouldTriggerPhotoNotif) {
+            displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
+            shouldTriggerPhotoNotif = false;
         }
     }
 
@@ -198,9 +209,9 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
 
             overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
-            if (resultCode == RESULT_OK) {
+            if (resultCode == LOOK_POSTED_CODE) {
                 Log.v("action", "Look was uploaded");
-                displayThenHideNotificationBanner("Your look was successfully uploaded! We'll notify you when the results are in.");
+                shouldTriggerPhotoNotif = true;
             } else {
                 Log.v("action", "Look was not uploaded");
             }
@@ -223,6 +234,21 @@ public class BaseActivity extends AppCompatActivity implements ClothesConsensusC
     @Override
     public void onGetUser(User user) {
         stopProgressBar();
+    }
+
+
+    public void setOnTouchListenerOnImageButton(final ImageButton imageButton) {
+        imageButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    imageButton.setImageAlpha(64);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    imageButton.setImageAlpha(255);
+                }
+                return false;
+            }
+        });
     }
 
     public void displayThenHideNotificationBanner(String text) {

@@ -56,12 +56,15 @@ public class CameraActivity extends BaseActivity {
 
     int RESULT_SELECT_IMAGE_FROM_GALLERY = 1098;
     int LOOK_CONFIRMATION_COMPLETED = 1097;
+    int LOOK_POSTED_CODE = 1096;
 
 
     @BindView(R.id.ibTakePhoto) ImageButton ibTakePhoto;
     @BindView(R.id.textureViewCamera) TextureView textureView;
     @BindView(R.id.ibFlash) ImageButton ibFlash;
     @BindView(R.id.ibFlipCamera) ImageButton ibFlipCamera;
+    @BindView(R.id.ibGallery) ImageButton ibGallery;
+    @BindView(R.id.ibBack) ImageButton ibBack;
 
     final private String TAG = "CameraActivity";
     private String cameraId;
@@ -100,6 +103,12 @@ public class CameraActivity extends BaseActivity {
                 textureView.getLayoutParams().height = textureView.getWidth();
             }
         });
+
+        setOnTouchListenerOnImageButton(ibTakePhoto);
+        setOnTouchListenerOnImageButton(ibFlash);
+        setOnTouchListenerOnImageButton(ibFlipCamera);
+        setOnTouchListenerOnImageButton(ibGallery);
+        setOnTouchListenerOnImageButton(ibBack);
     }
 
     public void setupListenersAndCallbacks() {
@@ -416,7 +425,7 @@ public class CameraActivity extends BaseActivity {
         if (requestCode == LOOK_CONFIRMATION_COMPLETED) {
             if (resultCode == RESULT_OK) {
                 overridePendingTransition(R.anim.no_change, R.anim.slide_down_2);
-                setResult(RESULT_OK, data);
+                setResult(LOOK_POSTED_CODE, data);
                 this.finish();
             } else {
                 overridePendingTransition(R.anim.no_change, R.anim.slide_out_right);

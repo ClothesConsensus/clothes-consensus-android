@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,12 +36,17 @@ public class ProfileV2Activity extends BaseActivity {
     @BindView(R.id.tvName) TextView tvName;
     @BindView(R.id.tvLookCount) TextView tvLookCount;
 
+    @BindView(R.id.ibCamera) ImageButton ibCamera;
+    @BindView(R.id.ibBack) ImageButton ibBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_v2);
         ButterKnife.bind(this);
+
+        setOnTouchListenerOnImageButton(ibCamera);
+        setOnTouchListenerOnImageButton(ibBack);
 
         user = Parcels.unwrap(getIntent().getParcelableExtra("user"));
         if (user == null) {

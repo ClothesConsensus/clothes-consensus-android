@@ -67,7 +67,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] Get /me/ loading
 * [x] User not load his own looks
 * [x] Background color on profile page banner is slightly off
-* [ ] Banner when posting image is right
+* [x] Banner when posting image is right
 
 
 ### Login (hardness: 1)
