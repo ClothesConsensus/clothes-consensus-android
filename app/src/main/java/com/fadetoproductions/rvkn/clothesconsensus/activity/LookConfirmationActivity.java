@@ -66,6 +66,20 @@ public class LookConfirmationActivity extends BaseActivity {
         setOnTouchListenerOnImageButton(ibTwitterShare);
         setOnTouchListenerOnImageButton(ibFacebookShare);
         setOnTouchListenerOnImageButton(ibEmailShare);
+
+        btnPostLook.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    btnPostLook.setAlpha(0.25f);
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    btnPostLook.setAlpha(1);
+                }
+                return false;
+            }
+        });
+
+
     }
 
     private void loadLookImage() {

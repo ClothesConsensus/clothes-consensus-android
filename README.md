@@ -60,7 +60,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] Finish push
 * [ ] Improve swipe
 * [x] Prevent using from swiping second table view cell
-* [ ] Icons on login buttons
+* [x] Icons on login buttons
 * [ ] Aspect ratio during camera flow
 * [x] Reaction for nav button presses
 * [x] Load first few images in login view for caching purposes
@@ -68,7 +68,7 @@ Current functionality: http://i.imgur.com/e21Pdlx.gif
 * [x] User not load his own looks
 * [x] Background color on profile page banner is slightly off
 * [x] Banner when posting image is right	
-* [ ] Reaction on Post Look button
+* [x] Reaction on Post Look button
 
 
 ### Login (hardness: 1)

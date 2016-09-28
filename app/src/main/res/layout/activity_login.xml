@@ -61,9 +61,7 @@
             android:scaleType="centerInside"
             android:paddingLeft="75dp"
             android:paddingRight="75dp"
-
             />
-
     </RelativeLayout>
 
     <RelativeLayout
