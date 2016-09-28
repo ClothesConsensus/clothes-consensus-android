@@ -27,35 +27,41 @@
     <ImageView
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:src="@drawable/logo2x"
-        android:layout_marginTop="125dp"
         android:layout_alignParentTop="true"
+        android:scaleType="centerInside"
+        android:layout_marginTop="100dp"
         />
-    <Button
-        style="@style/LoginButtonStyle"
-        android:id="@+id/btnSignInWithFacebook"
-        android:layout_above="@+id/btnSignInWithTwitter"
-        android:layout_alignRight="@+id/ivLogo"
-        android:layout_alignLeft="@+id/ivLogo"
-        android:text="Sign in with Facebook"
-        />
-    <Button
-        style="@style/LoginButtonStyle"
-        android:id="@+id/btnSignInWithTwitter"
-        android:layout_above="@+id/btnSignInWithEmail"
-        android:layout_alignRight="@+id/ivLogo"
-        android:layout_alignLeft="@+id/ivLogo"
-        android:text="Sign in with Twitter"
-        />
-    <Button
-        style="@style/LoginButtonStyle"
-        android:id="@+id/btnSignInWithEmail"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/ivLogo"
-        android:layout_alignLeft="@+id/ivLogo"
-        android:text="Sign in with Email"
-        />
+        <ImageButton
+            style="@style/LoginButtonStyle"
+            android:id="@+id/btnSignInWithFacebook"
+            android:layout_above="@+id/btnSignInWithTwitter"
+            android:layout_alignRight="@+id/ivLogo"
+            android:layout_alignLeft="@+id/ivLogo"
+            android:src="@drawable/sign_in_with_fb"
+            android:paddingLeft="66dp"
+            android:paddingRight="66dp"
+            />
+        <ImageButton
+            style="@style/LoginButtonStyle"
+            android:id="@+id/btnSignInWithTwitter"
+            android:layout_above="@+id/btnSignInWithEmail"
+            android:layout_alignRight="@+id/ivLogo"
+            android:layout_alignLeft="@+id/ivLogo"
+            android:src="@drawable/sign_in_with_twitter"
+            />
+        <ImageButton
+            style="@style/LoginButtonStyle"
+            android:id="@+id/btnSignInWithEmail"
+            android:layout_alignParentBottom="true"
+            android:layout_alignRight="@+id/ivLogo"
+            android:layout_alignLeft="@+id/ivLogo"
+            android:src="@drawable/sign_in_with_email"
+            android:scaleType="centerInside"
+            android:paddingLeft="75dp"
+            android:paddingRight="75dp"
+            />
     </RelativeLayout>
 
     <RelativeLayout
@@ -98,7 +104,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="@color/transparentAlmostWhite"
-            android:layout_marginBottom="100dp"
             android:textAllCaps="false"
             />
     </RelativeLayout>

@@ -74,6 +74,7 @@
             android:layout_marginTop="35dp"
             android:layout_marginLeft="5dp"
             android:textSize="20sp"
+            android:textColor="@color/blackTextColor"
             />
 
         <TextView
@@ -83,6 +84,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/tvName"
             android:layout_alignBottom="@+id/tvName"
+            android:textColor="@color/blackTextColor"
             />
     </RelativeLayout>
     <android.support.v7.widget.RecyclerView
