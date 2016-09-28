@@ -45,7 +45,6 @@
 
     <style name="LoginButtonStyle">
         <item name="android:scaleType">fitCenter</item>
-
         <item name="android:paddingLeft">70dp</item>
         <item name="android:paddingRight">70dp</item>
         <item name="android:paddingTop">10dp</item>
@@ -54,6 +53,7 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:backgroundTint">#CCFFFFFF</item>
+        <item name="android:elevation">4dp</item>
     </style>
 
     <style name="ExpiredLookTextStyle">

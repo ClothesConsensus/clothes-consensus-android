@@ -28,7 +28,7 @@
         android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:src="@drawable/cc_logo_large"
+        android:src="@drawable/logo2x"
         android:layout_alignParentTop="true"
         android:scaleType="centerInside"
         android:layout_marginTop="100dp"
@@ -40,8 +40,8 @@
             android:layout_alignRight="@+id/ivLogo"
             android:layout_alignLeft="@+id/ivLogo"
             android:src="@drawable/sign_in_with_fb"
-            android:paddingLeft="67dp"
-            android:paddingRight="67dp"
+            android:paddingLeft="66dp"
+            android:paddingRight="66dp"
             />
         <ImageButton
             style="@style/LoginButtonStyle"
@@ -106,7 +106,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:background="@color/transparentAlmostWhite"
-            android:layout_marginBottom="100dp"
             android:textAllCaps="false"
             />
     </RelativeLayout>
