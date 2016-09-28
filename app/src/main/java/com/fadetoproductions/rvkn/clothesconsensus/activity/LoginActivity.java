@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -28,6 +29,10 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.rlButtonContainer) RelativeLayout rlButtonContainer;
     @BindView(R.id.etEmail) EditText etEmail;
 
+    @BindView(R.id.btnSignInWithEmail) ImageButton btnSignInWithEmail;
+    @BindView(R.id.btnSignInWithFacebook) ImageButton btnSignInWithFacebook;
+    @BindView(R.id.btnSignInWithTwitter) ImageButton btnSignInWithTwitter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +45,10 @@ public class LoginActivity extends BaseActivity {
 
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        setOnTouchListenerOnImageButton(btnSignInWithEmail);
+        setOnTouchListenerOnImageButton(btnSignInWithFacebook);
+        setOnTouchListenerOnImageButton(btnSignInWithTwitter);
     }
 
 
